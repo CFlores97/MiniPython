@@ -769,6 +769,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_interfaz.setForeground(new java.awt.Color(255, 255, 255));
         btn_interfaz.setPreferredSize(new java.awt.Dimension(100, 48));
         btn_interfaz.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_interfazMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_interfazMouseEntered(evt);
             }
@@ -806,6 +809,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_abstract.setBackground(new java.awt.Color(212, 212, 212));
         btn_abstract.setForeground(new java.awt.Color(255, 255, 255));
         btn_abstract.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_abstractMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_abstractMouseEntered(evt);
             }
@@ -1079,7 +1085,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     .addComponent(btn_delegado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_asosiacion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btn_asosiacion, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)
                     .addComponent(btn_herencia, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
@@ -1250,7 +1256,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     }//GEN-LAST:event_btn_inicioMouseExited
 
     private void btn_claseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_claseMouseClicked
-        createClass();
+        createClase();
     }//GEN-LAST:event_btn_claseMouseClicked
 
     private void btn_claseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_claseMouseEntered
@@ -1262,7 +1268,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     }//GEN-LAST:event_btn_claseMouseExited
 
     private void btn_enumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_enumMouseClicked
-
+        createEnum();
     }//GEN-LAST:event_btn_enumMouseClicked
 
     private void btn_enumMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_enumMouseEntered
@@ -1341,34 +1347,43 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_nota.setBackground(new Color(212, 212, 212));
     }//GEN-LAST:event_btn_notaMouseExited
 
-    public void createClass() {
-        JPanel clase = new JPanel();
-        JPanel titleBG = new JPanel();
-        JTextArea titulo = null;
+    private void btn_abstractMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_abstractMouseClicked
+        createAbstract();
+    }//GEN-LAST:event_btn_abstractMouseClicked
 
-        //Atributos de la figura "clase"
-        clase.setBackground(new Color(242, 242, 242));
-        clase.setSize(200, 100);
-        clase.setLocation(jp_workArea.getWidth() / 2, jp_workArea.getHeight() / 2);
+    private void btn_interfazMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_interfazMouseClicked
+        createInterfaz();
+    }//GEN-LAST:event_btn_interfazMouseClicked
 
-        //Atributos del panel del titulo
-        titleBG.setBackground(new Color(70, 114, 196));
-        titleBG.setPreferredSize(new Dimension(clase.getWidth(), 40));
+    public void createEnum() {
+        
+        
+        EnumFigura enm = new EnumFigura(
+                200, 
+                180, 
+                jp_workArea.getWidth(), 
+                jp_workArea.getHeight(), 
+                f);
 
-        //Atributos del textArea del titulo
-        titulo = new JTextArea("NombreClase");
-        titulo.setRows(1);
-        titulo.setColumns(2);
-        titulo.setPreferredSize(new Dimension(170, 30));
-        titulo.setFont(f);
-        titleBG.add(titulo);
+        //Agregar mouseListeners
+        enm.addMouseListener(this);
+        enm.addMouseMotionListener(this);
 
-        clase.add(titleBG); //agrega el panel del titulo
+        jp_workArea.add(enm);
 
-        JTextArea textA = new JTextArea(1, 10);
+        enm.revalidate();
+        jp_workArea.repaint();
 
-//        JScrollPane scroll = new JScrollPane(textA); //agrega un scrollpane al text area
-        clase.add(textA);
+    }
+    
+    public void createClase() {
+        
+        ClasseFigura clase = new ClasseFigura(
+                200, 
+                100, 
+                jp_workArea.getWidth(), 
+                jp_workArea.getHeight(), 
+                f);
 
         //Agregar mouseListeners
         clase.addMouseListener(this);
@@ -1377,6 +1392,46 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jp_workArea.add(clase);
 
         clase.revalidate();
+        jp_workArea.repaint();
+
+    }
+    
+    public void createAbstract() {
+        
+        AbstractaFigura abs = new AbstractaFigura(
+                200, 
+                180, 
+                jp_workArea.getWidth(), 
+                jp_workArea.getHeight(), 
+                f);
+
+        //Agregar mouseListeners
+        abs.addMouseListener(this);
+        abs.addMouseMotionListener(this);
+
+        jp_workArea.add(abs);
+
+        abs.revalidate();
+        jp_workArea.repaint();
+
+    }
+    
+    public void createInterfaz() {
+        
+        InterfazFigura interfaz = new InterfazFigura(
+                200, 
+                180, 
+                jp_workArea.getWidth(), 
+                jp_workArea.getHeight(), 
+                f);
+
+        //Agregar mouseListeners
+        interfaz.addMouseListener(this);
+        interfaz.addMouseMotionListener(this);
+
+        jp_workArea.add(interfaz);
+
+        interfaz.revalidate();
         jp_workArea.repaint();
 
     }
@@ -1551,7 +1606,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             JPanel selectedShape = (JPanel) source;
                             selectedShape.add(new JTextArea(1, 10));
                             selectedShape.setSize(selectedShape.getWidth(), selectedShape.getHeight() + 20);
-                            
                             selectedShape.repaint();
                             jp_workArea.repaint();
                         }
