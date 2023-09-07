@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -25,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
+import javax.swing.border.Border;
 
 public class UML extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
@@ -39,6 +42,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pm_menu = new javax.swing.JPopupMenu();
+        mi_pegar = new javax.swing.JMenuItem();
+        mi_help = new javax.swing.JMenuItem();
         bg_UML = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         btn_archivo7 = new javax.swing.JPanel();
@@ -126,6 +132,17 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jPanel2 = new javax.swing.JPanel();
         js_workArea = new javax.swing.JScrollPane();
         jp_workArea = new javax.swing.JPanel();
+
+        mi_pegar.setText("Pegar");
+        mi_pegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_pegarActionPerformed(evt);
+            }
+        });
+        pm_menu.add(mi_pegar);
+
+        mi_help.setText("Ayuda");
+        pm_menu.add(mi_help);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -887,6 +904,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         js_workArea.setBackground(new java.awt.Color(255, 255, 255));
 
         jp_workArea.setBackground(new java.awt.Color(255, 255, 255));
+        jp_workArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jp_workAreaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_workAreaLayout = new javax.swing.GroupLayout(jp_workArea);
         jp_workArea.setLayout(jp_workAreaLayout);
@@ -1071,6 +1093,40 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         createInterfaz();
     }//GEN-LAST:event_btn_interfazMouseClicked
 
+    private void jp_workAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_workAreaMouseClicked
+        
+        //mostrar el popmenu
+        if (evt.isMetaDown()) {
+            pm_menu.show(jp_workArea, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jp_workAreaMouseClicked
+
+    private void mi_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_pegarActionPerformed
+        
+        //Pegar el elemento copiado
+        try {
+            try {
+                copiedFig = copiedFigures.get(copiedFigures.size() - 1).clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+            
+            
+            
+            jp_workArea.add(copiedFig);
+            copiedFig.setLocation(jp_workArea.getWidth() / 2, jp_workArea.getHeight() / 2);
+            copiedFigures.remove(copiedFig);
+            
+            jp_workArea.revalidate();
+            jp_workArea.repaint();
+            
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No hay nada copiado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mi_pegarActionPerformed
+
+    // metodos personales
     public void createInheritance(ClasseFigura selected) {
 
         InheritanceFigura herencia = new InheritanceFigura(
@@ -1151,6 +1207,17 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     }
 
+    public void seleccion(ClasseFigura selected, boolean isClicked) {
+
+        if (isClicked) {
+            Border borde = BorderFactory.createLineBorder(new Color(147, 147, 147), 1);
+            selected.setBorder(borde);
+        } else {
+            selected.setBorder(null);
+        }
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1186,6 +1253,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     Component source;
     Font f = new Font("Title", 1, 16);
     Point startPoint;
+    ClasseFigura currentSel = null;
+    ClasseFigura copiedFig = null;
+    ArrayList<ClasseFigura> copiedFigures = new ArrayList<>();
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1271,6 +1342,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JPanel jp_workArea;
     private javax.swing.JScrollPane js_workArea;
+    private javax.swing.JMenuItem mi_help;
+    private javax.swing.JMenuItem mi_pegar;
+    private javax.swing.JPopupMenu pm_menu;
     private javax.swing.JPanel pn_formasMenu;
     private javax.swing.JPanel pn_ribbonMenu;
     private javax.swing.JToolBar tb_colors1;
@@ -1283,6 +1357,34 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         source = e.getComponent();
 
+        //verificar si lo clickeado es una figura
+        if (currentSel != null && currentSel != source) {
+            seleccion(currentSel, false);
+        }
+
+        // Seleccionar figura
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            if (source instanceof ClasseFigura) {
+
+                ClasseFigura selected = (ClasseFigura) source;
+                boolean isClicked = false;
+
+                if (currentSel != selected) {
+                    isClicked = true;
+                }
+
+                seleccion(selected, isClicked);
+
+                if (isClicked) {
+                    currentSel = selected;
+                } else {
+                    currentSel = null;
+                }
+
+            }
+        }
+
+        // Click derecho
         if (e.isMetaDown()) {
             try {
                 JMenuItem addAttribute = new JMenuItem("Agregar miembro");
@@ -1298,15 +1400,16 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 rCMenu.add(delete);
 
                 //agrega los actionlisteners de cada menuitem
+                // Agregar atributos
                 addAttribute.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (source instanceof JPanel) {
+                        if (source instanceof ClasseFigura) {
 
-                            JPanel selectedShape = (JPanel) source;
-                            selectedShape.add(new JTextArea(1, 10));
-                            selectedShape.setSize(selectedShape.getWidth(), selectedShape.getHeight() + 20);
-                            selectedShape.repaint();
+                            ClasseFigura selected = (ClasseFigura) source;
+                            selected.add(new JTextArea(1, 10));
+                            selected.setSize(selected.getWidth(), selected.getHeight() + 20);
+                            selected.repaint();
                             jp_workArea.revalidate();
                             jp_workArea.repaint();
                         }
@@ -1314,6 +1417,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     }
                 });
 
+                // Agregar Herencia
                 makeInheritance.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -1329,13 +1433,29 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     }
                 });
 
+                // Copiar 
                 copy.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //TODO: programar logica de copiar
+
+                        try {
+                            copiedFigures.add(currentSel);
+                            //jp_workArea.remove(currentSel);
+
+                            jp_workArea.revalidate();
+                            jp_workArea.repaint();
+
+                            if (!copiedFigures.isEmpty()) {
+                                JOptionPane.showMessageDialog(bg_UML, "Copiado!");
+                            }
+                        } catch (NullPointerException ex) {
+                            JOptionPane.showMessageDialog(bg_UML, "Debe seleccionar primero la figura", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
                     }
                 });
 
+                // Eliminar
                 delete.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -1348,8 +1468,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 jp_workArea.remove(selected);
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
-                                
-                                //JOptionPane.showMessageDialog(bg_UML, "Eliminado exitosamente!");
+
                             }
 
                         }
@@ -1416,4 +1535,5 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     public void mouseMoved(MouseEvent e) {
 
     }
+
 }
