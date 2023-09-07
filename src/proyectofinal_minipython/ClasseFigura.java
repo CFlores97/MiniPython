@@ -10,17 +10,17 @@ import javax.swing.JTextArea;
 
 public class ClasseFigura extends JPanel{
     private int sizeX, sizeY, locX, locY;
+    
     protected JPanel titleBG = new JPanel();
     protected JTextArea titulo = new JTextArea("NombreClase");
+    
     private Font font = null;
-    JTextArea textA = new JTextArea(1, 10);
+    private JTextArea textA = new JTextArea(1, 10);
 
     public ClasseFigura() {
         super();
     }
 
-    
-    
     public ClasseFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -30,7 +30,7 @@ public class ClasseFigura extends JPanel{
         
         //Atributos de la figura "clase"
         setBackground(new Color(242, 242, 242));
-        setSize(200, 100);
+        setSize(sizeX, sizeY);
         setLocation(locX / 2, locY / 2);
         
         
@@ -48,10 +48,16 @@ public class ClasseFigura extends JPanel{
         
         add(titleBG); //agrega el panel del titulo
         
-        add(textA);
-        
-        
-        
+        add(textA); 
+
+    }
+    
+    public JTextArea getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(JTextArea titulo) {
+        this.titulo = titulo;
     }
     
     

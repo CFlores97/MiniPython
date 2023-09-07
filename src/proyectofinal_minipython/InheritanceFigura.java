@@ -7,17 +7,20 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 
-public class EnumFigura extends ClasseFigura{
-    JLabel tit = new JLabel("<<Enum>>");
+public class InheritanceFigura extends ClasseFigura{
+    JLabel tit = null;
 
-    public EnumFigura() {
+    public InheritanceFigura() {
         super();
     }
 
-    public EnumFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
+    public InheritanceFigura(int sizeX, int sizeY, int locX, int locY, Font font, JTextArea tA) {
         super(sizeX, sizeY, locX, locY, font);
         
-        titulo.setText("NombreEnumeración");
+        tit = new JLabel("extends " + tA.getText());
+        
+        titulo.setText("ClaseHija");
+        titulo.setPreferredSize(new Dimension(140, 30));
         
         titleBG.setPreferredSize(new Dimension(getWidth(), 60));
         titleBG.add(tit);

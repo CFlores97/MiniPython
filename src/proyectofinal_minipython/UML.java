@@ -114,27 +114,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_clase = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        btn_enum = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         btn_interfaz = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         btn_abstract = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        btn_struct = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        btn_delegado = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        btn_herencia = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        btn_asosiacion = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
         btn_nota = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
@@ -719,50 +704,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(btn_claseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(btn_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        btn_enum.setBackground(new java.awt.Color(212, 212, 212));
-        btn_enum.setForeground(new java.awt.Color(255, 255, 255));
-        btn_enum.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_enum.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_enumMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_enumMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_enumMouseExited(evt);
-            }
-        });
-
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("Enum");
-
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/enum.png"))); // NOI18N
-
-        javax.swing.GroupLayout btn_enumLayout = new javax.swing.GroupLayout(btn_enum);
-        btn_enum.setLayout(btn_enumLayout);
-        btn_enumLayout.setHorizontalGroup(
-            btn_enumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_enumLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btn_enumLayout.setVerticalGroup(
-            btn_enumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_enumLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(btn_enumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         btn_interfaz.setBackground(new java.awt.Color(212, 212, 212));
@@ -846,164 +790,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btn_struct.setBackground(new java.awt.Color(212, 212, 212));
-        btn_struct.setForeground(new java.awt.Color(255, 255, 255));
-        btn_struct.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_struct.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_structMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_structMouseExited(evt);
-            }
-        });
-
-        jLabel28.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel28.setText("Struct");
-
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/interfaz.png"))); // NOI18N
-
-        javax.swing.GroupLayout btn_structLayout = new javax.swing.GroupLayout(btn_struct);
-        btn_struct.setLayout(btn_structLayout);
-        btn_structLayout.setHorizontalGroup(
-            btn_structLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_structLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        btn_structLayout.setVerticalGroup(
-            btn_structLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_structLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(btn_structLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
-        btn_delegado.setBackground(new java.awt.Color(212, 212, 212));
-        btn_delegado.setForeground(new java.awt.Color(255, 255, 255));
-        btn_delegado.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_delegado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_delegadoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_delegadoMouseExited(evt);
-            }
-        });
-
-        jLabel31.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel31.setText("Delegado");
-
-        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/interfaz.png"))); // NOI18N
-
-        javax.swing.GroupLayout btn_delegadoLayout = new javax.swing.GroupLayout(btn_delegado);
-        btn_delegado.setLayout(btn_delegadoLayout);
-        btn_delegadoLayout.setHorizontalGroup(
-            btn_delegadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_delegadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel31)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btn_delegadoLayout.setVerticalGroup(
-            btn_delegadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_delegadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(btn_delegadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 15, Short.MAX_VALUE))
-        );
-
-        btn_herencia.setBackground(new java.awt.Color(212, 212, 212));
-        btn_herencia.setForeground(new java.awt.Color(255, 255, 255));
-        btn_herencia.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_herencia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_herenciaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_herenciaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_herenciaMouseExited(evt);
-            }
-        });
-
-        jLabel33.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel33.setText("Herencia");
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/separador.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout btn_herenciaLayout = new javax.swing.GroupLayout(btn_herencia);
-        btn_herencia.setLayout(btn_herenciaLayout);
-        btn_herenciaLayout.setHorizontalGroup(
-            btn_herenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_herenciaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel33)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btn_herenciaLayout.setVerticalGroup(
-            btn_herenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_herenciaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(btn_herenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btn_asosiacion.setBackground(new java.awt.Color(212, 212, 212));
-        btn_asosiacion.setForeground(new java.awt.Color(255, 255, 255));
-        btn_asosiacion.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_asosiacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_asosiacionMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_asosiacionMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_asosiacionMouseExited(evt);
-            }
-        });
-
-        jLabel35.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel35.setText("Asociación");
-
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/separadorVert.png"))); // NOI18N
-
-        javax.swing.GroupLayout btn_asosiacionLayout = new javax.swing.GroupLayout(btn_asosiacion);
-        btn_asosiacion.setLayout(btn_asosiacionLayout);
-        btn_asosiacionLayout.setHorizontalGroup(
-            btn_asosiacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_asosiacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel35)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btn_asosiacionLayout.setVerticalGroup(
-            btn_asosiacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_asosiacionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(btn_asosiacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
-        );
-
         btn_nota.setBackground(new java.awt.Color(212, 212, 212));
         btn_nota.setForeground(new java.awt.Color(255, 255, 255));
         btn_nota.setPreferredSize(new java.awt.Dimension(100, 48));
@@ -1042,7 +828,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addGroup(btn_notaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1050,46 +836,28 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_nota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_herencia, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                            .addComponent(btn_interfaz, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                            .addComponent(btn_clase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_struct, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_interfaz, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(btn_clase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_enum, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(btn_delegado, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                     .addComponent(btn_abstract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_asosiacion, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_clase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_enum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_interfaz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_clase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_abstract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_struct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_delegado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_asosiacion, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(btn_herencia, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addGap(58, 58, 58))
+                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_interfaz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(227, 227, 227))
         );
 
         javax.swing.GroupLayout pn_formasMenuLayout = new javax.swing.GroupLayout(pn_formasMenu);
@@ -1110,7 +878,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -1267,18 +1035,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_clase.setBackground(new Color(212, 212, 212));
     }//GEN-LAST:event_btn_claseMouseExited
 
-    private void btn_enumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_enumMouseClicked
-        createEnum();
-    }//GEN-LAST:event_btn_enumMouseClicked
-
-    private void btn_enumMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_enumMouseEntered
-        btn_enum.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_enumMouseEntered
-
-    private void btn_enumMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_enumMouseExited
-        btn_enum.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_enumMouseExited
-
     private void btn_interfazMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_interfazMouseEntered
         btn_interfaz.setBackground(new Color(211, 221, 225));
     }//GEN-LAST:event_btn_interfazMouseEntered
@@ -1294,46 +1050,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private void btn_abstractMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_abstractMouseExited
         btn_abstract.setBackground(new Color(212, 212, 212));
     }//GEN-LAST:event_btn_abstractMouseExited
-
-    private void btn_structMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_structMouseEntered
-        btn_struct.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_structMouseEntered
-
-    private void btn_structMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_structMouseExited
-        btn_struct.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_structMouseExited
-
-    private void btn_delegadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_delegadoMouseEntered
-        btn_delegado.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_delegadoMouseEntered
-
-    private void btn_delegadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_delegadoMouseExited
-        btn_delegado.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_delegadoMouseExited
-
-    private void btn_herenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_herenciaMouseClicked
-
-    }//GEN-LAST:event_btn_herenciaMouseClicked
-
-    private void btn_herenciaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_herenciaMouseEntered
-        btn_herencia.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_herenciaMouseEntered
-
-    private void btn_herenciaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_herenciaMouseExited
-        btn_herencia.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_herenciaMouseExited
-
-    private void btn_asosiacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asosiacionMouseClicked
-
-    }//GEN-LAST:event_btn_asosiacionMouseClicked
-
-    private void btn_asosiacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asosiacionMouseEntered
-        btn_asosiacion.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_asosiacionMouseEntered
-
-    private void btn_asosiacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asosiacionMouseExited
-        btn_asosiacion.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_asosiacionMouseExited
 
     private void btn_notaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_notaMouseClicked
 
@@ -1355,34 +1071,33 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         createInterfaz();
     }//GEN-LAST:event_btn_interfazMouseClicked
 
-    public void createEnum() {
-        
-        
-        EnumFigura enm = new EnumFigura(
-                200, 
-                180, 
-                jp_workArea.getWidth(), 
-                jp_workArea.getHeight(), 
-                f);
+    public void createInheritance(ClasseFigura selected) {
+
+        InheritanceFigura herencia = new InheritanceFigura(
+                150,
+                100,
+                selected.getX(),
+                selected.getY() + 30,
+                f,
+                selected.getTitulo());
 
         //Agregar mouseListeners
-        enm.addMouseListener(this);
-        enm.addMouseMotionListener(this);
+        herencia.addMouseListener(this);
+        herencia.addMouseMotionListener(this);
 
-        jp_workArea.add(enm);
+        jp_workArea.add(herencia);
 
-        enm.revalidate();
+        herencia.revalidate();
         jp_workArea.repaint();
-
     }
-    
+
     public void createClase() {
-        
+
         ClasseFigura clase = new ClasseFigura(
-                200, 
-                100, 
-                jp_workArea.getWidth(), 
-                jp_workArea.getHeight(), 
+                200,
+                100,
+                jp_workArea.getWidth(),
+                jp_workArea.getHeight(),
                 f);
 
         //Agregar mouseListeners
@@ -1395,14 +1110,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jp_workArea.repaint();
 
     }
-    
+
     public void createAbstract() {
-        
+
         AbstractaFigura abs = new AbstractaFigura(
-                200, 
-                180, 
-                jp_workArea.getWidth(), 
-                jp_workArea.getHeight(), 
+                200,
+                180,
+                jp_workArea.getWidth(),
+                jp_workArea.getHeight(),
                 f);
 
         //Agregar mouseListeners
@@ -1415,14 +1130,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jp_workArea.repaint();
 
     }
-    
+
     public void createInterfaz() {
-        
+
         InterfazFigura interfaz = new InterfazFigura(
-                200, 
-                180, 
-                jp_workArea.getWidth(), 
-                jp_workArea.getHeight(), 
+                200,
+                180,
+                jp_workArea.getWidth(),
+                jp_workArea.getHeight(),
                 f);
 
         //Agregar mouseListeners
@@ -1471,13 +1186,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     Component source;
     Font f = new Font("Title", 1, 16);
     Point startPoint;
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_UML;
     private javax.swing.JPanel btn_abstract;
     private javax.swing.JPanel btn_archivo7;
-    private javax.swing.JPanel btn_asosiacion;
     private javax.swing.JButton btn_black;
     private javax.swing.JButton btn_bloodred;
     private javax.swing.JButton btn_blue;
@@ -1485,13 +1199,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JPanel btn_clase;
     private javax.swing.JButton btn_cyan;
     private javax.swing.JPanel btn_datos;
-    private javax.swing.JPanel btn_delegado;
     private javax.swing.JPanel btn_diseño;
-    private javax.swing.JPanel btn_enum;
     private javax.swing.JPanel btn_exit;
     private javax.swing.JButton btn_gray;
     private javax.swing.JButton btn_green;
-    private javax.swing.JPanel btn_herencia;
     private javax.swing.JPanel btn_inicio;
     private javax.swing.JPanel btn_insertar;
     private javax.swing.JPanel btn_interfaz;
@@ -1507,7 +1218,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JPanel btn_proceso;
     private javax.swing.JButton btn_purple;
     private javax.swing.JButton btn_red;
-    private javax.swing.JPanel btn_struct;
     private javax.swing.JPanel btn_vista;
     private javax.swing.JButton btn_white;
     private javax.swing.JButton btn_yellow;
@@ -1527,20 +1237,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel8;
@@ -1586,44 +1286,73 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         if (e.isMetaDown()) {
             try {
                 JMenuItem addAttribute = new JMenuItem("Agregar miembro");
+                JMenuItem makeInheritance = new JMenuItem("Crear clase hija");
                 JMenuItem copy = new JMenuItem("Copiar");
                 JMenuItem delete = new JMenuItem("Eliminar");
-                
-                
+
                 //Agrega el pop menu y los items
                 JPopupMenu rCMenu = new JPopupMenu();
                 rCMenu.add(addAttribute);
+                rCMenu.add(makeInheritance);
                 rCMenu.add(copy);
                 rCMenu.add(delete);
-                
+
                 //agrega los actionlisteners de cada menuitem
-                
                 addAttribute.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (source instanceof JPanel) {
-                            
+
                             JPanel selectedShape = (JPanel) source;
                             selectedShape.add(new JTextArea(1, 10));
                             selectedShape.setSize(selectedShape.getWidth(), selectedShape.getHeight() + 20);
                             selectedShape.repaint();
+                            jp_workArea.revalidate();
                             jp_workArea.repaint();
                         }
-                       
+
                     }
                 });
-                
+
+                makeInheritance.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (source instanceof ClasseFigura) {
+                            ClasseFigura selected = (ClasseFigura) source;
+
+                            createInheritance(selected);
+
+                            jp_workArea.revalidate();
+                            jp_workArea.repaint();
+
+                        }
+                    }
+                });
+
                 copy.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         //TODO: programar logica de copiar
                     }
                 });
-                
+
                 delete.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //TODO: programar logica de eliminar
+                        if (source instanceof ClasseFigura) {
+
+                            int op = JOptionPane.showConfirmDialog(bg_UML, "Esta seguro que desea eliminar?");
+
+                            if (op == JOptionPane.YES_OPTION) {
+                                ClasseFigura selected = (ClasseFigura) source;
+                                jp_workArea.remove(selected);
+                                jp_workArea.revalidate();
+                                jp_workArea.repaint();
+                                
+                                //JOptionPane.showMessageDialog(bg_UML, "Eliminado exitosamente!");
+                            }
+
+                        }
                     }
                 });
 
@@ -1678,7 +1407,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             startPoint = location;
 
         } catch (Exception ex) {
-            
+
         }
 
     }
