@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -455,6 +457,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_gray.setFocusable(false);
         btn_gray.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_gray.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_gray.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_grayMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_gray);
         tb_colors1.add(jSeparator5);
 
@@ -1094,7 +1101,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     }//GEN-LAST:event_btn_interfazMouseClicked
 
     private void jp_workAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_workAreaMouseClicked
-        
+
         //mostrar el popmenu
         if (evt.isMetaDown()) {
             pm_menu.show(jp_workArea, evt.getX(), evt.getY());
@@ -1102,29 +1109,29 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     }//GEN-LAST:event_jp_workAreaMouseClicked
 
     private void mi_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_pegarActionPerformed
-        
+
         //Pegar el elemento copiado
         try {
-            try {
-                copiedFig = copiedFigures.get(copiedFigures.size() - 1).clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
+            toPasteFig = copiedFigures.get(copiedFigures.size() - 1);
             
-            
-            
-            jp_workArea.add(copiedFig);
-            copiedFig.setLocation(jp_workArea.getWidth() / 2, jp_workArea.getHeight() / 2);
-            copiedFigures.remove(copiedFig);
-            
+            toPasteFig.addMouseListener(this);
+            toPasteFig.addMouseMotionListener(this);
+
+            jp_workArea.add(toPasteFig);
+            toPasteFig.setLocation(jp_workArea.getWidth() / 2 + 10, jp_workArea.getHeight() / 2 + 10);
+            copiedFigures.remove(toPasteFig);
+
             jp_workArea.revalidate();
             jp_workArea.repaint();
-            
-        } 
-        catch (Exception e) {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No hay nada copiado", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_mi_pegarActionPerformed
+
+    private void btn_grayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_grayMouseClicked
+        
+    }//GEN-LAST:event_btn_grayMouseClicked
 
     // metodos personales
     public void createInheritance(ClasseFigura selected) {
@@ -1250,11 +1257,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         });
     }
 
-    Component source;
     Font f = new Font("Title", 1, 16);
     Point startPoint;
     ClasseFigura currentSel = null;
-    ClasseFigura copiedFig = null;
+    ClasseFigura toPasteFig = null;
     ArrayList<ClasseFigura> copiedFigures = new ArrayList<>();
     
 
@@ -1355,7 +1361,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        source = e.getComponent();
+        Component source = e.getComponent();
 
         //verificar si lo clickeado es una figura
         if (currentSel != null && currentSel != source) {
@@ -1400,6 +1406,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 rCMenu.add(delete);
 
                 //agrega los actionlisteners de cada menuitem
+                
                 // Agregar atributos
                 addAttribute.addActionListener(new ActionListener() {
                     @Override
@@ -1407,7 +1414,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         if (source instanceof ClasseFigura) {
 
                             ClasseFigura selected = (ClasseFigura) source;
-                            selected.add(new JTextArea(1, 10));
+                            JTextArea newMiembro = new JTextArea(1, 10);
+                            selected.add(newMiembro);
+                            selected.getMiembros().add(newMiembro);
                             selected.setSize(selected.getWidth(), selected.getHeight() + 20);
                             selected.repaint();
                             jp_workArea.revalidate();
@@ -1439,8 +1448,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     public void actionPerformed(ActionEvent e) {
 
                         try {
-                            copiedFigures.add(currentSel);
-                            //jp_workArea.remove(currentSel);
+
+                            ClasseFigura claseCopiada = new ClasseFigura(currentSel);
+
+                            copiedFigures.add(claseCopiada);
 
                             jp_workArea.revalidate();
                             jp_workArea.repaint();
@@ -1484,7 +1495,8 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     @Override
     public void mousePressed(MouseEvent e) {
-        source = e.getComponent(); //guarda el objeto de donde se origina el evento
+
+        Component source = e.getComponent(); //guarda el objeto de donde se origina el evento
 
         if (e.getButton() == MouseEvent.BUTTON1) {
             startPoint = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
@@ -1512,7 +1524,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         //logica del drag and drop
         try {
-            source = e.getComponent();
+            Component source = e.getComponent();
 
             Point location = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
 
