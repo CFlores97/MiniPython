@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 
 
 public class InterfazFigura extends ClasseFigura{
-    JLabel tit = new JLabel("<<Interfaz>>");
+    
 
     public InterfazFigura() {
         super();
@@ -16,6 +16,7 @@ public class InterfazFigura extends ClasseFigura{
     public InterfazFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
         super(sizeX, sizeY, locX, locY, font);
         
+        tit.setText("<<Interfaz>>");
         titulo.setText("NombreInterfaz");
         
         titleBG.setPreferredSize(new Dimension(getWidth(), 60));

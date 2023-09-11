@@ -19,25 +19,46 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class UML extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
     public UML() {
         initComponents();
-        Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+
+        Rectangle r = ge.getMaximumWindowBounds();
         this.setLocation(0, 0);
         this.setSize(r.width, r.height);
+
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_fuente.getModel();
+
+        String fontNames[] = ge.getAvailableFontFamilyNames();
+        for (String fontName : fontNames) {
+            modelo.addElement(fontName);
+        }
+
+        cb_fuente.setModel(modelo);
+        cb_fuente.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")
@@ -174,7 +195,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             btn_archivo7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_archivo7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btn_archivo7Layout.setVerticalGroup(
@@ -273,7 +294,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(btn_diseñoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         btn_diseñoLayout.setVerticalGroup(
             btn_diseñoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,8 +432,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         cb_fuente.setBackground(new java.awt.Color(68, 68, 68));
         cb_fuente.setForeground(new java.awt.Color(255, 255, 255));
-        cb_fuente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arial", "Times New Roman", "Calibri", "Verdana", "Helvetica", "Courier New", "Georgia", "Tahoma", "Palatino", "Century Gothic", "Comic Sans MS", "Impact" }));
-        cb_fuente.setSelectedIndex(-1);
+        cb_fuente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_fuenteItemStateChanged(evt);
+            }
+        });
         tb_letras.add(cb_fuente);
         tb_letras.add(jSeparator1);
 
@@ -420,13 +444,23 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         cb_estilo.setForeground(new java.awt.Color(255, 255, 255));
         cb_estilo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Bold", "Italic", "Underline" }));
         cb_estilo.setSelectedIndex(-1);
+        cb_estilo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_estiloItemStateChanged(evt);
+            }
+        });
         tb_letras.add(cb_estilo);
         tb_letras.add(jSeparator2);
 
         cb_size.setBackground(new java.awt.Color(68, 68, 68));
         cb_size.setForeground(new java.awt.Color(255, 255, 255));
         cb_size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "18", "20", "24", "28", "32", "36", "48", "72" }));
-        cb_size.setSelectedIndex(-1);
+        cb_size.setSelectedIndex(2);
+        cb_size.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_sizeItemStateChanged(evt);
+            }
+        });
         tb_letras.add(cb_size);
 
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -450,6 +484,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_black.setFocusable(false);
         btn_black.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_black.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_black.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_blackMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_black);
         tb_colors1.add(jSeparator4);
 
@@ -469,6 +508,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_bloodred.setFocusable(false);
         btn_bloodred.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_bloodred.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_bloodred.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_bloodredMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_bloodred);
         tb_colors1.add(jSeparator6);
 
@@ -476,6 +520,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_red.setFocusable(false);
         btn_red.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_red.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_red.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_redMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_red);
         tb_colors1.add(jSeparator7);
 
@@ -483,6 +532,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_orange.setFocusable(false);
         btn_orange.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_orange.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_orange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_orangeMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_orange);
         tb_colors1.add(jSeparator8);
 
@@ -490,6 +544,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_yellow.setFocusable(false);
         btn_yellow.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_yellow.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_yellow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_yellowMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_yellow);
         tb_colors1.add(jSeparator9);
 
@@ -497,6 +556,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_green.setFocusable(false);
         btn_green.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_green.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_green.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_greenMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_green);
         tb_colors1.add(jSeparator10);
 
@@ -504,6 +568,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_cyan.setFocusable(false);
         btn_cyan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_cyan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_cyan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cyanMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_cyan);
         tb_colors1.add(jSeparator11);
 
@@ -511,6 +580,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_blue.setFocusable(false);
         btn_blue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_blue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_blue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_blueMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_blue);
         tb_colors1.add(jSeparator12);
 
@@ -518,6 +592,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_purple.setFocusable(false);
         btn_purple.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_purple.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_purple.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_purpleMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_purple);
 
         tb_colors2.setBackground(new java.awt.Color(54, 54, 54));
@@ -527,6 +606,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_white.setFocusable(false);
         btn_white.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_white.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_white.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_whiteMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_white);
         tb_colors2.add(jSeparator13);
 
@@ -534,12 +618,22 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_lightgray.setFocusable(false);
         btn_lightgray.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_lightgray.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_lightgray.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_lightgrayMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_lightgray);
         tb_colors2.add(jSeparator14);
 
         btn_brown.setBackground(new java.awt.Color(153, 102, 0));
         btn_brown.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_brown.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_brown.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_brownMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_brown);
         tb_colors2.add(jSeparator15);
 
@@ -547,6 +641,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_pink.setFocusable(false);
         btn_pink.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_pink.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_pink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pinkMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_pink);
         tb_colors2.add(jSeparator16);
 
@@ -554,6 +653,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_mango.setFocusable(false);
         btn_mango.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_mango.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_mango.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_mangoMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_mango);
         tb_colors2.add(jSeparator17);
 
@@ -561,6 +665,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_yellowopaque.setFocusable(false);
         btn_yellowopaque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_yellowopaque.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_yellowopaque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_yellowopaqueMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_yellowopaque);
         tb_colors2.add(jSeparator18);
 
@@ -568,6 +677,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_limegreen.setFocusable(false);
         btn_limegreen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_limegreen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_limegreen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_limegreenMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_limegreen);
         tb_colors2.add(jSeparator19);
 
@@ -575,6 +689,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_opaquecyan.setFocusable(false);
         btn_opaquecyan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_opaquecyan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_opaquecyan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_opaquecyanMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_opaquecyan);
         tb_colors2.add(jSeparator20);
 
@@ -582,6 +701,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_opaqueblue.setFocusable(false);
         btn_opaqueblue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_opaqueblue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_opaqueblue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_opaqueblueMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_opaqueblue);
         tb_colors2.add(jSeparator21);
 
@@ -589,6 +713,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_opaquepurple.setFocusable(false);
         btn_opaquepurple.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_opaquepurple.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_opaquepurple.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_opaquepurpleMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_opaquepurple);
 
         javax.swing.GroupLayout pn_ribbonMenuLayout = new javax.swing.GroupLayout(pn_ribbonMenu);
@@ -598,21 +727,22 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                 .addGroup(pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                        .addGap(81, 81, 81)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                        .addGap(54, 54, 54))
-                    .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                         .addComponent(tb_letras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)))
+                        .addGap(3, 3, 3))
+                    .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(214, 214, 214)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tb_colors1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                     .addComponent(tb_colors2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(372, 372, 372))
+                .addGap(158, 158, 158))
         );
         pn_ribbonMenuLayout.setVerticalGroup(
             pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -762,7 +892,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         btn_interfazLayout.setVerticalGroup(
             btn_interfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -802,7 +932,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel26)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         btn_abstractLayout.setVerticalGroup(
             btn_abstractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -921,7 +1051,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jp_workArea.setLayout(jp_workAreaLayout);
         jp_workAreaLayout.setHorizontalGroup(
             jp_workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
         jp_workAreaLayout.setVerticalGroup(
             jp_workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -955,7 +1085,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(bg_UMLLayout.createSequentialGroup()
                 .addComponent(pn_formasMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                 .addGap(42, 42, 42))
         );
         bg_UMLLayout.setVerticalGroup(
@@ -1113,7 +1243,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         //Pegar el elemento copiado
         try {
             toPasteFig = copiedFigures.get(copiedFigures.size() - 1);
-            
+
             toPasteFig.addMouseListener(this);
             toPasteFig.addMouseMotionListener(this);
 
@@ -1130,8 +1260,396 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     }//GEN-LAST:event_mi_pegarActionPerformed
 
     private void btn_grayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_grayMouseClicked
-        
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_gray.getBackground());
+        }
     }//GEN-LAST:event_btn_grayMouseClicked
+
+    private void btn_bloodredMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_bloodredMouseClicked
+        // TODO add your handling code here:
+
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_bloodred.getBackground());
+        }
+    }//GEN-LAST:event_btn_bloodredMouseClicked
+
+    private void btn_redMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_redMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_red.getBackground());
+        }
+    }//GEN-LAST:event_btn_redMouseClicked
+
+    private void btn_orangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_orangeMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_orange.getBackground());
+        }
+    }//GEN-LAST:event_btn_orangeMouseClicked
+
+    private void btn_yellowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_yellowMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_yellow.getBackground());
+        }
+    }//GEN-LAST:event_btn_yellowMouseClicked
+
+    private void btn_greenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_greenMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_green.getBackground());
+        }
+    }//GEN-LAST:event_btn_greenMouseClicked
+
+    private void btn_cyanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cyanMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_cyan.getBackground());
+        }
+    }//GEN-LAST:event_btn_cyanMouseClicked
+
+    private void btn_blueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_blueMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_blue.getBackground());
+        }
+    }//GEN-LAST:event_btn_blueMouseClicked
+
+    private void btn_purpleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_purpleMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_purple.getBackground());
+        }
+    }//GEN-LAST:event_btn_purpleMouseClicked
+
+    private void btn_blackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_blackMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_black.getBackground());
+        }
+    }//GEN-LAST:event_btn_blackMouseClicked
+
+    private void btn_whiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_whiteMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_white.getBackground());
+        }
+    }//GEN-LAST:event_btn_whiteMouseClicked
+
+    private void btn_lightgrayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_lightgrayMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_lightgray.getBackground());
+        }
+    }//GEN-LAST:event_btn_lightgrayMouseClicked
+
+    private void btn_brownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_brownMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_brown.getBackground());
+        }
+    }//GEN-LAST:event_btn_brownMouseClicked
+
+    private void btn_pinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pinkMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_pink.getBackground());
+        }
+    }//GEN-LAST:event_btn_pinkMouseClicked
+
+    private void btn_mangoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_mangoMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_mango.getBackground());
+        }
+    }//GEN-LAST:event_btn_mangoMouseClicked
+
+    private void btn_yellowopaqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_yellowopaqueMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_yellowopaque.getBackground());
+        }
+    }//GEN-LAST:event_btn_yellowopaqueMouseClicked
+
+    private void btn_limegreenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limegreenMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_limegreen.getBackground());
+        }
+    }//GEN-LAST:event_btn_limegreenMouseClicked
+
+    private void btn_opaquecyanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_opaquecyanMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_opaquecyan.getBackground());
+        }
+    }//GEN-LAST:event_btn_opaquecyanMouseClicked
+
+    private void btn_opaqueblueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_opaqueblueMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_opaqueblue.getBackground());
+        }
+    }//GEN-LAST:event_btn_opaqueblueMouseClicked
+
+    private void btn_opaquepurpleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_opaquepurpleMouseClicked
+        if (currentSel instanceof ClasseFigura) {
+            changeColor(currentSel, btn_opaquepurple.getBackground());
+        }
+    }//GEN-LAST:event_btn_opaquepurpleMouseClicked
+
+    private void cb_fuenteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_fuenteItemStateChanged
+        try {
+
+            if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                // declara variables
+                docTitle = currentSel.getTitulo().getStyledDocument();
+                docText = currentSel.getTextA().getStyledDocument();
+                styleTitle = currentSel.getTitulo().addStyle("myStyle", null);
+                styleText = currentSel.getTextA().addStyle("myStyleText", null);
+
+                // Asigna el font a la variable styleTitle
+                StyleConstants.setFontFamily(styleTitle, cb_fuente.getSelectedItem().toString());
+
+                //Cambia el font de "myStyle" al que se selecciono
+                docTitle.setCharacterAttributes(0, docTitle.getLength(), styleTitle, true);
+
+                //Asigna el font a la variable styleText
+                StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                //Cambia el font de "myStyleText" al que se selecciono
+                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                //Aplica el font a todos los miembros de la figura
+                for (JTextPane miembro : currentSel.getMiembros()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempStyleText = miembro.addStyle("myTempStyle", null);
+
+                    StyleConstants.setFontFamily(tempStyleText, cb_fuente.getSelectedItem().toString());
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempStyleText, true);
+
+                }
+
+            }
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_cb_fuenteItemStateChanged
+
+    private void cb_estiloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_estiloItemStateChanged
+        try {
+            if (currentSel != null) {
+                docTitle = currentSel.getTitulo().getStyledDocument();
+                docText = currentSel.getTextA().getStyledDocument();
+                styleTitle = currentSel.getTitulo().addStyle("myStyle", null);
+                styleText = currentSel.getTextA().addStyle("myStyleText", null);
+
+                //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                int selectedStlye = cb_estilo.getSelectedIndex();
+
+                switch (selectedStlye) {
+
+                    case 0:
+                        int writtenLength = docText.getLength();
+                        int writtenLengthTit = docTitle.getLength();
+
+                        for (int i = 0; i < writtenLengthTit; i++) {
+                            Element element = docText.getCharacterElement(i);
+                            AttributeSet attrs = element.getAttributes();
+
+                            //Titulo
+                            if (StyleConstants.isBold(attrs)) {
+                                StyleConstants.setBold(styleTitle, false);
+                                docTitle.setCharacterAttributes(0,
+                                        docTitle.getLength(),
+                                        styleTitle,
+                                        true);
+                            }
+                            if (StyleConstants.isItalic(attrs)) {
+                                StyleConstants.setItalic(styleTitle, false);
+                                docTitle.setCharacterAttributes(0,
+                                        docTitle.getLength(),
+                                        styleTitle,
+                                        true);
+
+                            }
+                            if (StyleConstants.isUnderline(attrs)) {
+                                StyleConstants.setUnderline(styleTitle, false);
+                                docTitle.setCharacterAttributes(0,
+                                        docTitle.getLength(),
+                                        styleTitle,
+                                        true);
+
+                            }
+                        }
+
+                        //Texto
+                        for (int i = 0; i < writtenLength; i++) {
+                            Element element = docText.getCharacterElement(i);
+                            AttributeSet attrs = element.getAttributes();
+
+                            if (StyleConstants.isBold(attrs)) {
+                                StyleConstants.setBold(styleText, false);
+                                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                                
+                                docText.setCharacterAttributes(0,
+                                        docText.getLength(),
+                                        styleText,
+                                        true);
+
+                                for (JTextPane miembro : currentSel.getMiembros()) {
+                                    StyledDocument tempDocText = miembro.getStyledDocument();
+                                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                                    StyleConstants.setBold(tempTextStlye, false);
+                                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                                }
+
+                            }
+                            if (StyleConstants.isItalic(attrs)) {
+                                StyleConstants.setItalic(styleText, false);
+                                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                                
+                                docText.setCharacterAttributes(0,
+                                        docText.getLength(),
+                                        styleText,
+                                        true);
+
+                                for (JTextPane miembro : currentSel.getMiembros()) {
+                                    StyledDocument tempDocText = miembro.getStyledDocument();
+                                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                                    StyleConstants.setItalic(tempTextStlye, false);
+                                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                                }
+
+                            }
+                            if (StyleConstants.isUnderline(attrs)) {
+                                StyleConstants.setUnderline(styleText, false);
+                                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                                
+                                docText.setCharacterAttributes(0,
+                                        docText.getLength(),
+                                        styleText,
+                                        true);
+
+                                for (JTextPane miembro : currentSel.getMiembros()) {
+                                    StyledDocument tempDocText = miembro.getStyledDocument();
+                                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                                    StyleConstants.setUnderline(tempTextStlye, false);
+                                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                                }
+
+                            }
+                        }
+
+                        break;
+
+                    case 1:
+                        StyleConstants.setBold(styleText, true);
+                        StyleConstants.setBold(styleTitle, true);
+                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                        docText.setCharacterAttributes(0,
+                                docText.getLength(),
+                                styleText,
+                                true);
+                        docTitle.setCharacterAttributes(0,
+                                docTitle.getLength(),
+                                styleTitle,
+                                true);
+
+                        for (JTextPane miembro : currentSel.getMiembros()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setBold(tempTextStlye, true);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+                        break;
+
+                    case 2:
+                        StyleConstants.setItalic(styleText, true);
+                        StyleConstants.setItalic(styleTitle, true);
+                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                        docText.setCharacterAttributes(0,
+                                docText.getLength(),
+                                styleText,
+                                true);
+                        docTitle.setCharacterAttributes(0,
+                                docTitle.getLength(),
+                                styleTitle,
+                                true);
+
+                        for (JTextPane miembro : currentSel.getMiembros()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setItalic(tempTextStlye, true);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+                        break;
+
+                    case 3:
+                        StyleConstants.setUnderline(styleText, true);
+                        StyleConstants.setUnderline(styleTitle, true);
+                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                        docText.setCharacterAttributes(0,
+                                docText.getLength(),
+                                styleText,
+                                true);
+
+                        docTitle.setCharacterAttributes(0,
+                                docTitle.getLength(),
+                                styleTitle,
+                                true);
+
+                        for (JTextPane miembro : currentSel.getMiembros()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setUnderline(tempTextStlye, true);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            }
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_cb_estiloItemStateChanged
+
+    private void cb_sizeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_sizeItemStateChanged
+
+        try {
+            if (currentSel != null) {
+                docTitle = currentSel.getTitulo().getStyledDocument();
+                docText = currentSel.getTextA().getStyledDocument();
+                styleTitle = currentSel.getTitulo().addStyle("myStyle", null);
+                styleText = currentSel.getTextA().addStyle("myStyleText", null);
+
+                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                //StyleConstants.setFontSize(styleTitle, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                docText.setCharacterAttributes(0,
+                        docText.getLength(),
+                        styleText,
+                        true);
+
+                for (JTextPane miembro : currentSel.getMiembros()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                }
+                /*
+        docTitle.setCharacterAttributes(0,
+                docTitle.getLength(),
+                styleTitle,
+                true);*/
+            }
+        } catch (Exception e) {
+        }
+
+
+    }//GEN-LAST:event_cb_sizeItemStateChanged
 
     // metodos personales
     public void createInheritance(ClasseFigura selected) {
@@ -1225,6 +1743,26 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     }
 
+    public void changeColor(ClasseFigura c, Color color) {
+        c.getTitleBG().setBackground(color);
+        c.getTitulo().setBackground(color);
+
+        if (color.equals(btn_black.getBackground())
+                || color.equals(btn_bloodred.getBackground())
+                || color.equals(btn_blue.getBackground())
+                || color.equals(btn_brown.getBackground())
+                || color.equals(btn_opaqueblue.getBackground())) {
+
+            c.getTit().setForeground(new Color(255, 255, 255));
+            c.getTitulo().setForeground(new Color(255, 255, 255));
+
+        } else {
+            c.getTit().setForeground(new Color(0, 0, 0));
+            c.getTitulo().setForeground(new Color(0, 0, 0));
+
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1262,7 +1800,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     ClasseFigura currentSel = null;
     ClasseFigura toPasteFig = null;
     ArrayList<ClasseFigura> copiedFigures = new ArrayList<>();
-    
+    ArrayList<JTextPane> miembros = new ArrayList<>();
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+    StyledDocument docTitle, docText;
+    Style styleTitle, styleText;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1395,18 +1937,34 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             try {
                 JMenuItem addAttribute = new JMenuItem("Agregar miembro");
                 JMenuItem makeInheritance = new JMenuItem("Crear clase hija");
+                JMenu properties = new JMenu("Propiedades de la fuente");
+                JMenuItem changeFontColor = new JMenuItem("Cambiar color");
+                JMenuItem changeFontHighlight = new JMenuItem("Subrayar");
+
                 JMenuItem copy = new JMenuItem("Copiar");
                 JMenuItem delete = new JMenuItem("Eliminar");
+                JMenuItem help = new JMenuItem("Ayuda");
+
+                JSeparator separador = new JSeparator(SwingUtilities.HORIZONTAL);
+                JSeparator separador2 = new JSeparator(SwingUtilities.HORIZONTAL);
+                JSeparator separador3 = new JSeparator(SwingUtilities.HORIZONTAL);
+
+                properties.add(changeFontColor);
+                properties.add(changeFontHighlight);
 
                 //Agrega el pop menu y los items
                 JPopupMenu rCMenu = new JPopupMenu();
                 rCMenu.add(addAttribute);
                 rCMenu.add(makeInheritance);
+                rCMenu.add(separador);
+                rCMenu.add(properties);
+                rCMenu.add(separador2);
                 rCMenu.add(copy);
                 rCMenu.add(delete);
+                rCMenu.add(separador3);
+                rCMenu.add(help);
 
                 //agrega los actionlisteners de cada menuitem
-                
                 // Agregar atributos
                 addAttribute.addActionListener(new ActionListener() {
                     @Override
@@ -1414,11 +1972,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         if (source instanceof ClasseFigura) {
 
                             ClasseFigura selected = (ClasseFigura) source;
-                            JTextArea newMiembro = new JTextArea(1, 10);
+                            JTextPane newMiembro = new JTextPane();
+                            newMiembro.setSize(selected.getTextA().getWidth(), selected.getTextA().getHeight());
+
+                            newMiembro.setText("NombreMiembro");
                             selected.add(newMiembro);
                             selected.getMiembros().add(newMiembro);
-                            selected.setSize(selected.getWidth(), selected.getHeight() + 20);
+                            selected.setSize(selected.getWidth(), selected.getHeight() + 40);
                             selected.repaint();
+
                             jp_workArea.revalidate();
                             jp_workArea.repaint();
                         }
@@ -1438,6 +2000,35 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             jp_workArea.revalidate();
                             jp_workArea.repaint();
 
+                        }
+                    }
+                });
+
+                //Cambiar color del font
+                changeFontColor.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+
+                            docText = currentSel.getTextA().getStyledDocument();
+                            styleText = currentSel.getTextA().addStyle("myStyleText", null);
+
+                            Color fontColor = JColorChooser.showDialog(bg_UML, "Seleccione Color", Color.red);
+
+                            StyleConstants.setForeground(styleText, fontColor);
+
+                            docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            for (JTextPane miembro : currentSel.getMiembros()) {
+                                StyledDocument tempDocText = miembro.getStyledDocument();
+                                Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                                StyleConstants.setForeground(tempTextStlye, fontColor);
+                                tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+
+                            }
+
+                        } catch (Exception ex) {
                         }
                     }
                 });

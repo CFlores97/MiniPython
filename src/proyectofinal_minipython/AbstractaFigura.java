@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 
 
 public class AbstractaFigura extends ClasseFigura{
-    JLabel tit = new JLabel("<<Abstract>>");
 
     public AbstractaFigura() {
         super();
@@ -17,6 +16,7 @@ public class AbstractaFigura extends ClasseFigura{
         super(sizeX, sizeY, locX, locY, font);
         
         titulo.setText("NombreAbstracta");
+        tit.setText("<<Abstract>>");
         
         titleBG.setPreferredSize(new Dimension(getWidth(), 60));
         titleBG.add(tit);
