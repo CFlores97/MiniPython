@@ -1431,185 +1431,8 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 styleText = currentSel.getTextA().addStyle("myStyleText", null);
 
                 //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
-                int selectedStlye = cb_estilo.getSelectedIndex();
-
-                switch (selectedStlye) {
-
-                    case 0:
-                        int writtenLength = docText.getLength();
-                        int writtenLengthTit = docTitle.getLength();
-
-                        for (int i = 0; i < writtenLengthTit; i++) {
-                            Element element = docText.getCharacterElement(i);
-                            AttributeSet attrs = element.getAttributes();
-
-                            //Titulo
-                            if (StyleConstants.isBold(attrs)) {
-                                StyleConstants.setBold(styleTitle, false);
-                                docTitle.setCharacterAttributes(0,
-                                        docTitle.getLength(),
-                                        styleTitle,
-                                        true);
-                            }
-                            if (StyleConstants.isItalic(attrs)) {
-                                StyleConstants.setItalic(styleTitle, false);
-                                docTitle.setCharacterAttributes(0,
-                                        docTitle.getLength(),
-                                        styleTitle,
-                                        true);
-
-                            }
-                            if (StyleConstants.isUnderline(attrs)) {
-                                StyleConstants.setUnderline(styleTitle, false);
-                                docTitle.setCharacterAttributes(0,
-                                        docTitle.getLength(),
-                                        styleTitle,
-                                        true);
-
-                            }
-                        }
-
-                        //Texto
-                        for (int i = 0; i < writtenLength; i++) {
-                            Element element = docText.getCharacterElement(i);
-                            AttributeSet attrs = element.getAttributes();
-
-                            if (StyleConstants.isBold(attrs)) {
-                                StyleConstants.setBold(styleText, false);
-                                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                                
-                                docText.setCharacterAttributes(0,
-                                        docText.getLength(),
-                                        styleText,
-                                        true);
-
-                                for (JTextPane miembro : currentSel.getMiembros()) {
-                                    StyledDocument tempDocText = miembro.getStyledDocument();
-                                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
-
-                                    StyleConstants.setBold(tempTextStlye, false);
-                                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
-                                }
-
-                            }
-                            if (StyleConstants.isItalic(attrs)) {
-                                StyleConstants.setItalic(styleText, false);
-                                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                                
-                                docText.setCharacterAttributes(0,
-                                        docText.getLength(),
-                                        styleText,
-                                        true);
-
-                                for (JTextPane miembro : currentSel.getMiembros()) {
-                                    StyledDocument tempDocText = miembro.getStyledDocument();
-                                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
-
-                                    StyleConstants.setItalic(tempTextStlye, false);
-                                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
-                                }
-
-                            }
-                            if (StyleConstants.isUnderline(attrs)) {
-                                StyleConstants.setUnderline(styleText, false);
-                                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                                
-                                docText.setCharacterAttributes(0,
-                                        docText.getLength(),
-                                        styleText,
-                                        true);
-
-                                for (JTextPane miembro : currentSel.getMiembros()) {
-                                    StyledDocument tempDocText = miembro.getStyledDocument();
-                                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
-
-                                    StyleConstants.setUnderline(tempTextStlye, false);
-                                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
-                                }
-
-                            }
-                        }
-
-                        break;
-
-                    case 1:
-                        StyleConstants.setBold(styleText, true);
-                        StyleConstants.setBold(styleTitle, true);
-                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                        docText.setCharacterAttributes(0,
-                                docText.getLength(),
-                                styleText,
-                                true);
-                        docTitle.setCharacterAttributes(0,
-                                docTitle.getLength(),
-                                styleTitle,
-                                true);
-
-                        for (JTextPane miembro : currentSel.getMiembros()) {
-                            StyledDocument tempDocText = miembro.getStyledDocument();
-                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
-
-                            StyleConstants.setBold(tempTextStlye, true);
-                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
-                        }
-                        break;
-
-                    case 2:
-                        StyleConstants.setItalic(styleText, true);
-                        StyleConstants.setItalic(styleTitle, true);
-                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                        docText.setCharacterAttributes(0,
-                                docText.getLength(),
-                                styleText,
-                                true);
-                        docTitle.setCharacterAttributes(0,
-                                docTitle.getLength(),
-                                styleTitle,
-                                true);
-
-                        for (JTextPane miembro : currentSel.getMiembros()) {
-                            StyledDocument tempDocText = miembro.getStyledDocument();
-                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
-
-                            StyleConstants.setItalic(tempTextStlye, true);
-                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
-                        }
-                        break;
-
-                    case 3:
-                        StyleConstants.setUnderline(styleText, true);
-                        StyleConstants.setUnderline(styleTitle, true);
-                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                        docText.setCharacterAttributes(0,
-                                docText.getLength(),
-                                styleText,
-                                true);
-
-                        docTitle.setCharacterAttributes(0,
-                                docTitle.getLength(),
-                                styleTitle,
-                                true);
-
-                        for (JTextPane miembro : currentSel.getMiembros()) {
-                            StyledDocument tempDocText = miembro.getStyledDocument();
-                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
-
-                            StyleConstants.setUnderline(tempTextStlye, true);
-                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
-                        }
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+                
+                changeFont();
             }
         } catch (Exception e) {
         }
@@ -1626,7 +1449,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 styleText = currentSel.getTextA().addStyle("myStyleText", null);
 
                 StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                //StyleConstants.setFontSize(styleTitle, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                
                 docText.setCharacterAttributes(0,
                         docText.getLength(),
                         styleText,
@@ -1639,11 +1462,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
                     tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
                 }
-                /*
-        docTitle.setCharacterAttributes(0,
-                docTitle.getLength(),
-                styleTitle,
-                true);*/
+                
+                changeFont();
+
             }
         } catch (Exception e) {
         }
@@ -1761,6 +1582,184 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             c.getTitulo().setForeground(new Color(0, 0, 0));
 
         }
+    }
+
+    public void changeFont() {
+
+        int selectedStlye = cb_estilo.getSelectedIndex();
+        switch (selectedStlye) {
+
+            case 0:
+                int writtenLength = docText.getLength();
+                int writtenLengthTit = docTitle.getLength();
+
+                /*
+                for (int i = 0; i < writtenLengthTit; i++) {
+                    Element element = docText.getCharacterElement(i);
+                    AttributeSet attrs = element.getAttributes();
+
+                    //Titulo
+                    
+                    if (StyleConstants.isBold(attrs)) {
+                        StyleConstants.setBold(styleTitle, false);
+                        docTitle.setCharacterAttributes(0,
+                                docTitle.getLength(),
+                                styleTitle,
+                                true);
+                    }
+                    if (StyleConstants.isItalic(attrs)) {
+                        StyleConstants.setItalic(styleTitle, false);
+                        docTitle.setCharacterAttributes(0,
+                                docTitle.getLength(),
+                                styleTitle,
+                                true);
+
+                    }
+                    if (StyleConstants.isUnderline(attrs)) {
+                        StyleConstants.setUnderline(styleTitle, false);
+                        docTitle.setCharacterAttributes(0,
+                                docTitle.getLength(),
+                                styleTitle,
+                                true);
+
+                    }
+                }*/
+
+                //Texto
+                for (int i = 0; i < writtenLength; i++) {
+                    Element element = docText.getCharacterElement(i);
+                    AttributeSet attrs = element.getAttributes();
+
+                    if (StyleConstants.isBold(attrs)) {
+                        StyleConstants.setBold(styleText, false);
+                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                        docText.setCharacterAttributes(0,
+                                docText.getLength(),
+                                styleText,
+                                true);
+
+                        for (JTextPane miembro : currentSel.getMiembros()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setBold(tempTextStlye, false);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+
+                    }
+                    if (StyleConstants.isItalic(attrs)) {
+                        StyleConstants.setItalic(styleText, false);
+                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                        docText.setCharacterAttributes(0,
+                                docText.getLength(),
+                                styleText,
+                                true);
+
+                        for (JTextPane miembro : currentSel.getMiembros()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setItalic(tempTextStlye, false);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+
+                    }
+                    if (StyleConstants.isUnderline(attrs)) {
+                        StyleConstants.setUnderline(styleText, false);
+                        StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                        docText.setCharacterAttributes(0,
+                                docText.getLength(),
+                                styleText,
+                                true);
+
+                        for (JTextPane miembro : currentSel.getMiembros()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setUnderline(tempTextStlye, false);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+
+                    }
+                }
+
+                break;
+
+            case 1:
+                StyleConstants.setBold(styleText, true);
+                //StyleConstants.setBold(styleTitle, true);
+                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                docText.setCharacterAttributes(0,
+                        docText.getLength(),
+                        styleText,
+                        true);
+                
+                //docTitle.setCharacterAttributes(0, docTitle.getLength(), styleTitle, true);
+
+                for (JTextPane miembro : currentSel.getMiembros()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                    StyleConstants.setBold(tempTextStlye, true);
+                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                }
+                break;
+
+            case 2:
+                StyleConstants.setItalic(styleText, true);
+                //StyleConstants.setItalic(styleTitle, true);
+                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                docText.setCharacterAttributes(0,
+                        docText.getLength(),
+                        styleText,
+                        true);
+                
+                //docTitle.setCharacterAttributes(0,docTitle.getLength(),styleTitle,true);
+
+                for (JTextPane miembro : currentSel.getMiembros()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                    StyleConstants.setItalic(tempTextStlye, true);
+                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                }
+                break;
+
+            case 3:
+                StyleConstants.setUnderline(styleText, true);
+                //StyleConstants.setUnderline(styleTitle, true);
+                StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                docText.setCharacterAttributes(0,
+                        docText.getLength(),
+                        styleText,
+                        true);
+
+                //docTitle.setCharacterAttributes(0,docTitle.getLength(),styleTitle,true);
+
+                for (JTextPane miembro : currentSel.getMiembros()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                    StyleConstants.setUnderline(tempTextStlye, true);
+                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                }
+                break;
+            default:
+                
+        }
+
     }
 
     public static void main(String args[]) {

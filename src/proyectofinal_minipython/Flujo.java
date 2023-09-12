@@ -2,6 +2,7 @@ package proyectofinal_minipython;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Label;
@@ -9,18 +10,33 @@ import java.awt.MouseInfo;
 import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
+import javax.swing.border.Border;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
@@ -31,14 +47,24 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         this.setSize(r.width, r.height);
 
-        g = workArea.getGraphics();
-        workArea.paintComponents(g);
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_fuente.getModel();
+
+        String fontNames[] = ge.getAvailableFontFamilyNames();
+        for (String fontName : fontNames) {
+            modelo.addElement(fontName);
+        }
+
+        cb_fuente.setModel(modelo);
+        cb_fuente.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pp_shits = new javax.swing.JPopupMenu();
+        mi_pegar = new javax.swing.JMenuItem();
+        mi_help = new javax.swing.JMenuItem();
         bg_flujo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_archivo = new javax.swing.JPanel();
@@ -140,6 +166,17 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
 
+        mi_pegar.setText("Pegar");
+        mi_pegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_pegarActionPerformed(evt);
+            }
+        });
+        pp_shits.add(mi_pegar);
+
+        mi_help.setText("Ayuda");
+        pp_shits.add(mi_help);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
@@ -168,7 +205,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             btn_archivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_archivoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btn_archivoLayout.setVerticalGroup(
@@ -267,7 +304,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             .addGroup(btn_diseñoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         btn_diseñoLayout.setVerticalGroup(
             btn_diseñoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,19 +442,35 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         cb_fuente.setBackground(new java.awt.Color(68, 68, 68));
         cb_fuente.setForeground(new java.awt.Color(255, 255, 255));
-        cb_fuente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arial", "Times New Roman", "Calibri", "Verdana", "Helvetica", "Courier New", "Georgia", "Tahoma", "Palatino", "Century Gothic", "Comic Sans MS", "Impact" }));
+        cb_fuente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_fuenteItemStateChanged(evt);
+            }
+        });
         tb_letras.add(cb_fuente);
         tb_letras.add(jSeparator1);
 
         cb_estilo.setBackground(new java.awt.Color(68, 68, 68));
         cb_estilo.setForeground(new java.awt.Color(255, 255, 255));
         cb_estilo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Bold", "Italic", "Underline" }));
+        cb_estilo.setSelectedIndex(-1);
+        cb_estilo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_estiloItemStateChanged(evt);
+            }
+        });
         tb_letras.add(cb_estilo);
         tb_letras.add(jSeparator2);
 
         cb_size.setBackground(new java.awt.Color(68, 68, 68));
         cb_size.setForeground(new java.awt.Color(255, 255, 255));
         cb_size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "18", "20", "24", "28", "32", "36", "48", "72" }));
+        cb_size.setSelectedIndex(2);
+        cb_size.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_sizeItemStateChanged(evt);
+            }
+        });
         tb_letras.add(cb_size);
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -441,6 +494,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_black.setFocusable(false);
         btn_black.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_black.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_black.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_blackMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_black);
         tb_colors1.add(jSeparator4);
 
@@ -448,6 +506,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_gray.setFocusable(false);
         btn_gray.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_gray.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_gray.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_grayMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_gray);
         tb_colors1.add(jSeparator5);
 
@@ -455,6 +518,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_bloodred.setFocusable(false);
         btn_bloodred.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_bloodred.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_bloodred.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_bloodredMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_bloodred);
         tb_colors1.add(jSeparator6);
 
@@ -462,6 +530,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_red.setFocusable(false);
         btn_red.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_red.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_red.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_redMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_red);
         tb_colors1.add(jSeparator7);
 
@@ -469,6 +542,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_orange.setFocusable(false);
         btn_orange.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_orange.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_orange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_orangeMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_orange);
         tb_colors1.add(jSeparator8);
 
@@ -476,6 +554,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_yellow.setFocusable(false);
         btn_yellow.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_yellow.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_yellow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_yellowMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_yellow);
         tb_colors1.add(jSeparator9);
 
@@ -483,6 +566,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_green.setFocusable(false);
         btn_green.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_green.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_green.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_greenMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_green);
         tb_colors1.add(jSeparator10);
 
@@ -490,6 +578,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_cyan.setFocusable(false);
         btn_cyan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_cyan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_cyan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cyanMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_cyan);
         tb_colors1.add(jSeparator11);
 
@@ -497,6 +590,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_blue.setFocusable(false);
         btn_blue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_blue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_blue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_blueMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_blue);
         tb_colors1.add(jSeparator12);
 
@@ -504,6 +602,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_purple.setFocusable(false);
         btn_purple.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_purple.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_purple.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_purpleMouseClicked(evt);
+            }
+        });
         tb_colors1.add(btn_purple);
 
         tb_colors2.setBackground(new java.awt.Color(54, 54, 54));
@@ -513,6 +616,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_white.setFocusable(false);
         btn_white.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_white.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_white.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_whiteMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_white);
         tb_colors2.add(jSeparator13);
 
@@ -520,12 +628,22 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_lightgray.setFocusable(false);
         btn_lightgray.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_lightgray.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_lightgray.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_lightgrayMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_lightgray);
         tb_colors2.add(jSeparator14);
 
         btn_brown.setBackground(new java.awt.Color(153, 102, 0));
         btn_brown.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_brown.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_brown.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_brownMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_brown);
         tb_colors2.add(jSeparator15);
 
@@ -533,6 +651,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_pink.setFocusable(false);
         btn_pink.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_pink.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_pink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pinkMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_pink);
         tb_colors2.add(jSeparator16);
 
@@ -540,6 +663,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_mango.setFocusable(false);
         btn_mango.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_mango.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_mango.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_mangoMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_mango);
         tb_colors2.add(jSeparator17);
 
@@ -547,6 +675,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_yellowopaque.setFocusable(false);
         btn_yellowopaque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_yellowopaque.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_yellowopaque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_yellowopaqueMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_yellowopaque);
         tb_colors2.add(jSeparator18);
 
@@ -554,6 +687,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_limegreen.setFocusable(false);
         btn_limegreen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_limegreen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_limegreen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_limegreenMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_limegreen);
         tb_colors2.add(jSeparator19);
 
@@ -561,6 +699,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_opaquecyan.setFocusable(false);
         btn_opaquecyan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_opaquecyan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_opaquecyan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_opaquecyanMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_opaquecyan);
         tb_colors2.add(jSeparator20);
 
@@ -568,6 +711,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_opaqueblue.setFocusable(false);
         btn_opaqueblue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_opaqueblue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_opaqueblue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_opaqueblueMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_opaqueblue);
         tb_colors2.add(jSeparator21);
 
@@ -575,6 +723,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_opaquepurple.setFocusable(false);
         btn_opaquepurple.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_opaquepurple.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_opaquepurple.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_opaquepurpleMouseClicked(evt);
+            }
+        });
         tb_colors2.add(btn_opaquepurple);
 
         javax.swing.GroupLayout pn_ribbonMenuLayout = new javax.swing.GroupLayout(pn_ribbonMenu);
@@ -675,6 +828,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         workArea.setBackground(new java.awt.Color(255, 255, 255));
+        workArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                workAreaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
@@ -795,6 +953,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_subproceso.setForeground(new java.awt.Color(255, 255, 255));
         btn_subproceso.setPreferredSize(new java.awt.Dimension(100, 48));
         btn_subproceso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_subprocesoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_subprocesoMouseEntered(evt);
             }
@@ -831,6 +992,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_iniofin.setBackground(new java.awt.Color(212, 212, 212));
         btn_iniofin.setForeground(new java.awt.Color(255, 255, 255));
         btn_iniofin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_iniofinMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_iniofinMouseEntered(evt);
             }
@@ -881,6 +1045,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_doc.setForeground(new java.awt.Color(255, 255, 255));
         btn_doc.setPreferredSize(new java.awt.Dimension(100, 48));
         btn_doc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_docMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_docMouseEntered(evt);
             }
@@ -903,7 +1070,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel21)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         btn_docLayout.setVerticalGroup(
             btn_docLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -919,6 +1086,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_dat.setForeground(new java.awt.Color(255, 255, 255));
         btn_dat.setPreferredSize(new java.awt.Dimension(100, 48));
         btn_dat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_datMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_datMouseEntered(evt);
             }
@@ -1286,44 +1456,1195 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     }//GEN-LAST:event_btn_sepVerticalMouseExited
 
     private void btn_procMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_procMouseClicked
-        createShape();
+        createSquare();
     }//GEN-LAST:event_btn_procMouseClicked
 
     private void btn_decisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_decisionMouseClicked
-        
-        
+        createRombus();
+
     }//GEN-LAST:event_btn_decisionMouseClicked
 
     private void btn_separadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseClicked
-        
+
     }//GEN-LAST:event_btn_separadorMouseClicked
 
     private void btn_sepVerticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseClicked
         g.drawLine(500, 500, 500, 350);
     }//GEN-LAST:event_btn_sepVerticalMouseClicked
 
-    public void createShape() {
+    private void btn_iniofinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniofinMouseClicked
+        createCapsue();
+    }//GEN-LAST:event_btn_iniofinMouseClicked
 
-        shape = new JPanel();
-        textP = new JTextPane();
-        shape.setBackground(new Color(70, 114, 196));
-        shape.setSize(70, 60);
-        shape.setLocation(workArea.getWidth() / 2, workArea.getHeight() / 2);
+    private void btn_subprocesoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_subprocesoMouseClicked
+        createSubProcess();
+    }//GEN-LAST:event_btn_subprocesoMouseClicked
 
-        workArea.add(shape);
-        shape.add(textP);
+    private void btn_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseClicked
+        createParalel();
+    }//GEN-LAST:event_btn_datMouseClicked
 
-        shape.addMouseListener(this);
-        shape.addMouseMotionListener(this);
-        
-        shape.revalidate();
+    private void btn_docMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseClicked
+        createDoc();
+    }//GEN-LAST:event_btn_docMouseClicked
+
+    private void mi_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_pegarActionPerformed
+        //Pegar el elemento copiado
+        try {
+            toPasteFig = copiedFigures.get(copiedFigures.size() - 1);
+
+            toPasteFig.addMouseListener(this);
+            toPasteFig.addMouseMotionListener(this);
+
+            workArea.add(toPasteFig);
+            toPasteFig.setLocation(workArea.getWidth() / 2 + 10, workArea.getHeight() / 2 + 10);
+            copiedFigures.remove(toPasteFig);
+
+            workArea.revalidate();
+            workArea.repaint();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No hay nada copiado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mi_pegarActionPerformed
+
+    private void workAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workAreaMouseClicked
+        //mostrar el popmenu
+        if (evt.isMetaDown()) {
+            pp_shits.show(workArea, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_workAreaMouseClicked
+
+    private void btn_blackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_blackMouseClicked
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_black.getBackground());
+        }
+    }//GEN-LAST:event_btn_blackMouseClicked
+
+    private void btn_grayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_grayMouseClicked
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_gray.getBackground());
+        }
+    }//GEN-LAST:event_btn_grayMouseClicked
+
+    private void btn_bloodredMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_bloodredMouseClicked
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_bloodred.getBackground());
+        }
+    }//GEN-LAST:event_btn_bloodredMouseClicked
+
+    private void btn_redMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_redMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_red.getBackground());
+        }
+    }//GEN-LAST:event_btn_redMouseClicked
+
+    private void btn_orangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_orangeMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_orange.getBackground());
+        }
+    }//GEN-LAST:event_btn_orangeMouseClicked
+
+    private void btn_yellowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_yellowMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_yellow.getBackground());
+        }
+    }//GEN-LAST:event_btn_yellowMouseClicked
+
+    private void btn_greenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_greenMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_green.getBackground());
+        }
+    }//GEN-LAST:event_btn_greenMouseClicked
+
+    private void btn_cyanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cyanMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_cyan.getBackground());
+        }
+    }//GEN-LAST:event_btn_cyanMouseClicked
+
+    private void btn_blueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_blueMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_blue.getBackground());
+        }
+    }//GEN-LAST:event_btn_blueMouseClicked
+
+    private void btn_purpleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_purpleMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_purple.getBackground());
+        }
+    }//GEN-LAST:event_btn_purpleMouseClicked
+
+    private void btn_whiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_whiteMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_white.getBackground());
+        }
+    }//GEN-LAST:event_btn_whiteMouseClicked
+
+    private void btn_lightgrayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_lightgrayMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_lightgray.getBackground());
+        }
+    }//GEN-LAST:event_btn_lightgrayMouseClicked
+
+    private void btn_brownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_brownMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_brown.getBackground());
+        }
+    }//GEN-LAST:event_btn_brownMouseClicked
+
+    private void btn_pinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pinkMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_pink.getBackground());
+        }
+    }//GEN-LAST:event_btn_pinkMouseClicked
+
+    private void btn_mangoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_mangoMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_mango.getBackground());
+        }
+    }//GEN-LAST:event_btn_mangoMouseClicked
+
+    private void btn_yellowopaqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_yellowopaqueMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_yellowopaque.getBackground());
+        }
+    }//GEN-LAST:event_btn_yellowopaqueMouseClicked
+
+    private void btn_limegreenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limegreenMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_limegreen.getBackground());
+        }
+    }//GEN-LAST:event_btn_limegreenMouseClicked
+
+    private void btn_opaquecyanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_opaquecyanMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_opaquecyan.getBackground());
+        }
+    }//GEN-LAST:event_btn_opaquecyanMouseClicked
+
+    private void btn_opaqueblueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_opaqueblueMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_opaqueblue.getBackground());
+        }
+    }//GEN-LAST:event_btn_opaqueblueMouseClicked
+
+    private void btn_opaquepurpleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_opaquepurpleMouseClicked
+        // TODO add your handling code here:
+        if (currentSel instanceof JPanel) {
+            changeColor(currentSel, btn_opaquepurple.getBackground());
+        }
+    }//GEN-LAST:event_btn_opaquepurpleMouseClicked
+
+    private void cb_fuenteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_fuenteItemStateChanged
+        // TODO add your handling code here:
+
+        if (currentSel instanceof ProcesoFigura) {
+            try {
+
+                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                    ProcesoFigura temp = (ProcesoFigura) currentSel;
+                    // declara variables
+                    docText = temp.getText().getStyledDocument();
+
+                    styleText = temp.getText().addStyle("myStyleText", null);
+
+                    //Asigna el font a la variable styleText
+                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                    //Cambia el font de "myStyleText" al que se selecciono
+                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+        if (currentSel instanceof DecisionFigura) {
+            try {
+
+                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                    DecisionFigura temp = (DecisionFigura) currentSel;
+                    // declara variables
+                    docText = temp.getText().getStyledDocument();
+
+                    styleText = temp.getText().addStyle("myStyleText", null);
+
+                    //Asigna el font a la variable styleText
+                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                    //Cambia el font de "myStyleText" al que se selecciono
+                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (currentSel instanceof InicioFigura) {
+            try {
+
+                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                    InicioFigura temp = (InicioFigura) currentSel;
+                    // declara variables
+                    docText = temp.getText().getStyledDocument();
+
+                    styleText = temp.getText().addStyle("myStyleText", null);
+
+                    //Asigna el font a la variable styleText
+                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                    //Cambia el font de "myStyleText" al que se selecciono
+                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (currentSel instanceof SubProcesoFigura) {
+            try {
+
+                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                    SubProcesoFigura temp = (SubProcesoFigura) currentSel;
+                    // declara variables
+                    docText = temp.getText().getStyledDocument();
+
+                    styleText = temp.getText().addStyle("myStyleText", null);
+
+                    //Asigna el font a la variable styleText
+                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                    //Cambia el font de "myStyleText" al que se selecciono
+                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (currentSel instanceof DatosFigura) {
+            try {
+
+                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                    DatosFigura temp = (DatosFigura) currentSel;
+                    // declara variables
+                    docText = temp.getText().getStyledDocument();
+
+                    styleText = temp.getText().addStyle("myStyleText", null);
+
+                    //Asigna el font a la variable styleText
+                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                    //Cambia el font de "myStyleText" al que se selecciono
+                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (currentSel instanceof Documento) {
+            try {
+
+                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
+
+                    Documento temp = (Documento) currentSel;
+                    // declara variables
+                    docText = temp.getText().getStyledDocument();
+
+                    styleText = temp.getText().addStyle("myStyleText", null);
+
+                    //Asigna el font a la variable styleText
+                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
+
+                    //Cambia el font de "myStyleText" al que se selecciono
+                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
+    }//GEN-LAST:event_cb_fuenteItemStateChanged
+
+    private void cb_estiloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_estiloItemStateChanged
+        if (currentSel instanceof ProcesoFigura) {
+            ProcesoFigura papada = (ProcesoFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                    changeFont();
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof DecisionFigura) {
+            DecisionFigura papada = (DecisionFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                    changeFont();
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof InicioFigura) {
+            InicioFigura papada = (InicioFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                    changeFont();
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof SubProcesoFigura) {
+            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                    changeFont();
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof DatosFigura) {
+            DatosFigura papada = (DatosFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                    changeFont();
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof Documento) {
+            Documento papada = (Documento) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
+                    changeFont();
+                }
+            } catch (Exception e) {
+            }
+
+        }
+    }//GEN-LAST:event_cb_estiloItemStateChanged
+
+    private void cb_sizeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_sizeItemStateChanged
+        if (currentSel instanceof ProcesoFigura) {
+            ProcesoFigura papada = (ProcesoFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+
+                    changeFont();
+
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof DecisionFigura) {
+            DecisionFigura papada = (DecisionFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+
+                    changeFont();
+
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof InicioFigura) {
+            InicioFigura papada = (InicioFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+
+                    changeFont();
+
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof SubProcesoFigura) {
+            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+
+                    changeFont();
+
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof DatosFigura) {
+            DatosFigura papada = (DatosFigura) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+
+                    changeFont();
+
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        if (currentSel instanceof Documento) {
+            Documento papada = (Documento) currentSel;
+            try {
+                if (currentSel != null) {
+
+                    docText = papada.getText().getStyledDocument();
+
+                    styleText = papada.getText().addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+
+                    changeFont();
+
+                }
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_cb_sizeItemStateChanged
+
+    //metodos personales
+    public void createSquare() {
+
+        ProcesoFigura proceso = new ProcesoFigura(
+                100,
+                60,
+                workArea.getWidth(),
+                workArea.getHeight(),
+                f);
+
+        proceso.addMouseListener(this);
+        proceso.addMouseMotionListener(this);
+
+        workArea.add(proceso);
+
+        proceso.revalidate();
         workArea.repaint();
     }
-    
-    public boolean isSelected(int mouseX, int mouseY){
-        return mouseX >= shape.getX() && mouseX <= (shape.getX() + mouseX) 
-                && mouseY >= shape.getY() && mouseY <= (shape.getY() + mouseY);
-        
+
+    public void createSubProcess() {
+
+        SubProcesoFigura subProcess = new SubProcesoFigura(
+                100,
+                60,
+                workArea.getWidth(),
+                workArea.getHeight(),
+                f);
+
+        subProcess.addMouseListener(this);
+        subProcess.addMouseMotionListener(this);
+
+        workArea.add(subProcess);
+
+        subProcess.revalidate();
+        workArea.repaint();
+    }
+
+    public void createRombus() {
+        DecisionFigura rombo = new DecisionFigura(
+                100,
+                60,
+                workArea.getWidth(),
+                workArea.getHeight(),
+                f);
+
+        rombo.addMouseListener(this);
+        rombo.addMouseMotionListener(this);
+
+        workArea.add(rombo);
+
+        rombo.revalidate();
+        workArea.repaint();
+    }
+
+    public void createCapsue() {
+        InicioFigura capsule = new InicioFigura(
+                150,
+                40,
+                workArea.getWidth(),
+                workArea.getHeight(),
+                f);
+
+        capsule.addMouseListener(this);
+        capsule.addMouseMotionListener(this);
+
+        workArea.add(capsule);
+
+        capsule.revalidate();
+        workArea.repaint();
+    }
+
+    public void createParalel() {
+        DatosFigura capsule = new DatosFigura(
+                130,
+                60,
+                workArea.getWidth(),
+                workArea.getHeight(),
+                f);
+
+        capsule.addMouseListener(this);
+        capsule.addMouseMotionListener(this);
+
+        workArea.add(capsule);
+
+        capsule.revalidate();
+        workArea.repaint();
+    }
+
+    public void createDoc() {
+        Documento documento = new Documento(
+                100,
+                60,
+                workArea.getWidth(),
+                workArea.getHeight(),
+                f);
+
+        documento.addMouseListener(this);
+        documento.addMouseMotionListener(this);
+
+        workArea.add(documento);
+
+        documento.revalidate();
+        workArea.repaint();
+    }
+
+    public void seleccion(JPanel selected, boolean isClicked) {
+
+        if (isClicked) {
+            Border borde = BorderFactory.createLineBorder(new Color(147, 147, 147), 1);
+            selected.setBorder(borde);
+        } else {
+            selected.setBorder(null);
+        }
+
+    }
+
+    public void changeColor(JPanel c, Color color) {
+
+        if (currentSel instanceof ProcesoFigura) {
+            ProcesoFigura papada = (ProcesoFigura) currentSel;
+            papada.setColor(color);
+
+        }
+        if (currentSel instanceof DecisionFigura) {
+            DecisionFigura papada = (DecisionFigura) currentSel;
+            papada.setColor(color);
+
+        }
+        if (currentSel instanceof InicioFigura) {
+            InicioFigura papada = (InicioFigura) currentSel;
+            papada.setColor(color);
+        }
+        if (currentSel instanceof SubProcesoFigura) {
+            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
+            papada.setColor(color);
+        }
+        if (currentSel instanceof DatosFigura) {
+            DatosFigura papada = (DatosFigura) currentSel;
+            papada.setColor(color);
+        }
+        if (currentSel instanceof Documento) {
+            Documento papada = (Documento) currentSel;
+            papada.setColor(color);
+        }
+
+    }
+
+    public void changeFont() {
+        if (currentSel instanceof ProcesoFigura) {
+            ProcesoFigura papada = (ProcesoFigura) currentSel;
+            int selectedStlye = cb_estilo.getSelectedIndex();
+
+            switch (selectedStlye) {
+                case 0:
+                    int writtenLength = docText.getLength();
+                    for (int i = 0; i < writtenLength; i++) {
+                        Element element = docText.getCharacterElement(i);
+                        AttributeSet attrs = element.getAttributes();
+
+                        if (StyleConstants.isBold(attrs)) {
+                            StyleConstants.setBold(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+                        }
+
+                        if (StyleConstants.isItalic(attrs)) {
+                            StyleConstants.setItalic(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                        if (StyleConstants.isUnderline(attrs)) {
+                            StyleConstants.setUnderline(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                    }
+                    break;
+                case 1:
+                    StyleConstants.setBold(styleText, true);
+                    //StyleConstants.setBold(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 2:
+                    StyleConstants.setItalic(styleText, true);
+                    //StyleConstants.setItalic(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 3:
+                    StyleConstants.setUnderline(styleText, true);
+                    //StyleConstants.setUnderline(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                default:
+
+            }
+
+        }
+        if (currentSel instanceof DecisionFigura) {
+            DecisionFigura papada = (DecisionFigura) currentSel;
+            int selectedStlye = cb_estilo.getSelectedIndex();
+            switch (selectedStlye) {
+                case 0:
+                    int writtenLength = docText.getLength();
+                    for (int i = 0; i < writtenLength; i++) {
+                        Element element = docText.getCharacterElement(i);
+                        AttributeSet attrs = element.getAttributes();
+
+                        if (StyleConstants.isBold(attrs)) {
+                            StyleConstants.setBold(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+                        }
+                        if (StyleConstants.isItalic(attrs)) {
+                            StyleConstants.setItalic(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                        if (StyleConstants.isUnderline(attrs)) {
+                            StyleConstants.setUnderline(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                    }
+                    break;
+                case 1:
+                    StyleConstants.setBold(styleText, true);
+                    //StyleConstants.setBold(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 2:
+                    StyleConstants.setItalic(styleText, true);
+                    //StyleConstants.setItalic(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 3:
+                    StyleConstants.setUnderline(styleText, true);
+                    //StyleConstants.setUnderline(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                default:
+
+            }
+
+        }
+        if (currentSel instanceof InicioFigura) {
+            InicioFigura papada = (InicioFigura) currentSel;
+            int selectedStlye = cb_estilo.getSelectedIndex();
+            switch (selectedStlye) {
+                case 0:
+                    int writtenLength = docText.getLength();
+                    for (int i = 0; i < writtenLength; i++) {
+                        Element element = docText.getCharacterElement(i);
+                        AttributeSet attrs = element.getAttributes();
+
+                        if (StyleConstants.isBold(attrs)) {
+                            StyleConstants.setBold(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+                        }
+                        if (StyleConstants.isItalic(attrs)) {
+                            StyleConstants.setItalic(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                        if (StyleConstants.isUnderline(attrs)) {
+                            StyleConstants.setUnderline(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                    }
+                    break;
+                case 1:
+                    StyleConstants.setBold(styleText, true);
+                    //StyleConstants.setBold(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 2:
+                    StyleConstants.setItalic(styleText, true);
+                    //StyleConstants.setItalic(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 3:
+                    StyleConstants.setUnderline(styleText, true);
+                    //StyleConstants.setUnderline(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                default:
+
+            }
+        }
+        if (currentSel instanceof SubProcesoFigura) {
+            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
+            int selectedStlye = cb_estilo.getSelectedIndex();
+            switch (selectedStlye) {
+                case 0:
+                    int writtenLength = docText.getLength();
+                    for (int i = 0; i < writtenLength; i++) {
+                        Element element = docText.getCharacterElement(i);
+                        AttributeSet attrs = element.getAttributes();
+
+                        if (StyleConstants.isBold(attrs)) {
+                            StyleConstants.setBold(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+                        }
+                        if (StyleConstants.isItalic(attrs)) {
+                            StyleConstants.setItalic(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                        if (StyleConstants.isUnderline(attrs)) {
+                            StyleConstants.setUnderline(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                    }
+                    break;
+                case 1:
+                    StyleConstants.setBold(styleText, true);
+                    //StyleConstants.setBold(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 2:
+                    StyleConstants.setItalic(styleText, true);
+                    //StyleConstants.setItalic(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 3:
+                    StyleConstants.setUnderline(styleText, true);
+                    //StyleConstants.setUnderline(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                default:
+
+            }
+        }
+        if (currentSel instanceof DatosFigura) {
+            DatosFigura papada = (DatosFigura) currentSel;
+            int selectedStlye = cb_estilo.getSelectedIndex();
+            switch (selectedStlye) {
+                case 0:
+                    int writtenLength = docText.getLength();
+                    for (int i = 0; i < writtenLength; i++) {
+                        Element element = docText.getCharacterElement(i);
+                        AttributeSet attrs = element.getAttributes();
+
+                        if (StyleConstants.isBold(attrs)) {
+                            StyleConstants.setBold(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+                        }
+                        if (StyleConstants.isItalic(attrs)) {
+                            StyleConstants.setItalic(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                        if (StyleConstants.isUnderline(attrs)) {
+                            StyleConstants.setUnderline(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                    }
+                    break;
+                case 1:
+                    StyleConstants.setBold(styleText, true);
+                    //StyleConstants.setBold(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 2:
+                    StyleConstants.setItalic(styleText, true);
+                    //StyleConstants.setItalic(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 3:
+                    StyleConstants.setUnderline(styleText, true);
+                    //StyleConstants.setUnderline(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                default:
+
+            }
+        }
+        if (currentSel instanceof Documento) {
+            Documento papada = (Documento) currentSel;
+            int selectedStlye = cb_estilo.getSelectedIndex();
+            switch (selectedStlye) {
+                case 0:
+                    int writtenLength = docText.getLength();
+                    for (int i = 0; i < writtenLength; i++) {
+                        Element element = docText.getCharacterElement(i);
+                        AttributeSet attrs = element.getAttributes();
+
+                        if (StyleConstants.isBold(attrs)) {
+                            StyleConstants.setBold(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+                        }
+                        if (StyleConstants.isItalic(attrs)) {
+                            StyleConstants.setItalic(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                        if (StyleConstants.isUnderline(attrs)) {
+                            StyleConstants.setUnderline(styleText, false);
+                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                            docText.setCharacterAttributes(0,
+                                    docText.getLength(),
+                                    styleText,
+                                    true);
+
+                        }
+                    }
+                    break;
+                case 1:
+                    StyleConstants.setBold(styleText, true);
+                    //StyleConstants.setBold(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 2:
+                    StyleConstants.setItalic(styleText, true);
+                    //StyleConstants.setItalic(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                case 3:
+                    StyleConstants.setUnderline(styleText, true);
+                    //StyleConstants.setUnderline(styleTitle, true);
+                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
+
+                    docText.setCharacterAttributes(0,
+                            docText.getLength(),
+                            styleText,
+                            true);
+                    break;
+                default:
+
+            }
+        }
     }
 
     public static void main(String args[]) {
@@ -1358,12 +2679,17 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         });
     }
 
-    
+    Font f = new Font("Title", 1, 16);
     Point startPoint;
-    ArrayList<JPanel> shapes = new ArrayList<>();
-    JPanel shape;
-    JTextPane textP;
-    Component source;
+    JPanel currentSel = null;
+    JPanel toPasteFig = null;
+    ArrayList<JPanel> copiedFigures = new ArrayList<>();
+
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+    StyledDocument docTitle, docText;
+    Style styleTitle, styleText;
+
     Graphics g;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1461,8 +2787,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JToolBar.Separator jSeparator9;
+    private javax.swing.JMenuItem mi_help;
+    private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPanel pn_formasMenu;
     private javax.swing.JPanel pn_ribbonMenu;
+    private javax.swing.JPopupMenu pp_shits;
     private javax.swing.JToolBar tb_colors1;
     private javax.swing.JToolBar tb_colors2;
     private javax.swing.JToolBar tb_letras;
@@ -1471,21 +2800,274 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-        //codigo para verificar si el objeto ha sido seleccionado
-        
-        /*
-        source = e.getComponent();
-        Point convertedPoint = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
-        if (isSelected(convertedPoint.x, convertedPoint.y)) {
-            JOptionPane.showMessageDialog(this, "Objeto seleccionado");
-        }*/
+        Component source = e.getComponent();
+
+        //verificar si lo clickeado es una figura
+        if (currentSel != null && currentSel != source) {
+            seleccion(currentSel, false);
+        }
+
+        // Seleccionar figura
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            if (source instanceof JPanel) {
+
+                JPanel selected = (JPanel) source;
+                boolean isClicked = false;
+
+                if (currentSel != selected) {
+                    isClicked = true;
+                }
+
+                seleccion(selected, isClicked);
+
+                if (isClicked) {
+                    currentSel = selected;
+                } else {
+                    currentSel = null;
+                }
+
+            }
+        }
+
+        //click derecho
+        if (e.isMetaDown()) {
+
+            try {
+                JMenuItem addAttribute = new JMenuItem("Crear coneccion");
+
+                JMenu properties = new JMenu("Propiedades de la fuente");
+                JMenuItem changeFontColor = new JMenuItem("Cambiar color");
+                JMenuItem changeFontHighlight = new JMenuItem("Subrayar");
+
+                JMenuItem copy = new JMenuItem("Copiar");
+                JMenuItem delete = new JMenuItem("Eliminar");
+                JMenuItem help = new JMenuItem("Ayuda");
+
+                JSeparator separador = new JSeparator(SwingUtilities.HORIZONTAL);
+                JSeparator separador2 = new JSeparator(SwingUtilities.HORIZONTAL);
+                JSeparator separador3 = new JSeparator(SwingUtilities.HORIZONTAL);
+
+                properties.add(changeFontColor);
+                properties.add(changeFontHighlight);
+
+                //Agrega el pop menu y los items
+                JPopupMenu rCMenu = new JPopupMenu();
+                rCMenu.add(addAttribute);
+
+                rCMenu.add(separador);
+                rCMenu.add(properties);
+                rCMenu.add(separador2);
+                rCMenu.add(copy);
+                rCMenu.add(delete);
+                rCMenu.add(separador3);
+                rCMenu.add(help);
+
+                // Copiar 
+                copy.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        try {
+
+                            if (currentSel instanceof ProcesoFigura) {
+
+                                ProcesoFigura claseCopiada = new ProcesoFigura(currentSel);
+
+                                copiedFigures.add(claseCopiada);
+
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                                if (!copiedFigures.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
+                                }
+                            }
+                            if (currentSel instanceof DecisionFigura) {
+
+                                DecisionFigura claseCopiada = new DecisionFigura(currentSel);
+
+                                copiedFigures.add(claseCopiada);
+
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                                if (!copiedFigures.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
+                                }
+                            }
+                            if (currentSel instanceof InicioFigura) {
+                                InicioFigura claseCopiada = new InicioFigura(currentSel);
+
+                                copiedFigures.add(claseCopiada);
+
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                                if (!copiedFigures.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
+                                }
+                            }
+                            if (currentSel instanceof SubProcesoFigura) {
+                                SubProcesoFigura claseCopiada = new SubProcesoFigura(currentSel);
+
+                                copiedFigures.add(claseCopiada);
+
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                                if (!copiedFigures.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
+                                }
+                            }
+                            if (currentSel instanceof DatosFigura) {
+                                DatosFigura claseCopiada = new DatosFigura(currentSel);
+
+                                copiedFigures.add(claseCopiada);
+
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                                if (!copiedFigures.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
+                                }
+                            }
+                            if (currentSel instanceof Documento) {
+                                Documento claseCopiada = new Documento(currentSel);
+
+                                copiedFigures.add(claseCopiada);
+
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                                if (!copiedFigures.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
+                                }
+                            }
+
+                        } catch (NullPointerException ex) {
+                            JOptionPane.showMessageDialog(bg_flujo, "Debe seleccionar primero la figura", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    }
+                });
+                //Cambiar color del font
+                changeFontColor.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            if (currentSel instanceof ProcesoFigura) {
+                                ProcesoFigura papada = (ProcesoFigura) currentSel;
+
+                                docText = papada.getText().getStyledDocument();
+                                styleText = papada.getText().addStyle("myStyleText", null);
+
+                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
+
+                                StyleConstants.setForeground(styleText, fontColor);
+
+                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            }
+                            if (currentSel instanceof DecisionFigura) {
+                                DecisionFigura papada = (DecisionFigura) currentSel;
+                                docText = papada.getText().getStyledDocument();
+                                styleText = papada.getText().addStyle("myStyleText", null);
+
+                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
+
+                                StyleConstants.setForeground(styleText, fontColor);
+
+                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            }
+                            if (currentSel instanceof InicioFigura) {
+                                InicioFigura papada = (InicioFigura) currentSel;
+                                docText = papada.getText().getStyledDocument();
+                                styleText = papada.getText().addStyle("myStyleText", null);
+
+                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
+
+                                StyleConstants.setForeground(styleText, fontColor);
+
+                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            }
+                            if (currentSel instanceof SubProcesoFigura) {
+                                SubProcesoFigura papada = (SubProcesoFigura) currentSel;
+                                docText = papada.getText().getStyledDocument();
+                                styleText = papada.getText().addStyle("myStyleText", null);
+
+                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
+
+                                StyleConstants.setForeground(styleText, fontColor);
+
+                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            }
+                            if (currentSel instanceof DatosFigura) {
+                                DatosFigura papada = (DatosFigura) currentSel;
+                                docText = papada.getText().getStyledDocument();
+                                styleText = papada.getText().addStyle("myStyleText", null);
+
+                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
+
+                                StyleConstants.setForeground(styleText, fontColor);
+
+                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            }
+                            if (currentSel instanceof Documento) {
+                                Documento papada = (Documento) currentSel;
+                                docText = papada.getText().getStyledDocument();
+                                styleText = papada.getText().addStyle("myStyleText", null);
+
+                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
+
+                                StyleConstants.setForeground(styleText, fontColor);
+
+                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
+
+                            }
+
+                        } catch (Exception ex) {
+                        }
+                    }
+                });
+                /*
+                 */
+
+                // Eliminar
+                delete.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (source instanceof JPanel) {
+
+                            int op = JOptionPane.showConfirmDialog(bg_flujo, "Esta seguro que desea eliminar?");
+
+                            if (op == JOptionPane.YES_OPTION) {
+                                JPanel selected = (JPanel) source;
+                                workArea.remove(selected);
+                                workArea.revalidate();
+                                workArea.repaint();
+
+                            }
+
+                        }
+                    }
+                });
+
+                rCMenu.show(source, e.getX(), e.getY());
+            } catch (Exception ex) {
+            }
+
+        }
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         // dice a la computadora, donde esta el objeto con relacion a "la pantalla" que lo contiene.
-        source = e.getComponent(); //guarda el objeto de donde se origina el evento
+        Component source = e.getComponent(); //guarda el objeto de donde se origina el evento
 
         startPoint = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
 
@@ -1508,19 +3090,23 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        source = e.getComponent();
-        
-        Point location = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
-        
-        
-        Point newLocation = source.getLocation();
-        newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
-        newLocation.x = Math.max(newLocation.x, 0);
-        newLocation.y = Math.max(newLocation.y, 0);
-        newLocation.x = Math.min(newLocation.x, source.getParent().getWidth() - source.getWidth());
-        newLocation.y = Math.min(newLocation.y, source.getParent().getHeight() - source.getHeight());
-        source.setLocation(newLocation);
-        startPoint = location;
+
+        try {
+            Component source = e.getComponent();
+
+            Point location = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
+
+            Point newLocation = source.getLocation();
+            newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
+            newLocation.x = Math.max(newLocation.x, 0);
+            newLocation.y = Math.max(newLocation.y, 0);
+            newLocation.x = Math.min(newLocation.x, source.getParent().getWidth() - source.getWidth());
+            newLocation.y = Math.min(newLocation.y, source.getParent().getHeight() - source.getHeight());
+            source.setLocation(newLocation);
+            startPoint = location;
+
+        } catch (Exception ex) {
+        }
 
     }
 
