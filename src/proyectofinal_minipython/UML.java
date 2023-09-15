@@ -36,10 +36,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class UML extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
@@ -68,6 +72,17 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         pm_menu = new javax.swing.JPopupMenu();
         mi_pegar = new javax.swing.JMenuItem();
         mi_help = new javax.swing.JMenuItem();
+        jd_arbol = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jt_arbolClases = new javax.swing.JTree();
+        jd_python = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tp_pyIDE = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
+        btn_exitPython = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
         bg_UML = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         btn_archivo7 = new javax.swing.JPanel();
@@ -137,6 +152,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_opaqueblue = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         btn_opaquepurple = new javax.swing.JButton();
+        jSeparator22 = new javax.swing.JSeparator();
+        btn_python = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         pn_formasMenu = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -152,6 +172,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_nota = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
+        btn_showTree = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         js_workArea = new javax.swing.JScrollPane();
         jp_workArea = new javax.swing.JPanel();
@@ -166,6 +187,125 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         mi_help.setText("Ayuda");
         pm_menu.add(mi_help);
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("UML");
+        jt_arbolClases.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jt_arbolClases);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(221, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jd_arbolLayout = new javax.swing.GroupLayout(jd_arbol.getContentPane());
+        jd_arbol.getContentPane().setLayout(jd_arbolLayout);
+        jd_arbolLayout.setHorizontalGroup(
+            jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jd_arbolLayout.setVerticalGroup(
+            jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jd_python.setUndecorated(true);
+
+        jPanel3.setBackground(new java.awt.Color(38, 38, 38));
+
+        tp_pyIDE.setBackground(new java.awt.Color(30, 31, 34));
+        tp_pyIDE.setForeground(new java.awt.Color(187, 179, 172));
+        jScrollPane2.setViewportView(tp_pyIDE);
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Codigo en Python");
+
+        btn_exitPython.setBackground(new java.awt.Color(38, 38, 38));
+        btn_exitPython.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_exitPythonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_exitPythonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_exitPythonMouseExited(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("X");
+
+        javax.swing.GroupLayout btn_exitPythonLayout = new javax.swing.GroupLayout(btn_exitPython);
+        btn_exitPython.setLayout(btn_exitPythonLayout);
+        btn_exitPythonLayout.setHorizontalGroup(
+            btn_exitPythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_exitPythonLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jLabel22)
+                .addGap(17, 17, 17))
+        );
+        btn_exitPythonLayout.setVerticalGroup(
+            btn_exitPythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_exitPythonLayout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(298, 298, 298)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_exitPython, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_exitPython, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jd_pythonLayout = new javax.swing.GroupLayout(jd_python.getContentPane());
+        jd_python.getContentPane().setLayout(jd_pythonLayout);
+        jd_pythonLayout.setHorizontalGroup(
+            jd_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jd_pythonLayout.setVerticalGroup(
+            jd_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -720,6 +860,62 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         });
         tb_colors2.add(btn_opaquepurple);
 
+        jSeparator22.setBackground(new java.awt.Color(68, 68, 68));
+        jSeparator22.setForeground(new java.awt.Color(68, 68, 68));
+        jSeparator22.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        btn_python.setBackground(new java.awt.Color(54, 54, 54));
+        btn_python.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pythonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_pythonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_pythonMouseExited(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/Python logo.png"))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Convertir ");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("a Python");
+
+        javax.swing.GroupLayout btn_pythonLayout = new javax.swing.GroupLayout(btn_python);
+        btn_python.setLayout(btn_pythonLayout);
+        btn_pythonLayout.setHorizontalGroup(
+            btn_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_pythonLayout.createSequentialGroup()
+                .addGroup(btn_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(btn_pythonLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3))
+                    .addGroup(btn_pythonLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4))
+                    .addGroup(btn_pythonLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btn_pythonLayout.setVerticalGroup(
+            btn_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_pythonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout pn_ribbonMenuLayout = new javax.swing.GroupLayout(pn_ribbonMenu);
         pn_ribbonMenu.setLayout(pn_ribbonMenuLayout);
         pn_ribbonMenuLayout.setHorizontalGroup(
@@ -742,7 +938,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addGroup(pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tb_colors1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                     .addComponent(tb_colors2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(158, 158, 158))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_python, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         pn_ribbonMenuLayout.setVerticalGroup(
             pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -758,7 +958,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tb_letras, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                        .addComponent(tb_letras, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                         .addGap(45, 45, 45))))
             .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
@@ -766,6 +966,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tb_colors2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
+                        .addComponent(btn_python, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator22))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -932,7 +1140,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel26)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         btn_abstractLayout.setVerticalGroup(
             btn_abstractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -985,6 +1193,13 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btn_showTree.setText("Ver Arbol");
+        btn_showTree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_showTreeMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -997,8 +1212,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_abstract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(btn_showTree, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1011,7 +1230,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_interfaz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(227, 227, 227))
+                .addGap(93, 93, 93)
+                .addComponent(btn_showTree, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
 
         javax.swing.GroupLayout pn_formasMenuLayout = new javax.swing.GroupLayout(pn_formasMenu);
@@ -1032,7 +1253,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -1073,7 +1294,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(js_workArea)
+                .addComponent(js_workArea, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1096,7 +1317,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addGroup(bg_UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pn_formasMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bg_UMLLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -1184,6 +1405,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     private void btn_claseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_claseMouseClicked
         createClase();
+
     }//GEN-LAST:event_btn_claseMouseClicked
 
     private void btn_claseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_claseMouseEntered
@@ -1242,18 +1464,64 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         //Pegar el elemento copiado
         try {
-            toPasteFig = copiedFigures.get(copiedFigures.size() - 1);
 
-            toPasteFig.addMouseListener(this);
-            toPasteFig.addMouseMotionListener(this);
+            //toPasteFig = copiedSimps.get(copiedSimps.size() - 1);
+            if (!copiedHerencias.isEmpty()) {
 
-            jp_workArea.add(toPasteFig);
-            toPasteFig.setLocation(jp_workArea.getWidth() / 2 + 10, jp_workArea.getHeight() / 2 + 10);
-            copiedFigures.remove(toPasteFig);
+                InheritanceFigura toPasteInh = copiedHerencias.get(copiedHerencias.size() - 1);
 
-            jp_workArea.revalidate();
-            jp_workArea.repaint();
+                toPasteInh.addMouseListener(this);
+                toPasteInh.addMouseMotionListener(this);
 
+                jp_workArea.add(toPasteInh);
+                toPasteInh.setLocation(jp_workArea.getWidth() / 2 + 10, jp_workArea.getHeight() / 2 + 10);
+                copiedHerencias.remove(toPasteInh);
+
+                jp_workArea.revalidate();
+                jp_workArea.repaint();
+            }
+            if (!copiedAbstractos.isEmpty()) {
+
+                AbstractaFigura toPasteAbs = copiedAbstractos.get(copiedAbstractos.size() - 1);
+
+                toPasteAbs.addMouseListener(this);
+                toPasteAbs.addMouseMotionListener(this);
+
+                jp_workArea.add(toPasteAbs);
+                toPasteAbs.setLocation(jp_workArea.getWidth() / 2 + 10, jp_workArea.getHeight() / 2 + 10);
+                copiedAbstractos.remove(toPasteAbs);
+
+                jp_workArea.revalidate();
+                jp_workArea.repaint();
+            }
+            if (!copiedSimps.isEmpty()) {
+
+                ClasseFigura toPasteSimp = copiedSimps.get(copiedSimps.size() - 1);
+
+                toPasteSimp.addMouseListener(this);
+                toPasteSimp.addMouseMotionListener(this);
+
+                jp_workArea.add(toPasteSimp);
+                toPasteSimp.setLocation(jp_workArea.getWidth() / 2 + 10, jp_workArea.getHeight() / 2 + 10);
+                copiedSimps.remove(toPasteSimp);
+
+                jp_workArea.revalidate();
+                jp_workArea.repaint();
+            }
+            if (!copiedInterfaces.isEmpty()) {
+
+                InterfazFigura toPasteInt = copiedInterfaces.get(copiedInterfaces.size() - 1);
+
+                toPasteInt.addMouseListener(this);
+                toPasteInt.addMouseMotionListener(this);
+
+                jp_workArea.add(toPasteInt);
+                toPasteInt.setLocation(jp_workArea.getWidth() / 2 + 10, jp_workArea.getHeight() / 2 + 10);
+                copiedInterfaces.remove(toPasteInt);
+
+                jp_workArea.revalidate();
+                jp_workArea.repaint();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No hay nada copiado", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1405,7 +1673,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
 
                 //Aplica el font a todos los miembros de la figura
-                for (JTextPane miembro : currentSel.getMiembros()) {
+                for (JTextPane miembro : currentSel.getAtributos()) {
                     StyledDocument tempDocText = miembro.getStyledDocument();
                     Style tempStyleText = miembro.addStyle("myTempStyle", null);
 
@@ -1431,7 +1699,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 styleText = currentSel.getTextA().addStyle("myStyleText", null);
 
                 //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
-                
                 changeFont();
             }
         } catch (Exception e) {
@@ -1449,20 +1716,20 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 styleText = currentSel.getTextA().addStyle("myStyleText", null);
 
                 StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-                
+
                 docText.setCharacterAttributes(0,
                         docText.getLength(),
                         styleText,
                         true);
 
-                for (JTextPane miembro : currentSel.getMiembros()) {
+                for (JTextPane miembro : currentSel.getAtributos()) {
                     StyledDocument tempDocText = miembro.getStyledDocument();
                     Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
                     StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
                     tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
                 }
-                
+
                 changeFont();
 
             }
@@ -1471,6 +1738,75 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
 
     }//GEN-LAST:event_cb_sizeItemStateChanged
+
+    private void btn_pythonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pythonMouseEntered
+        btn_python.setBackground(new Color(68, 68, 68));
+    }//GEN-LAST:event_btn_pythonMouseEntered
+
+    private void btn_pythonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pythonMouseExited
+        btn_python.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_pythonMouseExited
+
+    private void btn_pythonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pythonMouseClicked
+
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Procedera a generarse codigo de python, verifique que todo este correcto");
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            jd_python.pack();
+            jd_python.setModal(true);
+            jd_python.setLocationRelativeTo(this);
+            jd_python.setVisible(true);
+
+            if (currentSel != null) {
+                try {
+                    //generarArbol(currentSel);
+
+                    Document doc = tp_pyIDE.getDocument();
+                    try {
+                        doc.remove(0, doc.getLength());
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(UML.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    DefaultTreeModel m = (DefaultTreeModel) jt_arbolClases.getModel();
+
+                    DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+
+                    AdminTree tree = new AdminTree();
+                    try {
+                        tree.translate(raiz, tp_pyIDE);
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(UML.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "seleccione la clase para generar codigo");
+                }
+            }
+        }
+
+        //m.reload();
+    }//GEN-LAST:event_btn_pythonMouseClicked
+
+    private void btn_exitPythonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPythonMouseClicked
+        jd_python.setVisible(false);
+    }//GEN-LAST:event_btn_exitPythonMouseClicked
+
+    private void btn_exitPythonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPythonMouseEntered
+        btn_exitPython.setBackground(new Color(232, 17, 35));
+    }//GEN-LAST:event_btn_exitPythonMouseEntered
+
+    private void btn_exitPythonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPythonMouseExited
+        btn_exitPython.setBackground(new Color(38, 38, 38));
+    }//GEN-LAST:event_btn_exitPythonMouseExited
+
+    private void btn_showTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_showTreeMouseClicked
+        jd_arbol.pack();
+        jd_arbol.setModal(true);
+        jd_arbol.setLocationRelativeTo(this);
+        jd_arbol.setVisible(true);
+    }//GEN-LAST:event_btn_showTreeMouseClicked
 
     // metodos personales
     public void createInheritance(ClasseFigura selected) {
@@ -1482,6 +1818,8 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 selected.getY() + 30,
                 f,
                 selected.getTitulo());
+
+        herencia.setClasePadre(selected);
 
         //Agregar mouseListeners
         herencia.addMouseListener(this);
@@ -1497,7 +1835,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         ClasseFigura clase = new ClasseFigura(
                 200,
-                100,
+                150,
                 jp_workArea.getWidth(),
                 jp_workArea.getHeight(),
                 f);
@@ -1510,6 +1848,95 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         clase.revalidate();
         jp_workArea.repaint();
+
+    }
+
+    public void generarArbol(ClasseFigura clase) {
+        //Arbol para generar codigo
+        DefaultTreeModel modelo = (DefaultTreeModel) jt_arbolClases.getModel();
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) modelo.getRoot();
+
+        //Nombre de la clase
+        JTextPane tP = (JTextPane) clase.getTitulo();
+        JLabel jl = (JLabel) clase.getTit();
+        String classTit = tP.getText();
+        String inheritClass = jl.getText();
+        ClasseFigura clasePadre = null;
+
+        if (clase instanceof InheritanceFigura) {
+            classTit = "Herencia: " + classTit + "(" + inheritClass + ")";
+        } else if (clase instanceof AbstractaFigura) {
+            classTit = "Abstracta: " + classTit;
+        } else if (clase instanceof InterfazFigura) {
+            classTit = "Interfaz: " + classTit;
+        } else if (clase instanceof ClasseFigura) {
+            classTit = "Simple: " + classTit;
+        }
+
+        DefaultMutableTreeNode className = new DefaultMutableTreeNode(classTit);
+
+        //nodos atributo y metodo como hijos de la clase
+        
+        
+        
+        DefaultMutableTreeNode classAttributes = new DefaultMutableTreeNode("Atributos");
+        
+        DefaultMutableTreeNode classMethods = new DefaultMutableTreeNode("Metodos");
+
+        //agrega a la raiz 
+        if (clase instanceof InheritanceFigura) {
+            clasePadre = ((InheritanceFigura) clase).getClasePadre();
+            DefaultMutableTreeNode parentClass= new DefaultMutableTreeNode(clasePadre.getTitulo().getText());
+            
+            root.add(className);
+            className.add(parentClass);
+            
+            for (JTextPane atributo : clasePadre.getAtributos()) {
+                DefaultMutableTreeNode atr = new DefaultMutableTreeNode(atributo.getText());
+                parentClass.add(atr);
+            }
+            
+            className.add(classAttributes);
+            className.add(classMethods);
+        } else {
+            root.add(className);
+            className.add(classAttributes);
+            className.add(classMethods);
+        }
+
+        //agrega atributos y metodos a sus respectivos nodos
+        for (JTextPane atributo : clase.getAtributos()) {
+            DefaultMutableTreeNode atr = new DefaultMutableTreeNode(atributo.getText());
+            classAttributes.add(atr);
+        }
+        for (JTextPane metodo : clase.getMetodos()) {
+            DefaultMutableTreeNode met = new DefaultMutableTreeNode(metodo.getText());
+            classMethods.add(met);
+        }
+
+        modelo.reload();
+    }
+
+    public void eliminarNodo(ClasseFigura c) {
+        DefaultTreeModel m = (DefaultTreeModel) jt_arbolClases.getModel();
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) m.getRoot();
+
+        JTextPane tP = (JTextPane) c.getTitulo();
+        String figToDelete = tP.getText();
+
+        for (int i = 0; i < root.getChildCount(); i++) {
+            DefaultMutableTreeNode tempNode = (DefaultMutableTreeNode) root.getChildAt(i);
+
+            if (tempNode.getUserObject().equals(figToDelete)) {
+                tempNode.removeFromParent();
+                //JOptionPane.showMessageDialog(this, "Eliminado del arbol!");
+                break;
+            }
+        }
+
+        m.reload();
 
     }
 
@@ -1624,7 +2051,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                     }
                 }*/
-
                 //Texto
                 for (int i = 0; i < writtenLength; i++) {
                     Element element = docText.getCharacterElement(i);
@@ -1639,7 +2065,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 styleText,
                                 true);
 
-                        for (JTextPane miembro : currentSel.getMiembros()) {
+                        for (JTextPane miembro : currentSel.getAtributos()) {
                             StyledDocument tempDocText = miembro.getStyledDocument();
                             Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1658,7 +2084,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 styleText,
                                 true);
 
-                        for (JTextPane miembro : currentSel.getMiembros()) {
+                        for (JTextPane miembro : currentSel.getAtributos()) {
                             StyledDocument tempDocText = miembro.getStyledDocument();
                             Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1677,7 +2103,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 styleText,
                                 true);
 
-                        for (JTextPane miembro : currentSel.getMiembros()) {
+                        for (JTextPane miembro : currentSel.getAtributos()) {
                             StyledDocument tempDocText = miembro.getStyledDocument();
                             Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1700,10 +2126,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         docText.getLength(),
                         styleText,
                         true);
-                
-                //docTitle.setCharacterAttributes(0, docTitle.getLength(), styleTitle, true);
 
-                for (JTextPane miembro : currentSel.getMiembros()) {
+                //docTitle.setCharacterAttributes(0, docTitle.getLength(), styleTitle, true);
+                for (JTextPane miembro : currentSel.getAtributos()) {
                     StyledDocument tempDocText = miembro.getStyledDocument();
                     Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1722,10 +2147,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         docText.getLength(),
                         styleText,
                         true);
-                
-                //docTitle.setCharacterAttributes(0,docTitle.getLength(),styleTitle,true);
 
-                for (JTextPane miembro : currentSel.getMiembros()) {
+                //docTitle.setCharacterAttributes(0,docTitle.getLength(),styleTitle,true);
+                for (JTextPane miembro : currentSel.getAtributos()) {
                     StyledDocument tempDocText = miembro.getStyledDocument();
                     Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1746,8 +2170,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         true);
 
                 //docTitle.setCharacterAttributes(0,docTitle.getLength(),styleTitle,true);
-
-                for (JTextPane miembro : currentSel.getMiembros()) {
+                for (JTextPane miembro : currentSel.getAtributos()) {
                     StyledDocument tempDocText = miembro.getStyledDocument();
                     Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1757,7 +2180,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 }
                 break;
             default:
-                
+
         }
 
     }
@@ -1797,9 +2220,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     Font f = new Font("Title", 1, 16);
     Point startPoint;
     ClasseFigura currentSel = null;
-    ClasseFigura toPasteFig = null;
-    ArrayList<ClasseFigura> copiedFigures = new ArrayList<>();
-    ArrayList<JTextPane> miembros = new ArrayList<>();
+    ArrayList<ClasseFigura> copiedSimps = new ArrayList<>();
+    ArrayList<InheritanceFigura> copiedHerencias = new ArrayList<>();
+    ArrayList<AbstractaFigura> copiedAbstractos = new ArrayList<>();
+    ArrayList<InterfazFigura> copiedInterfaces = new ArrayList<>();
+    //ArrayList<JTextPane> miembros = new ArrayList<>();
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     StyledDocument docTitle, docText;
@@ -1819,6 +2244,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JPanel btn_datos;
     private javax.swing.JPanel btn_diseño;
     private javax.swing.JPanel btn_exit;
+    private javax.swing.JPanel btn_exitPython;
     private javax.swing.JButton btn_gray;
     private javax.swing.JButton btn_green;
     private javax.swing.JPanel btn_inicio;
@@ -1835,7 +2261,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JButton btn_pink;
     private javax.swing.JPanel btn_proceso;
     private javax.swing.JButton btn_purple;
+    private javax.swing.JPanel btn_python;
     private javax.swing.JButton btn_red;
+    private javax.swing.JButton btn_showTree;
     private javax.swing.JPanel btn_vista;
     private javax.swing.JButton btn_white;
     private javax.swing.JButton btn_yellow;
@@ -1843,6 +2271,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JComboBox<String> cb_estilo;
     private javax.swing.JComboBox<String> cb_fuente;
     private javax.swing.JComboBox<String> cb_size;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1853,19 +2282,27 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
@@ -1880,6 +2317,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator20;
     private javax.swing.JToolBar.Separator jSeparator21;
+    private javax.swing.JSeparator jSeparator22;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
@@ -1887,8 +2325,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JToolBar.Separator jSeparator9;
+    private javax.swing.JDialog jd_arbol;
+    private javax.swing.JDialog jd_python;
     private javax.swing.JPanel jp_workArea;
     private javax.swing.JScrollPane js_workArea;
+    private javax.swing.JTree jt_arbolClases;
     private javax.swing.JMenuItem mi_help;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPopupMenu pm_menu;
@@ -1897,6 +2338,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JToolBar tb_colors1;
     private javax.swing.JToolBar tb_colors2;
     private javax.swing.JToolBar tb_letras;
+    private javax.swing.JTextPane tp_pyIDE;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -1934,31 +2376,41 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         // Click derecho
         if (e.isMetaDown()) {
             try {
-                JMenuItem addAttribute = new JMenuItem("Agregar miembro");
+
+                JMenuItem addAttribute = new JMenuItem("Agregar atributo");
+                JMenuItem addMethod = new JMenuItem("Agregar metodo");
                 JMenuItem makeInheritance = new JMenuItem("Crear clase hija");
-                JMenu properties = new JMenu("Propiedades de la fuente");
+                JMenuItem loadTree = new JMenuItem("Actualizar arbol");
+                JMenu properties = new JMenu("Propiedades de la figura");
                 JMenuItem changeFontColor = new JMenuItem("Cambiar color");
                 JMenuItem changeFontHighlight = new JMenuItem("Subrayar");
 
                 JMenuItem copy = new JMenuItem("Copiar");
+                JMenuItem modify = new JMenuItem("Modificar");
                 JMenuItem delete = new JMenuItem("Eliminar");
                 JMenuItem help = new JMenuItem("Ayuda");
 
                 JSeparator separador = new JSeparator(SwingUtilities.HORIZONTAL);
                 JSeparator separador2 = new JSeparator(SwingUtilities.HORIZONTAL);
                 JSeparator separador3 = new JSeparator(SwingUtilities.HORIZONTAL);
+                JSeparator separador4 = new JSeparator(SwingUtilities.HORIZONTAL);
 
+                properties.add(loadTree);
+                properties.add(separador4);
+                properties.add(addAttribute);
+                properties.add(addMethod);
+                properties.add(separador2);
                 properties.add(changeFontColor);
                 properties.add(changeFontHighlight);
 
                 //Agrega el pop menu y los items
                 JPopupMenu rCMenu = new JPopupMenu();
-                rCMenu.add(addAttribute);
+                rCMenu.add(properties);
                 rCMenu.add(makeInheritance);
                 rCMenu.add(separador);
-                rCMenu.add(properties);
-                rCMenu.add(separador2);
+
                 rCMenu.add(copy);
+                rCMenu.add(modify);
                 rCMenu.add(delete);
                 rCMenu.add(separador3);
                 rCMenu.add(help);
@@ -1971,12 +2423,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         if (source instanceof ClasseFigura) {
 
                             ClasseFigura selected = (ClasseFigura) source;
-                            JTextPane newMiembro = new JTextPane();
-                            newMiembro.setSize(selected.getTextA().getWidth(), selected.getTextA().getHeight());
 
-                            newMiembro.setText("NombreMiembro");
-                            selected.add(newMiembro);
-                            selected.getMiembros().add(newMiembro);
+                            eliminarNodo(selected);
+
+                            JTextPane newAttribute = new JTextPane();
+                            newAttribute.setSize(selected.getTextA().getWidth(), selected.getTextA().getHeight());
+
+                            newAttribute.setText("NombreAtributo");
+                            selected.add(newAttribute);
+                            selected.getAtributos().add(newAttribute);
                             selected.setSize(selected.getWidth(), selected.getHeight() + 40);
                             selected.repaint();
 
@@ -1984,6 +2439,45 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             jp_workArea.repaint();
                         }
 
+                    }
+                });
+
+                //cargar arbol
+                loadTree.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            ClasseFigura figToLoad = (ClasseFigura) currentSel;
+
+                            generarArbol(figToLoad);
+
+                            JOptionPane.showMessageDialog(bg_UML, "Se ha cargado la informacion exitosamente!");
+                        } catch (NullPointerException ex) {
+                            JOptionPane.showMessageDialog(bg_UML, "Seleccione primero la figura que desea cargar", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    }
+                });
+
+                //Agregar metodos
+                addMethod.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ClasseFigura selected = (ClasseFigura) source;
+
+                        eliminarNodo(selected);
+
+                        JTextPane newMethod = new JTextPane();
+                        newMethod.setSize(selected.getTextM().getWidth(), selected.getTextM().getHeight());
+
+                        newMethod.setText("NombreMetodo");
+                        selected.add(newMethod);
+                        selected.getMetodos().add(newMethod);
+                        selected.setSize(selected.getWidth(), selected.getHeight() + 40);
+                        selected.repaint();
+
+                        jp_workArea.revalidate();
+                        jp_workArea.repaint();
                     }
                 });
 
@@ -2018,7 +2512,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                             docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
 
-                            for (JTextPane miembro : currentSel.getMiembros()) {
+                            for (JTextPane miembro : currentSel.getAtributos()) {
                                 StyledDocument tempDocText = miembro.getStyledDocument();
                                 Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -2039,20 +2533,75 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                         try {
 
-                            ClasseFigura claseCopiada = new ClasseFigura(currentSel);
+                            if (currentSel instanceof InheritanceFigura) {
+                                InheritanceFigura casted = (InheritanceFigura) currentSel;
 
-                            copiedFigures.add(claseCopiada);
+                                InheritanceFigura copiedClasseFigura = new InheritanceFigura(casted);
 
-                            jp_workArea.revalidate();
-                            jp_workArea.repaint();
+                                copiedHerencias.add(copiedClasseFigura);
 
-                            if (!copiedFigures.isEmpty()) {
-                                JOptionPane.showMessageDialog(bg_UML, "Copiado!");
+                                jp_workArea.revalidate();
+                                jp_workArea.repaint();
+
+                                if (!copiedHerencias.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_UML, "Copiado!");
+                                }
+                            } else if (currentSel instanceof AbstractaFigura) {
+                                AbstractaFigura casted = (AbstractaFigura) currentSel;
+
+                                AbstractaFigura copiedClasseFigura = new AbstractaFigura(casted);
+
+                                copiedAbstractos.add(copiedClasseFigura);
+
+                                jp_workArea.revalidate();
+                                jp_workArea.repaint();
+
+                                if (!copiedAbstractos.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_UML, "Copiado!");
+                                }
+
+                            } else if (currentSel instanceof InterfazFigura) {
+                                InterfazFigura casted = (InterfazFigura) currentSel;
+
+                                InterfazFigura copiedClasseFigura = new InterfazFigura(casted);
+
+                                copiedInterfaces.add(copiedClasseFigura);
+
+                                jp_workArea.revalidate();
+                                jp_workArea.repaint();
+
+                                if (!copiedAbstractos.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_UML, "Copiado!");
+                                }
+
+                            } else {
+                                ClasseFigura claseCopiada = new ClasseFigura(currentSel);
+
+                                copiedSimps.add(claseCopiada);
+
+                                jp_workArea.revalidate();
+                                jp_workArea.repaint();
+
+                                if (!copiedSimps.isEmpty()) {
+                                    JOptionPane.showMessageDialog(bg_UML, "Copiado!");
+                                }
                             }
+
                         } catch (NullPointerException ex) {
                             JOptionPane.showMessageDialog(bg_UML, "Debe seleccionar primero la figura", "Error", JOptionPane.ERROR_MESSAGE);
                         }
 
+                    }
+                });
+
+                // Modificar
+                modify.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (currentSel instanceof ClasseFigura) {
+                            eliminarNodo(currentSel);
+                            seleccion(currentSel, false);
+                        }
                     }
                 });
 
@@ -2062,11 +2611,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     public void actionPerformed(ActionEvent e) {
                         if (source instanceof ClasseFigura) {
 
-                            int op = JOptionPane.showConfirmDialog(bg_UML, "Esta seguro que desea eliminar?");
+                            int op = JOptionPane.showConfirmDialog(bg_UML, "Esta seguro que desea eliminar?\nSe eliminara tambien la informacion de este grafo del arbol!");
 
                             if (op == JOptionPane.YES_OPTION) {
                                 ClasseFigura selected = (ClasseFigura) source;
                                 jp_workArea.remove(selected);
+                                eliminarNodo(selected);
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
 

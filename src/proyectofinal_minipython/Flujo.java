@@ -1423,38 +1423,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_iniofin.setBackground(new Color(212, 212, 212));
     }//GEN-LAST:event_btn_iniofinMouseExited
 
-    private void btn_docMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseEntered
-        btn_doc.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_docMouseEntered
-
-    private void btn_docMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseExited
-        btn_doc.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_docMouseExited
-
-    private void btn_datMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseEntered
-        btn_dat.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_datMouseEntered
-
-    private void btn_datMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseExited
-        btn_dat.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_datMouseExited
-
-    private void btn_separadorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseEntered
-        btn_separador.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_separadorMouseEntered
-
-    private void btn_separadorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseExited
-        btn_separador.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_separadorMouseExited
-
-    private void btn_sepVerticalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseEntered
-        btn_sepVertical.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_sepVerticalMouseEntered
-
-    private void btn_sepVerticalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseExited
-        btn_sepVertical.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_sepVerticalMouseExited
-
     private void btn_procMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_procMouseClicked
         createSquare();
     }//GEN-LAST:event_btn_procMouseClicked
@@ -1464,14 +1432,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
     }//GEN-LAST:event_btn_decisionMouseClicked
 
-    private void btn_separadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseClicked
-
-    }//GEN-LAST:event_btn_separadorMouseClicked
-
-    private void btn_sepVerticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseClicked
-        g.drawLine(500, 500, 500, 350);
-    }//GEN-LAST:event_btn_sepVerticalMouseClicked
-
     private void btn_iniofinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniofinMouseClicked
         createCapsue();
     }//GEN-LAST:event_btn_iniofinMouseClicked
@@ -1479,14 +1439,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private void btn_subprocesoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_subprocesoMouseClicked
         createSubProcess();
     }//GEN-LAST:event_btn_subprocesoMouseClicked
-
-    private void btn_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseClicked
-        createParalel();
-    }//GEN-LAST:event_btn_datMouseClicked
-
-    private void btn_docMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseClicked
-        createDoc();
-    }//GEN-LAST:event_btn_docMouseClicked
 
     private void mi_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_pegarActionPerformed
         //Pegar el elemento copiado
@@ -2042,6 +1994,54 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             }
         }
     }//GEN-LAST:event_cb_sizeItemStateChanged
+
+    private void btn_sepVerticalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseExited
+        btn_sepVertical.setBackground(new Color(212, 212, 212));
+    }//GEN-LAST:event_btn_sepVerticalMouseExited
+
+    private void btn_sepVerticalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseEntered
+        btn_sepVertical.setBackground(new Color(211, 221, 225));
+    }//GEN-LAST:event_btn_sepVerticalMouseEntered
+
+    private void btn_sepVerticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseClicked
+        g.drawLine(500, 500, 500, 350);
+    }//GEN-LAST:event_btn_sepVerticalMouseClicked
+
+    private void btn_separadorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseExited
+        btn_separador.setBackground(new Color(212, 212, 212));
+    }//GEN-LAST:event_btn_separadorMouseExited
+
+    private void btn_separadorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseEntered
+        btn_separador.setBackground(new Color(211, 221, 225));
+    }//GEN-LAST:event_btn_separadorMouseEntered
+
+    private void btn_separadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseClicked
+
+    }//GEN-LAST:event_btn_separadorMouseClicked
+
+    private void btn_datMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseExited
+        btn_dat.setBackground(new Color(212, 212, 212));
+    }//GEN-LAST:event_btn_datMouseExited
+
+    private void btn_datMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseEntered
+        btn_dat.setBackground(new Color(211, 221, 225));
+    }//GEN-LAST:event_btn_datMouseEntered
+
+    private void btn_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseClicked
+        createParalel();
+    }//GEN-LAST:event_btn_datMouseClicked
+
+    private void btn_docMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseExited
+        btn_doc.setBackground(new Color(212, 212, 212));
+    }//GEN-LAST:event_btn_docMouseExited
+
+    private void btn_docMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseEntered
+        btn_doc.setBackground(new Color(211, 221, 225));
+    }//GEN-LAST:event_btn_docMouseEntered
+
+    private void btn_docMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseClicked
+        createDoc();
+    }//GEN-LAST:event_btn_docMouseClicked
 
     //metodos personales
     public void createSquare() {

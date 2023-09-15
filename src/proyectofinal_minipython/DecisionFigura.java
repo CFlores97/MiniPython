@@ -1,4 +1,4 @@
-package proyectofinal_minipython;
+  package proyectofinal_minipython;
 
 import java.awt.Color;
 import java.awt.Dimension;

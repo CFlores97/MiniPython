@@ -4,12 +4,19 @@ package proyectofinal_minipython;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 
 public class AbstractaFigura extends ClasseFigura{
 
     public AbstractaFigura() {
         super();
+    }
+    
+    public AbstractaFigura(AbstractaFigura c) {
+        super();
+        this.copyAbs(c);
     }
 
     public AbstractaFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
@@ -23,5 +30,50 @@ public class AbstractaFigura extends ClasseFigura{
         titleBG.add(titulo);
         
         
+    }
+    
+    public void copyAbs(AbstractaFigura c){
+        this.setBackground(c.getBackground());
+        this.setSize(c.getSize());
+        this.setLocation(c.getLocation());
+
+        this.titleBG = new JPanel();
+        this.titleBG.setBackground(c.getTitleBG().getBackground());
+        this.titleBG.setPreferredSize(c.getTitleBG().getPreferredSize());
+
+        this.titulo = new JTextPane();
+        this.titulo.setText(c.getTitulo().getText());
+        this.titulo.setSize(c.getTitulo().getSize());
+        this.titulo.setPreferredSize(c.getTitulo().getPreferredSize());
+        this.titulo.setBackground(c.getTitulo().getBackground());
+        this.titulo.setFont(c.getTitulo().getFont());
+        this.titulo.setForeground(c.getTitulo().getForeground());
+        
+        this.tit = new JLabel();
+        this.tit.setText(c.getTit().getText());
+        this.tit.setForeground(c.getTit().getForeground());
+        
+        this.titleBG.add(this.tit);
+        this.titleBG.add(this.titulo);
+
+        
+        this.add(this.titleBG);
+
+        for (JTextPane atributo : c.atributos) {
+            JTextPane copiedAtributo = new JTextPane();
+            copiedAtributo.setText(atributo.getText());
+            copiedAtributo.setSize(atributo.getSize());
+            this.add(copiedAtributo);
+            this.atributos.add(copiedAtributo);
+
+        }
+        for (JTextPane metodo : c.metodos) {
+            JTextPane copiedMetodo = new JTextPane();
+            copiedMetodo.setText(metodo.getText());
+            copiedMetodo.setSize(metodo.getSize());
+            this.add(copiedMetodo);
+            this.metodos.add(copiedMetodo);
+
+        }
     }
 }

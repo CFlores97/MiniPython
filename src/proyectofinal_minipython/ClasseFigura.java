@@ -25,17 +25,45 @@ public class ClasseFigura extends JPanel {
 
     private Font font = null;
     private JTextPane textA = new JTextPane();
+    private JTextPane textM = new JTextPane();
     private JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
 
-    private ArrayList<JTextPane> miembros = new ArrayList<>();
+    
+    
+    
+    //Atributos y Metodos
+    protected ArrayList<JTextPane> atributos = new ArrayList<>();
+    protected ArrayList<JTextPane> metodos = new ArrayList<>();
+    
 
-    public ArrayList<JTextPane> getMiembros() {
-        return miembros;
+    public ArrayList<JTextPane> getAtributos() {
+        return atributos;
     }
 
-    public void setMiembros(ArrayList<JTextPane> miembros) {
-        this.miembros = miembros;
+    public void setAtributos(ArrayList<JTextPane> atributos) {
+        this.atributos = atributos;
     }
+    
+    
+    public ArrayList<JTextPane> getMetodos() {
+        return metodos;
+    }
+
+    public void setMetodos(ArrayList<JTextPane> metodos) {
+        this.metodos = metodos;
+    }
+
+    public JTextPane getTextM() {
+        return textM;
+    }
+
+    public void setTextM(JTextPane textM) {
+        this.textM = textM;
+    }
+    
+    
+    
+    
 
     public ClasseFigura() {
     }
@@ -73,11 +101,20 @@ public class ClasseFigura extends JPanel {
         titleBG.add(tit);
         titleBG.add(titulo);
 
-        //Atributos del texto 
-        textA.setText("NombreMiembro");
+        //Atributos del atributo
+        textA.setText("NombreAtributo");
         textA.setBounds(getWidth() / 2, getHeight() / 2, 300, 200);
         textA.setMinimumSize(new Dimension(300, 200));
         textA.setMaximumSize(new Dimension(300, 200));
+        atributos.add(textA);
+        
+        
+        //Atributos del metodo 
+        textM.setText("NombreMetodo");
+        textM.setBounds(getWidth() / 2, getHeight() / 2, 300, 200);
+        textM.setMinimumSize(new Dimension(300, 200));
+        textM.setMaximumSize(new Dimension(300, 200));
+        metodos.add(textM);
         /*
         textA.setPreferredSize(new Dimension(300, textA.getHeight()));
         textA.setMinimumSize(new Dimension(300, textA.getHeight()));
@@ -88,6 +125,7 @@ public class ClasseFigura extends JPanel {
         add(titleBG); //agrega el panel del titulo
 
         add(textA);
+        add(textM);
         add(separator);
         
         //revalidate();
@@ -224,21 +262,23 @@ public class ClasseFigura extends JPanel {
         this.titleBG.add(this.tit);
         this.titleBG.add(this.titulo);
 
-        this.textA = new JTextPane();
-        this.textA.setText(c.getTextA().getText());
-
-        this.textA.setPreferredSize(c.getTextA().getSize());
-        this.textA.setForeground(c.getTextA().getForeground());
-
+        
         this.add(this.titleBG);
-        this.add(this.textA);
 
-        for (JTextPane miembro : c.miembros) {
-            JTextPane copiedMiembro = new JTextPane();
-            copiedMiembro.setText(miembro.getText());
-            copiedMiembro.setSize(miembro.getSize());
-            this.add(copiedMiembro);
-            this.miembros.add(copiedMiembro);
+        for (JTextPane atributo : c.atributos) {
+            JTextPane copiedAtributo = new JTextPane();
+            copiedAtributo.setText(atributo.getText());
+            copiedAtributo.setSize(atributo.getSize());
+            this.add(copiedAtributo);
+            this.atributos.add(copiedAtributo);
+
+        }
+        for (JTextPane metodo : c.metodos) {
+            JTextPane copiedMetodo = new JTextPane();
+            copiedMetodo.setText(metodo.getText());
+            copiedMetodo.setSize(metodo.getSize());
+            this.add(copiedMetodo);
+            this.metodos.add(copiedMetodo);
 
         }
 
