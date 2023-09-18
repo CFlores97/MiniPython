@@ -14,6 +14,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -35,6 +45,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -83,6 +94,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jLabel1 = new javax.swing.JLabel();
         btn_exitPython = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        m_menu = new javax.swing.JMenu();
+        pp_menu = new javax.swing.JPopupMenu();
+        mi_guardar = new javax.swing.JMenuItem();
+        mi_cargar = new javax.swing.JMenuItem();
         bg_UML = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         btn_archivo7 = new javax.swing.JPanel();
@@ -174,7 +189,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jLabel38 = new javax.swing.JLabel();
         btn_showTree = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        js_workArea = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jp_workArea = new javax.swing.JPanel();
 
         mi_pegar.setText("Pegar");
@@ -307,6 +322,24 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        m_menu.setText("jMenu1");
+
+        mi_guardar.setText("Guardar");
+        mi_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_guardarActionPerformed(evt);
+            }
+        });
+        pp_menu.add(mi_guardar);
+
+        mi_cargar.setText("Cargar");
+        mi_cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_cargarActionPerformed(evt);
+            }
+        });
+        pp_menu.add(mi_cargar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
@@ -317,6 +350,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         btn_archivo7.setBackground(new java.awt.Color(10, 10, 10));
         btn_archivo7.setPreferredSize(new java.awt.Dimension(64, 22));
         btn_archivo7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_archivo7MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_archivo7MouseEntered(evt);
             }
@@ -335,7 +371,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             btn_archivo7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_archivo7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btn_archivo7Layout.setVerticalGroup(
@@ -434,7 +470,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(btn_diseñoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel11)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btn_diseñoLayout.setVerticalGroup(
             btn_diseñoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -927,11 +963,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         .addGap(3, 3, 3))
                     .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                         .addGap(214, 214, 214)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                         .addGap(69, 69, 69)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1100,7 +1136,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         btn_interfazLayout.setVerticalGroup(
             btn_interfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1140,7 +1176,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel26)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         btn_abstractLayout.setVerticalGroup(
             btn_abstractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1212,7 +1248,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_abstract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
@@ -1259,9 +1295,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(586, 431));
 
-        js_workArea.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(1200, 1200));
 
         jp_workArea.setBackground(new java.awt.Color(255, 255, 255));
+        jp_workArea.setPreferredSize(new java.awt.Dimension(1000, 1000));
         jp_workArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jp_workAreaMouseClicked(evt);
@@ -1272,14 +1309,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jp_workArea.setLayout(jp_workAreaLayout);
         jp_workAreaLayout.setHorizontalGroup(
             jp_workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         jp_workAreaLayout.setVerticalGroup(
             jp_workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
 
-        js_workArea.setViewportView(jp_workArea);
+        jScrollPane3.setViewportView(jp_workArea);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1287,14 +1324,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(js_workArea)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(js_workArea, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1451,14 +1488,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private void btn_interfazMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_interfazMouseClicked
         createInterfaz();
     }//GEN-LAST:event_btn_interfazMouseClicked
-
-    private void jp_workAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_workAreaMouseClicked
-
-        //mostrar el popmenu
-        if (evt.isMetaDown()) {
-            pm_menu.show(jp_workArea, evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_jp_workAreaMouseClicked
 
     private void mi_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_pegarActionPerformed
 
@@ -1681,6 +1710,17 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempStyleText, true);
 
                 }
+                for (JTextPane miembro : currentSel.getMetodos()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempStyleText = miembro.addStyle("myTempStyle", null);
+
+                    StyleConstants.setFontFamily(tempStyleText, cb_fuente.getSelectedItem().toString());
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempStyleText, true);
+
+                }
+
+                DatosClasse datos = convertirDatosSimp(currentSel);
+                //datos.setFont(currentSel.getTitulo().getFont());
 
             }
 
@@ -1767,6 +1807,8 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         doc.remove(0, doc.getLength());
                     } catch (BadLocationException ex) {
                         Logger.getLogger(UML.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
 
                     DefaultTreeModel m = (DefaultTreeModel) jt_arbolClases.getModel();
@@ -1777,7 +1819,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                     try {
                         tree.translate(raiz, tp_pyIDE);
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(UML.class.getName()).log(Level.SEVERE, null, ex);
+
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -1808,16 +1850,707 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         jd_arbol.setVisible(true);
     }//GEN-LAST:event_btn_showTreeMouseClicked
 
+    private void mi_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarActionPerformed
+        JFileChooser jfc = new JFileChooser();
+
+        jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+                "Archivos karu",
+                "karu");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
+
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            try {
+                File file = null;
+                if (jfc.getFileFilter().getDescription().equals("Archivos karu")) {
+                    file = new File(jfc.getSelectedFile().getPath());
+                } else {
+                    file = jfc.getSelectedFile();
+                }
+                fw = new FileOutputStream(file);
+                bw = new ObjectOutputStream(fw);
+
+                for (Object figura : Figuras) {
+
+                    if (figura instanceof InheritanceFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Herenciafigura....");
+                        InheritanceFigura temp = (InheritanceFigura) figura;
+                        DatosInheritance dat = convertirDatosInh(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    } else if (figura instanceof AbstractaFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Abstractafigura....");
+                        AbstractaFigura temp = (AbstractaFigura) figura;
+                        DatosAbstract dat = convertirDatosAbs(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+
+                    } else if (figura instanceof InterfazFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Interfazfigura....");
+                        InterfazFigura temp = (InterfazFigura) figura;
+                        DatosInterfaz dat = convertirDatosInt(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+
+                    } else if (figura instanceof ClasseFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+                        ClasseFigura temp = (ClasseFigura) figura;
+                        DatosClasse dat = convertirDatosSimp(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    }
+
+                }
+
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error");
+                e.printStackTrace();
+            }
+            try {
+                bw.close();
+                fw.close();
+
+            } catch (Exception e) {
+            }
+
+        }
+    }//GEN-LAST:event_mi_guardarActionPerformed
+
+    private void btn_archivo7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_archivo7MouseClicked
+        pp_menu.show(btn_archivo7, evt.getX(), evt.getY());
+    }//GEN-LAST:event_btn_archivo7MouseClicked
+
+    private void mi_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_cargarActionPerformed
+        File file = null;
+        FileInputStream input = null;
+        ObjectInputStream obj = null;
+
+        try {
+            JFileChooser jfc = new JFileChooser();
+
+            jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos karu", "karu");
+
+            jfc.setFileFilter(filtro);
+
+            int sel = jfc.showOpenDialog(this);
+
+            if (sel == JFileChooser.APPROVE_OPTION) {
+                file = jfc.getSelectedFile();
+                input = new FileInputStream(file);
+                obj = new ObjectInputStream(input);
+                
+                int wannaCopy = JOptionPane.showConfirmDialog(this, "Desea copiar el diagrama seleccionado a este proyecto?");
+                
+                if(wannaCopy != JOptionPane.YES_OPTION){
+                    jp_workArea.removeAll();
+                }
+                
+
+                try {
+                    //continuar deserializando
+                    while (true) {
+                        Object objectDeserializado = obj.readObject();
+
+                        if (objectDeserializado instanceof DatosInheritance) {
+                            JOptionPane.showMessageDialog(this, "Deserializando Herenciafigura....");
+                            DatosInheritance tempClass = (DatosInheritance) objectDeserializado;
+                            InheritanceFigura clas = datosToFigInh(tempClass);
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+                            deserializedFiguras.add(clas);
+//                            jp_workArea.add(clas);
+
+                        } else if (objectDeserializado instanceof DatosAbstract) {
+                            JOptionPane.showMessageDialog(this, "Deserializando Abstractfigura....");
+                            DatosAbstract tempClass = (DatosAbstract) objectDeserializado;
+                            AbstractaFigura clas = datosToFigAbs(tempClass);
+                            clas.setLocation(ajustarPosicion(clas.getLocation(), jp_workArea.getSize(), clas.getSize()));
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+                            deserializedFiguras.add(clas);
+//                            jp_workArea.add(clas);
+                        } else if (objectDeserializado instanceof DatosInterfaz) {
+                            JOptionPane.showMessageDialog(this, "Deserializando Interfazfigura....");
+                            DatosInterfaz tempClass = (DatosInterfaz) objectDeserializado;
+                            InterfazFigura clas = datosToFigInt(tempClass);
+                            clas.setLocation(ajustarPosicion(clas.getLocation(), jp_workArea.getSize(), clas.getSize()));
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+                            deserializedFiguras.add(clas);
+//                            jp_workArea.add(clas);
+                        } else if (objectDeserializado instanceof DatosClasse) {
+                            JOptionPane.showMessageDialog(this, "Deserializando Simpfigura....");
+                            DatosClasse tempClass = (DatosClasse) objectDeserializado;
+                            ClasseFigura clas = datosToFig(tempClass);
+                            clas.setLocation(ajustarPosicion(clas.getLocation(), jp_workArea.getSize(), clas.getSize()));
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+                            deserializedFiguras.add(clas);
+//                            jp_workArea.add(clas);
+                        }
+
+                    }
+                } catch (EOFException e) {
+                    //llega al final del archivo
+                }
+                for (Object desFig : deserializedFiguras) {
+                    if (desFig instanceof InheritanceFigura) {
+                        InheritanceFigura temp = (InheritanceFigura) desFig;
+                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
+
+                        jp_workArea.add(temp);
+                        temp.revalidate();
+                        temp.repaint();
+                        temp.setVisible(true);
+                        jp_workArea.revalidate();
+                        jp_workArea.repaint();
+                    } else if (desFig instanceof AbstractaFigura) {
+                        AbstractaFigura temp = (AbstractaFigura) desFig;
+                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
+
+                        jp_workArea.add(temp);
+                        temp.revalidate();
+                        temp.repaint();
+                        temp.setVisible(true);
+                        jp_workArea.revalidate();
+                        jp_workArea.repaint();
+                    } else if (desFig instanceof InterfazFigura) {
+                        InterfazFigura temp = (InterfazFigura) desFig;
+                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
+
+                        jp_workArea.add(temp);
+                        temp.revalidate();
+                        temp.repaint();
+                        temp.setVisible(true);
+                        jp_workArea.revalidate();
+                        jp_workArea.repaint();
+                    } else if (desFig instanceof ClasseFigura) {
+                        ClasseFigura temp = (ClasseFigura) desFig;
+                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
+
+                        jp_workArea.add(temp);
+                        temp.revalidate();
+                        temp.repaint();
+                        temp.setVisible(true);
+                        jp_workArea.revalidate();
+                        jp_workArea.repaint();
+                    }
+                }
+
+                System.out.println(deserializedFiguras);
+                JOptionPane.showMessageDialog(this, jp_workArea.getComponentCount());
+
+                for (Component component : jp_workArea.getComponents()) {
+                    seleccion((ClasseFigura) component, true);
+                }
+                jp_workArea.revalidate();
+                jp_workArea.repaint();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar archivo");
+            e.printStackTrace();
+        }
+
+        try {
+            input.close();
+            obj.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_mi_cargarActionPerformed
+
+    private void jp_workAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_workAreaMouseClicked
+        if(evt.isMetaDown()){
+            pm_menu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jp_workAreaMouseClicked
+
     // metodos personales
+    //posicion
+    public Point ajustarPosicion(Point original, Dimension panelSize, Dimension componentSize) {
+        int maxX = panelSize.width - componentSize.width;
+        int maxY = panelSize.height - componentSize.height;
+
+        int x = original.x;
+        int y = original.y;
+
+        if (x > maxX) {
+            x = maxX;
+        }
+        if (y > maxY) {
+            y = maxY;
+        }
+
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+
+        return new Point(x, y);
+    }
+
+    //metodos para deserializar
+    public ClasseFigura datosToFig(DatosClasse c) {
+
+        ClasseFigura clasSimp = new ClasseFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), f, c.getColor());
+        clasSimp.remove(clasSimp.getTextA());
+        clasSimp.remove(clasSimp.getTextM());
+
+        clasSimp.getTitulo().setText(c.getTitulo());
+        clasSimp.getTitulo().setBackground(c.getColor());
+
+        /*
+        Style newStyle = clasSimp.getTitulo().addStyle("newStlye", null);
+        StyleConstants.setFontFamily(newStyle, c.getFontFamily());
+        StyleConstants.setFontSize(newStyle, c.getFontSize());
+        
+        
+        StyledDocument doc = clasSimp.getTitulo().getStyledDocument();
+        doc.setCharacterAttributes(0, doc.getLength(), newStyle, false);*/
+        //clasSimp.getTitulo().setStyledDocument(newStyle);
+        changeColor(clasSimp, c.getColor());
+        //clasSimp.getTextA().setText(c.getT);
+
+        for (String atributo : c.getAtributos()) {
+            JTextPane atr = new JTextPane();
+            atr.setText(atributo);
+            atr.setFont(c.getFont());
+            atr.setForeground(c.getFontColor());
+            clasSimp.getAtributos().add(atr);
+        }
+        for (String metodo : c.getMetodos()) {
+            JTextPane met = new JTextPane();
+            met.setText(metodo);
+            met.setFont(c.getFont());
+            met.setForeground(c.getFontColor());
+            clasSimp.getMetodos().add(met);
+        }
+
+        for (JTextPane atributo : clasSimp.getAtributos()) {
+            clasSimp.add(atributo);
+        }
+        for (JTextPane metodo : clasSimp.getMetodos()) {
+            clasSimp.add(metodo);
+        }
+
+        return clasSimp;
+    }
+
+    public InheritanceFigura datosToFigInh(DatosInheritance c) {
+
+        JTextPane tempTA = new JTextPane();
+        tempTA.setText(c.gettA());
+
+        InheritanceFigura clasSimp = new InheritanceFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), f, tempTA, c.getColor());
+
+        clasSimp.remove(clasSimp.getTextA());
+        clasSimp.remove(clasSimp.getTextM());
+        
+
+        clasSimp.getTitulo().setText(c.getTitulo());
+        clasSimp.getTitulo().setBackground(c.getColor());
+        
+        JOptionPane.showMessageDialog(this, textPadre);
+
+        
+//        clasSimp.getTit().setText(textPadre.get(0));
+//        textPadre.remove(0);
+        /*
+        Style newStyle = clasSimp.getTitulo().addStyle("newStlye", null);
+        StyleConstants.setFontFamily(newStyle, c.getFontFamily());
+        StyleConstants.setFontSize(newStyle, c.getFontSize());
+        
+        
+        StyledDocument doc = clasSimp.getTitulo().getStyledDocument();
+        doc.setCharacterAttributes(0, doc.getLength(), newStyle, false);*/
+        //clasSimp.getTitulo().setStyledDocument(newStyle);
+        changeColor(clasSimp, c.getColor());
+        //clasSimp.getTextA().setText(c.getT);
+
+        for (String atributo : c.getAtributos()) {
+            JTextPane atr = new JTextPane();
+            atr.setText(atributo);
+            atr.setFont(c.getFont());
+            atr.setForeground(c.getFontColor());
+            clasSimp.getAtributos().add(atr);
+        }
+        for (String metodo : c.getMetodos()) {
+            JTextPane met = new JTextPane();
+            met.setText(metodo);
+            met.setFont(c.getFont());
+            met.setForeground(c.getFontColor());
+            clasSimp.getMetodos().add(met);
+        }
+
+        for (JTextPane atributo : clasSimp.getAtributos()) {
+            clasSimp.add(atributo);
+        }
+        for (JTextPane metodo : clasSimp.getMetodos()) {
+            clasSimp.add(metodo);
+        }
+
+        return clasSimp;
+    }
+
+    public AbstractaFigura datosToFigAbs(DatosAbstract c) {
+
+        AbstractaFigura clasSimp = new AbstractaFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), f, c.getColor());
+        clasSimp.remove(clasSimp.getTextA());
+        clasSimp.remove(clasSimp.getTextM());
+
+        clasSimp.getTitulo().setText(c.getTitulo());
+        clasSimp.getTitulo().setBackground(c.getColor());
+
+        /*
+        Style newStyle = clasSimp.getTitulo().addStyle("newStlye", null);
+        StyleConstants.setFontFamily(newStyle, c.getFontFamily());
+        StyleConstants.setFontSize(newStyle, c.getFontSize());
+        
+        
+        StyledDocument doc = clasSimp.getTitulo().getStyledDocument();
+        doc.setCharacterAttributes(0, doc.getLength(), newStyle, false);*/
+        //clasSimp.getTitulo().setStyledDocument(newStyle);
+        changeColor(clasSimp, c.getColor());
+        //clasSimp.getTextA().setText(c.getT);
+
+        for (String atributo : c.getAtributos()) {
+            JTextPane atr = new JTextPane();
+            atr.setText(atributo);
+            atr.setFont(c.getFont());
+            atr.setForeground(c.getFontColor());
+            clasSimp.getAtributos().add(atr);
+        }
+        for (String metodo : c.getMetodos()) {
+            JTextPane met = new JTextPane();
+            met.setText(metodo);
+            met.setFont(c.getFont());
+            met.setForeground(c.getFontColor());
+            clasSimp.getMetodos().add(met);
+        }
+
+        for (JTextPane atributo : clasSimp.getAtributos()) {
+            clasSimp.add(atributo);
+        }
+        for (JTextPane metodo : clasSimp.getMetodos()) {
+            clasSimp.add(metodo);
+        }
+
+        return clasSimp;
+    }
+
+    public InterfazFigura datosToFigInt(DatosInterfaz c) {
+
+        InterfazFigura clasSimp = new InterfazFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), f, c.getColor());
+        clasSimp.remove(clasSimp.getTextA());
+        clasSimp.remove(clasSimp.getTextM());
+
+        clasSimp.getTitulo().setText(c.getTitulo());
+        clasSimp.getTitulo().setBackground(c.getColor());
+
+        /*
+        Style newStyle = clasSimp.getTitulo().addStyle("newStlye", null);
+        StyleConstants.setFontFamily(newStyle, c.getFontFamily());
+        StyleConstants.setFontSize(newStyle, c.getFontSize());
+        
+        
+        StyledDocument doc = clasSimp.getTitulo().getStyledDocument();
+        doc.setCharacterAttributes(0, doc.getLength(), newStyle, false);*/
+        //clasSimp.getTitulo().setStyledDocument(newStyle);
+        changeColor(clasSimp, c.getColor());
+        //clasSimp.getTextA().setText(c.getT);
+
+        for (String atributo : c.getAtributos()) {
+            JTextPane atr = new JTextPane();
+            atr.setText(atributo);
+            atr.setFont(c.getFont());
+            atr.setForeground(c.getFontColor());
+            clasSimp.getAtributos().add(atr);
+        }
+        for (String metodo : c.getMetodos()) {
+            JTextPane met = new JTextPane();
+            met.setText(metodo);
+            met.setFont(c.getFont());
+            met.setForeground(c.getFontColor());
+            clasSimp.getMetodos().add(met);
+        }
+
+        for (JTextPane atributo : clasSimp.getAtributos()) {
+            clasSimp.add(atributo);
+        }
+        for (JTextPane metodo : clasSimp.getMetodos()) {
+            clasSimp.add(metodo);
+        }
+
+        return clasSimp;
+    }
+
+    //metodos para serializar
+    public DatosInterfaz convertirDatosInt(InterfazFigura c) {
+
+        DatosInterfaz datos = new DatosInterfaz(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getTitulo().getText(), c.getTitleBG().getBackground());
+
+        datos.setFontColor(c.getFontColor());
+        Style styleTit = c.getTitulo().getStyle("myStyle");
+
+        //Style styleText = c.getTextA().getStyle("myStileText");
+        if (styleTit != null) {
+            datos.setFontFamily(StyleConstants.getFontFamily(styleTit));
+            datos.setFontSize(StyleConstants.getFontSize(styleTit));
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));
+        }
+
+        /*if(styleText != null){
+            datos.setFontAtrFamily(StyleConstants.getFontFamily(styleText));
+            datos.setFontAtrSize(StyleConstants.getFontSize(styleText));
+            
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));*
+        }*/
+        datos.setFont(c.getTitulo().getFont());
+
+        for (JTextPane atributo : c.getAtributos()) {
+
+            Style tempStyleText = atributo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+
+            datos.getAtributos().add(atributo.getText());
+        }
+        for (JTextPane metodo : c.getMetodos()) {
+
+            Style tempStyleText = metodo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+            datos.getMetodos().add(metodo.getText());
+        }
+
+        return datos;
+    }
+
+    public DatosInheritance convertirDatosInh(InheritanceFigura c) {
+
+        DatosInheritance datos = new DatosInheritance(
+                c.getSizeX(),
+                c.getSizeY(),
+                c.getLocX(),
+                c.getLocY(),
+                c.getTitulo().getText(),
+                c.getTit().getText(),
+                c.getTitleBG().getBackground());
+        
+        datos.settA(c.getTit().getText());
+        
+        textPadre.add(c.gettA().getText());
+        
+        //JOptionPane.showMessageDialog(this, c.gettA().getText());
+
+        datos.setFontColor(c.getFontColor());
+        Style styleTit = c.getTitulo().getStyle("myStyle");
+
+        //Style styleText = c.getTextA().getStyle("myStileText");
+        if (styleTit != null) {
+            datos.setFontFamily(StyleConstants.getFontFamily(styleTit));
+            datos.setFontSize(StyleConstants.getFontSize(styleTit));
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));
+        }
+
+        /*if(styleText != null){
+            datos.setFontAtrFamily(StyleConstants.getFontFamily(styleText));
+            datos.setFontAtrSize(StyleConstants.getFontSize(styleText));
+            
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));*
+        }*/
+        datos.setFont(c.getTitulo().getFont());
+
+        for (JTextPane atributo : c.getAtributos()) {
+
+            Style tempStyleText = atributo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+
+            datos.getAtributos().add(atributo.getText());
+        }
+        for (JTextPane metodo : c.getMetodos()) {
+
+            Style tempStyleText = metodo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+            datos.getMetodos().add(metodo.getText());
+        }
+
+        return datos;
+    }
+
+    public DatosAbstract convertirDatosAbs(AbstractaFigura c) {
+
+        DatosAbstract datos = new DatosAbstract(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getTitulo().getText(), c.getTitleBG().getBackground());
+
+        datos.setFontColor(c.getFontColor());
+        Style styleTit = c.getTitulo().getStyle("myStyle");
+
+        //Style styleText = c.getTextA().getStyle("myStileText");
+        if (styleTit != null) {
+            datos.setFontFamily(StyleConstants.getFontFamily(styleTit));
+            datos.setFontSize(StyleConstants.getFontSize(styleTit));
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));
+        }
+
+        /*if(styleText != null){
+            datos.setFontAtrFamily(StyleConstants.getFontFamily(styleText));
+            datos.setFontAtrSize(StyleConstants.getFontSize(styleText));
+            
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));*
+        }*/
+        datos.setFont(c.getTitulo().getFont());
+
+        for (JTextPane atributo : c.getAtributos()) {
+
+            Style tempStyleText = atributo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+
+            datos.getAtributos().add(atributo.getText());
+        }
+        for (JTextPane metodo : c.getMetodos()) {
+
+            Style tempStyleText = metodo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+            datos.getMetodos().add(metodo.getText());
+        }
+
+        return datos;
+    }
+
+    public DatosClasse convertirDatosSimp(ClasseFigura c) {
+
+        DatosClasse datos = new DatosClasse(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getTitulo().getText(), c.getTitleBG().getBackground());
+
+        datos.setFontColor(c.getFontColor());
+        Style styleTit = c.getTitulo().getStyle("myStyle");
+
+        //Style styleText = c.getTextA().getStyle("myStileText");
+        if (styleTit != null) {
+            datos.setFontFamily(StyleConstants.getFontFamily(styleTit));
+            datos.setFontSize(StyleConstants.getFontSize(styleTit));
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));
+        }
+
+        /*if(styleText != null){
+            datos.setFontAtrFamily(StyleConstants.getFontFamily(styleText));
+            datos.setFontAtrSize(StyleConstants.getFontSize(styleText));
+            
+            datos.setFgColor(StyleConstants.getForeground(styleTit));
+            datos.setBgColor(StyleConstants.getBackground(styleTit));*
+        }*/
+        datos.setFont(c.getTitulo().getFont());
+
+        for (JTextPane atributo : c.getAtributos()) {
+
+            Style tempStyleText = atributo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+
+            datos.getAtributos().add(atributo.getText());
+        }
+        for (JTextPane metodo : c.getMetodos()) {
+
+            Style tempStyleText = metodo.getStyle("myStyleText");
+
+            if (tempStyleText != null) {
+                datos.setFontAtrFamily(StyleConstants.getFontFamily(tempStyleText));
+                datos.setFontAtrSize(StyleConstants.getFontSize(tempStyleText));
+            }
+            datos.getMetodos().add(metodo.getText());
+        }
+
+        return datos;
+    }
+
+    //metodos para crear figuras
     public void createInheritance(ClasseFigura selected) {
 
         InheritanceFigura herencia = new InheritanceFigura(
+                200,
                 150,
-                100,
                 selected.getX(),
                 selected.getY() + 30,
                 f,
-                selected.getTitulo());
+                selected.getTitulo(),
+                new Color(70, 114, 196));
+
+        if (selected instanceof AbstractaFigura) {
+
+            for (JTextPane metodo : selected.getMetodos()) {
+                if (metodo.getText().contains("@")) {
+                    JTextPane copiedMethod = new JTextPane();
+                    copiedMethod.setText(metodo.getText());
+
+                    herencia.add(copiedMethod);
+                }
+
+            }
+
+        } else if (selected instanceof InterfazFigura) {
+            for (JTextPane metodo : selected.getMetodos()) {
+                if (metodo.getText().contains("@")) {
+                    JTextPane copiedMethod = new JTextPane();
+                    copiedMethod.setText(metodo.getText());
+                    //copiedMethod.setBounds(metodo.getX(), metodo.getY() + 10, metodo.getWidth(), metodo.getHeight());
+
+                    herencia.add(copiedMethod);
+                    //herencia.setSizeY(herencia.getSizeY() + 30);
+                }
+
+            }
+        }
 
         herencia.setClasePadre(selected);
 
@@ -1825,10 +2558,13 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         herencia.addMouseListener(this);
         herencia.addMouseMotionListener(this);
 
+        Figuras.add(herencia);
+
         jp_workArea.add(herencia);
 
         herencia.revalidate();
         jp_workArea.repaint();
+
     }
 
     public void createClase() {
@@ -1838,12 +2574,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 150,
                 jp_workArea.getWidth(),
                 jp_workArea.getHeight(),
-                f);
+                f,
+                new Color(70, 114, 196));
 
         //Agregar mouseListeners
         clase.addMouseListener(this);
         clase.addMouseMotionListener(this);
 
+        Figuras.add(clase);
         jp_workArea.add(clase);
 
         clase.revalidate();
@@ -1851,6 +2589,51 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     }
 
+    public void createAbstract() {
+
+        AbstractaFigura abs = new AbstractaFigura(
+                200,
+                180,
+                jp_workArea.getWidth(),
+                jp_workArea.getHeight(),
+                f, new Color(70, 114, 196));
+
+        //Agregar mouseListeners
+        abs.addMouseListener(this);
+        abs.addMouseMotionListener(this);
+
+        Figuras.add(abs);
+        jp_workArea.add(abs);
+
+        abs.revalidate();
+        jp_workArea.repaint();
+
+    }
+
+    public void createInterfaz() {
+
+        InterfazFigura interfaz = new InterfazFigura(
+                200,
+                180,
+                jp_workArea.getWidth(),
+                jp_workArea.getHeight(),
+                f, new Color(70, 114, 196));
+
+        interfaz.getTextM().setText("@NombreMetodo");
+
+        //Agregar mouseListeners
+        interfaz.addMouseListener(this);
+        interfaz.addMouseMotionListener(this);
+
+        Figuras.add(interfaz);
+        jp_workArea.add(interfaz);
+
+        interfaz.revalidate();
+        jp_workArea.repaint();
+
+    }
+
+    //mestos para arbol
     public void generarArbol(ClasseFigura clase) {
         //Arbol para generar codigo
         DefaultTreeModel modelo = (DefaultTreeModel) jt_arbolClases.getModel();
@@ -1877,26 +2660,34 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         DefaultMutableTreeNode className = new DefaultMutableTreeNode(classTit);
 
         //nodos atributo y metodo como hijos de la clase
-        
-        
-        
         DefaultMutableTreeNode classAttributes = new DefaultMutableTreeNode("Atributos");
-        
+
         DefaultMutableTreeNode classMethods = new DefaultMutableTreeNode("Metodos");
 
         //agrega a la raiz 
         if (clase instanceof InheritanceFigura) {
             clasePadre = ((InheritanceFigura) clase).getClasePadre();
-            DefaultMutableTreeNode parentClass= new DefaultMutableTreeNode(clasePadre.getTitulo().getText());
-            
+            DefaultMutableTreeNode parentClass = new DefaultMutableTreeNode(clasePadre.getTitulo().getText());
+            DefaultMutableTreeNode parentClassAtr = new DefaultMutableTreeNode("Atributos Padre");
+            DefaultMutableTreeNode parentClassMet = new DefaultMutableTreeNode("Metodos Padre");
+
             root.add(className);
+            parentClass.add(parentClassAtr);
+            parentClass.add(parentClassMet);
             className.add(parentClass);
-            
+
             for (JTextPane atributo : clasePadre.getAtributos()) {
                 DefaultMutableTreeNode atr = new DefaultMutableTreeNode(atributo.getText());
-                parentClass.add(atr);
+                parentClassAtr.add(atr);
             }
-            
+            for (JTextPane metodo : clasePadre.getMetodos()) {
+                if (metodo.getText().contains("@")) {
+                    DefaultMutableTreeNode met = new DefaultMutableTreeNode(metodo.getText());
+                    parentClassMet.add(met);
+                }
+
+            }
+
             className.add(classAttributes);
             className.add(classMethods);
         } else {
@@ -1924,7 +2715,20 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) m.getRoot();
 
         JTextPane tP = (JTextPane) c.getTitulo();
-        String figToDelete = tP.getText();
+        JLabel jl = (JLabel) c.getTit();
+
+        String figToDelete = "";
+        String inheritClass = jl.getText();
+
+        if (c instanceof InheritanceFigura) {
+            figToDelete = "Herencia: " + tP.getText() + "(" + inheritClass + ")";
+        } else if (c instanceof AbstractaFigura) {
+            figToDelete = "Abstracta: " + tP.getText();
+        } else if (c instanceof InterfazFigura) {
+            figToDelete = "Interfaz: " + tP.getText();
+        } else if (c instanceof ClasseFigura) {
+            figToDelete = "Simple: " + tP.getText();
+        }
 
         for (int i = 0; i < root.getChildCount(); i++) {
             DefaultMutableTreeNode tempNode = (DefaultMutableTreeNode) root.getChildAt(i);
@@ -1940,46 +2744,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     }
 
-    public void createAbstract() {
-
-        AbstractaFigura abs = new AbstractaFigura(
-                200,
-                180,
-                jp_workArea.getWidth(),
-                jp_workArea.getHeight(),
-                f);
-
-        //Agregar mouseListeners
-        abs.addMouseListener(this);
-        abs.addMouseMotionListener(this);
-
-        jp_workArea.add(abs);
-
-        abs.revalidate();
-        jp_workArea.repaint();
-
-    }
-
-    public void createInterfaz() {
-
-        InterfazFigura interfaz = new InterfazFigura(
-                200,
-                180,
-                jp_workArea.getWidth(),
-                jp_workArea.getHeight(),
-                f);
-
-        //Agregar mouseListeners
-        interfaz.addMouseListener(this);
-        interfaz.addMouseMotionListener(this);
-
-        jp_workArea.add(interfaz);
-
-        interfaz.revalidate();
-        jp_workArea.repaint();
-
-    }
-
+    //metodos para seleccion, color de figura y fuente
     public void seleccion(ClasseFigura selected, boolean isClicked) {
 
         if (isClicked) {
@@ -2217,6 +2982,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         });
     }
 
+    //variables globales
     Font f = new Font("Title", 1, 16);
     Point startPoint;
     ClasseFigura currentSel = null;
@@ -2224,11 +2990,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     ArrayList<InheritanceFigura> copiedHerencias = new ArrayList<>();
     ArrayList<AbstractaFigura> copiedAbstractos = new ArrayList<>();
     ArrayList<InterfazFigura> copiedInterfaces = new ArrayList<>();
+    ArrayList Figuras = new ArrayList();
+    ArrayList deserializedFiguras = new ArrayList();
     //ArrayList<JTextPane> miembros = new ArrayList<>();
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     StyledDocument docTitle, docText;
     Style styleTitle, styleText;
+    
+    ArrayList<String>textPadre = new ArrayList<>();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2303,6 +3073,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
@@ -2328,13 +3099,16 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JDialog jd_arbol;
     private javax.swing.JDialog jd_python;
     private javax.swing.JPanel jp_workArea;
-    private javax.swing.JScrollPane js_workArea;
     private javax.swing.JTree jt_arbolClases;
+    private javax.swing.JMenu m_menu;
+    private javax.swing.JMenuItem mi_cargar;
+    private javax.swing.JMenuItem mi_guardar;
     private javax.swing.JMenuItem mi_help;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPopupMenu pm_menu;
     private javax.swing.JPanel pn_formasMenu;
     private javax.swing.JPanel pn_ribbonMenu;
+    private javax.swing.JPopupMenu pp_menu;
     private javax.swing.JToolBar tb_colors1;
     private javax.swing.JToolBar tb_colors2;
     private javax.swing.JToolBar tb_letras;
@@ -2470,11 +3244,36 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         JTextPane newMethod = new JTextPane();
                         newMethod.setSize(selected.getTextM().getWidth(), selected.getTextM().getHeight());
 
-                        newMethod.setText("NombreMetodo");
-                        selected.add(newMethod);
-                        selected.getMetodos().add(newMethod);
-                        selected.setSize(selected.getWidth(), selected.getHeight() + 40);
-                        selected.repaint();
+                        if (selected instanceof AbstractaFigura) {
+                            int op = JOptionPane.showConfirmDialog(jp_workArea, "Desea que este metodo sea abstracto?");
+
+                            if (op == JOptionPane.YES_OPTION) {
+                                newMethod.setText("@NombreMetodo");
+                                selected.add(newMethod);
+                                selected.getMetodos().add(newMethod);
+                                selected.setSize(selected.getWidth(), selected.getHeight() + 40);
+                                selected.repaint();
+                            } else {
+                                newMethod.setText("NombreMetodo");
+                                selected.add(newMethod);
+                                selected.getMetodos().add(newMethod);
+                                selected.setSize(selected.getWidth(), selected.getHeight() + 40);
+                                selected.repaint();
+                            }
+
+                        } else if (selected instanceof InterfazFigura) {
+                            newMethod.setText("@NombreMetodo");
+                            selected.add(newMethod);
+                            selected.getMetodos().add(newMethod);
+                            selected.setSize(selected.getWidth(), selected.getHeight() + 40);
+                            selected.repaint();
+                        } else {
+                            newMethod.setText("NombreMetodo");
+                            selected.add(newMethod);
+                            selected.getMetodos().add(newMethod);
+                            selected.setSize(selected.getWidth(), selected.getHeight() + 40);
+                            selected.repaint();
+                        }
 
                         jp_workArea.revalidate();
                         jp_workArea.repaint();
@@ -2485,7 +3284,16 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 makeInheritance.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (source instanceof ClasseFigura) {
+
+                        if (source instanceof AbstractaFigura) {
+                            AbstractaFigura sel = (AbstractaFigura) source;
+
+                            createInheritance(sel);
+
+                            jp_workArea.revalidate();
+                            jp_workArea.repaint();
+
+                        } else if (source instanceof ClasseFigura) {
                             ClasseFigura selected = (ClasseFigura) source;
 
                             createInheritance(selected);
@@ -2494,6 +3302,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             jp_workArea.repaint();
 
                         }
+
                     }
                 });
 
@@ -2507,14 +3316,23 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             styleText = currentSel.getTextA().addStyle("myStyleText", null);
 
                             Color fontColor = JColorChooser.showDialog(bg_UML, "Seleccione Color", Color.red);
+                            currentSel.setFontColor(fontColor);
 
                             StyleConstants.setForeground(styleText, fontColor);
 
                             docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
 
-                            for (JTextPane miembro : currentSel.getAtributos()) {
-                                StyledDocument tempDocText = miembro.getStyledDocument();
-                                Style tempTextStlye = miembro.addStyle("myStyleText", null);
+                            for (JTextPane atributo : currentSel.getAtributos()) {
+                                StyledDocument tempDocText = atributo.getStyledDocument();
+                                Style tempTextStlye = atributo.addStyle("myStyleText", null);
+
+                                StyleConstants.setForeground(tempTextStlye, fontColor);
+                                tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+
+                            }
+                            for (JTextPane metodo : currentSel.getMetodos()) {
+                                StyledDocument tempDocText = metodo.getStyledDocument();
+                                Style tempTextStlye = metodo.addStyle("myStyleText", null);
 
                                 StyleConstants.setForeground(tempTextStlye, fontColor);
                                 tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
@@ -2539,6 +3357,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 InheritanceFigura copiedClasseFigura = new InheritanceFigura(casted);
 
                                 copiedHerencias.add(copiedClasseFigura);
+                                Figuras.add(copiedClasseFigura);
 
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
@@ -2552,6 +3371,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 AbstractaFigura copiedClasseFigura = new AbstractaFigura(casted);
 
                                 copiedAbstractos.add(copiedClasseFigura);
+                                Figuras.add(copiedClasseFigura);
 
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
@@ -2566,6 +3386,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 InterfazFigura copiedClasseFigura = new InterfazFigura(casted);
 
                                 copiedInterfaces.add(copiedClasseFigura);
+                                Figuras.add(copiedClasseFigura);
 
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
@@ -2578,6 +3399,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 ClasseFigura claseCopiada = new ClasseFigura(currentSel);
 
                                 copiedSimps.add(claseCopiada);
+                                Figuras.add(claseCopiada);
 
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
@@ -2588,6 +3410,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             }
 
                         } catch (NullPointerException ex) {
+                            ex.printStackTrace();
                             JOptionPane.showMessageDialog(bg_UML, "Debe seleccionar primero la figura", "Error", JOptionPane.ERROR_MESSAGE);
                         }
 
@@ -2616,6 +3439,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             if (op == JOptionPane.YES_OPTION) {
                                 ClasseFigura selected = (ClasseFigura) source;
                                 jp_workArea.remove(selected);
+                                Figuras.remove(selected);
                                 eliminarNodo(selected);
                                 jp_workArea.revalidate();
                                 jp_workArea.repaint();
@@ -2666,16 +3490,23 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         try {
             Component source = e.getComponent();
 
-            Point location = SwingUtilities.convertPoint(source, e.getPoint(), source.getParent());
+            if (source instanceof ClasseFigura) {
 
-            Point newLocation = source.getLocation();
-            newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
-            newLocation.x = Math.max(newLocation.x, 0);
-            newLocation.y = Math.max(newLocation.y, 0);
-            newLocation.x = Math.min(newLocation.x, source.getParent().getWidth() - source.getWidth());
-            newLocation.y = Math.min(newLocation.y, source.getParent().getHeight() - source.getHeight());
-            source.setLocation(newLocation);
-            startPoint = location;
+                ClasseFigura fig = (ClasseFigura) source;
+
+                Point location = SwingUtilities.convertPoint(fig, e.getPoint(), source.getParent());
+
+                Point newLocation = fig.getLocation();
+                newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
+                newLocation.x = Math.max(newLocation.x, 0);
+                newLocation.y = Math.max(newLocation.y, 0);
+                newLocation.x = Math.min(newLocation.x, fig.getParent().getWidth() - fig.getWidth());
+                newLocation.y = Math.min(newLocation.y, fig.getParent().getHeight() - fig.getHeight());
+                fig.setLocX(newLocation.x);
+                fig.setLocY(newLocation.y);
+                fig.setLocation(newLocation);
+                startPoint = location;
+            }
 
         } catch (Exception ex) {
 

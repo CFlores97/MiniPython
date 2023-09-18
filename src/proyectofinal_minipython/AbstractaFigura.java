@@ -1,11 +1,15 @@
 
 package proyectofinal_minipython;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 
 public class AbstractaFigura extends ClasseFigura{
@@ -19,8 +23,8 @@ public class AbstractaFigura extends ClasseFigura{
         this.copyAbs(c);
     }
 
-    public AbstractaFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
-        super(sizeX, sizeY, locX, locY, font);
+    public AbstractaFigura(int sizeX, int sizeY, int locX, int locY, Font font, Color color) {
+        super(sizeX, sizeY, locX, locY, font, color);
         
         titulo.setText("NombreAbstracta");
         tit.setText("<<Abstract>>");
@@ -63,6 +67,13 @@ public class AbstractaFigura extends ClasseFigura{
             JTextPane copiedAtributo = new JTextPane();
             copiedAtributo.setText(atributo.getText());
             copiedAtributo.setSize(atributo.getSize());
+            
+            StyledDocument tempDocText = copiedAtributo.getStyledDocument();
+            Style tempTextStlye = copiedAtributo.addStyle("myStyleText", null);
+
+            StyleConstants.setForeground(tempTextStlye, c.getFontColor());
+            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+            
             this.add(copiedAtributo);
             this.atributos.add(copiedAtributo);
 
@@ -71,6 +82,13 @@ public class AbstractaFigura extends ClasseFigura{
             JTextPane copiedMetodo = new JTextPane();
             copiedMetodo.setText(metodo.getText());
             copiedMetodo.setSize(metodo.getSize());
+            
+            StyledDocument tempDocText = copiedMetodo.getStyledDocument();
+            Style tempTextStlye = copiedMetodo.addStyle("myStyleText", null);
+
+            StyleConstants.setForeground(tempTextStlye, c.getFontColor());
+            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+            
             this.add(copiedMetodo);
             this.metodos.add(copiedMetodo);
 

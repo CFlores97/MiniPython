@@ -65,6 +65,10 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         pp_shits = new javax.swing.JPopupMenu();
         mi_pegar = new javax.swing.JMenuItem();
         mi_help = new javax.swing.JMenuItem();
+        jDialog1 = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         bg_flujo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_archivo = new javax.swing.JPanel();
@@ -152,19 +156,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        btn_doc = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         btn_dat = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        btn_separador = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        btn_sepVertical = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
 
         mi_pegar.setText("Pegar");
         mi_pegar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +170,38 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         mi_help.setText("Ayuda");
         pp_shits.add(mi_help);
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Flujo");
+        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jTree1);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(171, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -1041,47 +1067,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addContainerGap())
         );
 
-        btn_doc.setBackground(new java.awt.Color(212, 212, 212));
-        btn_doc.setForeground(new java.awt.Color(255, 255, 255));
-        btn_doc.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_doc.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_docMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_docMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_docMouseExited(evt);
-            }
-        });
-
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("Documento");
-
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/documento.png"))); // NOI18N
-
-        javax.swing.GroupLayout btn_docLayout = new javax.swing.GroupLayout(btn_doc);
-        btn_doc.setLayout(btn_docLayout);
-        btn_docLayout.setHorizontalGroup(
-            btn_docLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_docLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
-                .addContainerGap(7, Short.MAX_VALUE))
-        );
-        btn_docLayout.setVerticalGroup(
-            btn_docLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_docLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(btn_docLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
         btn_dat.setBackground(new java.awt.Color(212, 212, 212));
         btn_dat.setForeground(new java.awt.Color(255, 255, 255));
         btn_dat.setPreferredSize(new java.awt.Dimension(100, 48));
@@ -1111,7 +1096,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         btn_datLayout.setVerticalGroup(
             btn_datLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1123,116 +1108,24 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addGap(0, 18, Short.MAX_VALUE))
         );
 
-        btn_separador.setBackground(new java.awt.Color(212, 212, 212));
-        btn_separador.setForeground(new java.awt.Color(255, 255, 255));
-        btn_separador.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_separador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_separadorMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_separadorMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_separadorMouseExited(evt);
-            }
-        });
-
-        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel25.setText("Separador");
-
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/separador.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout btn_separadorLayout = new javax.swing.GroupLayout(btn_separador);
-        btn_separador.setLayout(btn_separadorLayout);
-        btn_separadorLayout.setHorizontalGroup(
-            btn_separadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_separadorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel25)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btn_separadorLayout.setVerticalGroup(
-            btn_separadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_separadorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(btn_separadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(7, Short.MAX_VALUE))
-        );
-
-        btn_sepVertical.setBackground(new java.awt.Color(212, 212, 212));
-        btn_sepVertical.setForeground(new java.awt.Color(255, 255, 255));
-        btn_sepVertical.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_sepVertical.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_sepVerticalMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_sepVerticalMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_sepVerticalMouseExited(evt);
-            }
-        });
-
-        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel27.setText("Separador");
-
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/separadorVert.png"))); // NOI18N
-
-        jLabel29.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel29.setText("(Vertical)");
-
-        javax.swing.GroupLayout btn_sepVerticalLayout = new javax.swing.GroupLayout(btn_sepVertical);
-        btn_sepVertical.setLayout(btn_sepVerticalLayout);
-        btn_sepVerticalLayout.setHorizontalGroup(
-            btn_sepVerticalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_sepVerticalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(btn_sepVerticalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel29))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btn_sepVerticalLayout.setVerticalGroup(
-            btn_sepVerticalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_sepVerticalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(btn_sepVerticalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(btn_sepVerticalLayout.createSequentialGroup()
-                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
-        );
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btn_subproceso, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                        .addComponent(btn_proc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btn_doc, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                        .addComponent(btn_separador, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_subproceso, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(btn_proc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_decision, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                    .addComponent(btn_iniofin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_dat, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                    .addComponent(btn_sepVertical, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                    .addComponent(btn_iniofin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_dat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1245,15 +1138,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_subproceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_iniofin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_dat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_separador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_sepVertical, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(btn_dat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pn_formasMenuLayout = new javax.swing.GroupLayout(pn_formasMenu);
@@ -1995,30 +1882,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         }
     }//GEN-LAST:event_cb_sizeItemStateChanged
 
-    private void btn_sepVerticalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseExited
-        btn_sepVertical.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_sepVerticalMouseExited
-
-    private void btn_sepVerticalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseEntered
-        btn_sepVertical.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_sepVerticalMouseEntered
-
-    private void btn_sepVerticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sepVerticalMouseClicked
-        g.drawLine(500, 500, 500, 350);
-    }//GEN-LAST:event_btn_sepVerticalMouseClicked
-
-    private void btn_separadorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseExited
-        btn_separador.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_separadorMouseExited
-
-    private void btn_separadorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseEntered
-        btn_separador.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_separadorMouseEntered
-
-    private void btn_separadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_separadorMouseClicked
-
-    }//GEN-LAST:event_btn_separadorMouseClicked
-
     private void btn_datMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseExited
         btn_dat.setBackground(new Color(212, 212, 212));
     }//GEN-LAST:event_btn_datMouseExited
@@ -2030,18 +1893,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private void btn_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datMouseClicked
         createParalel();
     }//GEN-LAST:event_btn_datMouseClicked
-
-    private void btn_docMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseExited
-        btn_doc.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_docMouseExited
-
-    private void btn_docMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseEntered
-        btn_doc.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_docMouseEntered
-
-    private void btn_docMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_docMouseClicked
-        createDoc();
-    }//GEN-LAST:event_btn_docMouseClicked
 
     //metodos personales
     public void createSquare() {
@@ -2704,7 +2555,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JPanel btn_datos;
     private javax.swing.JPanel btn_decision;
     private javax.swing.JPanel btn_diseño;
-    private javax.swing.JPanel btn_doc;
     private javax.swing.JPanel btn_exit;
     private javax.swing.JButton btn_gray;
     private javax.swing.JButton btn_green;
@@ -2723,8 +2573,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JPanel btn_proceso;
     private javax.swing.JButton btn_purple;
     private javax.swing.JButton btn_red;
-    private javax.swing.JPanel btn_sepVertical;
-    private javax.swing.JPanel btn_separador;
     private javax.swing.JPanel btn_subproceso;
     private javax.swing.JPanel btn_vista;
     private javax.swing.JButton btn_white;
@@ -2733,6 +2581,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JComboBox<String> cb_estilo;
     private javax.swing.JComboBox<String> cb_fuente;
     private javax.swing.JComboBox<String> cb_size;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2746,15 +2595,8 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
@@ -2765,7 +2607,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
@@ -2787,6 +2631,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JToolBar.Separator jSeparator9;
+    private javax.swing.JTree jTree1;
     private javax.swing.JMenuItem mi_help;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPanel pn_formasMenu;
