@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -33,10 +35,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
@@ -65,10 +71,23 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         pp_shits = new javax.swing.JPopupMenu();
         mi_pegar = new javax.swing.JMenuItem();
         mi_help = new javax.swing.JMenuItem();
-        jDialog1 = new javax.swing.JDialog();
+        jd_arbol = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        btn_exitDialog = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jt_arbolF = new javax.swing.JTree();
+        jLabel26 = new javax.swing.JLabel();
+        pp_addMenu = new javax.swing.JPopupMenu();
+        mi_addNode = new javax.swing.JMenuItem();
+        pp_delMenu = new javax.swing.JPopupMenu();
+        mi_delNode = new javax.swing.JMenuItem();
+        jd_python = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tp_pyIDE = new javax.swing.JTextPane();
+        btn_exitPy = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
         bg_flujo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_archivo = new javax.swing.JPanel();
@@ -138,8 +157,14 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_opaqueblue = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         btn_opaquepurple = new javax.swing.JButton();
+        btn_python = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jSeparator22 = new javax.swing.JSeparator();
         pn_formasMenu = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         workArea = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -149,9 +174,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_decision = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        btn_subproceso = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         btn_iniofin = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -159,6 +181,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_dat = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        btn_verArbol = new javax.swing.JButton();
 
         mi_pegar.setText("Pegar");
         mi_pegar.addActionListener(new java.awt.event.ActionListener() {
@@ -171,36 +194,198 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         mi_help.setText("Ayuda");
         pp_shits.add(mi_help);
 
+        jd_arbol.setUndecorated(true);
+
+        jPanel3.setBackground(new java.awt.Color(38, 38, 38));
+
+        btn_exitDialog.setBackground(new java.awt.Color(10, 10, 10));
+        btn_exitDialog.setForeground(new java.awt.Color(255, 255, 255));
+        btn_exitDialog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_exitDialogMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_exitDialogMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_exitDialogMouseExited(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("X");
+
+        javax.swing.GroupLayout btn_exitDialogLayout = new javax.swing.GroupLayout(btn_exitDialog);
+        btn_exitDialog.setLayout(btn_exitDialogLayout);
+        btn_exitDialogLayout.setHorizontalGroup(
+            btn_exitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_exitDialogLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel25)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        btn_exitDialogLayout.setVerticalGroup(
+            btn_exitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_exitDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jt_arbolF.setBackground(new java.awt.Color(68, 68, 68));
+        jt_arbolF.setForeground(new java.awt.Color(255, 255, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Flujo");
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane1.setViewportView(jTree1);
+        jt_arbolF.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jt_arbolF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_arbolFMouseClicked(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Seleccione a donde desea ingresar la instruccion");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addGap(36, 36, 36)
+                        .addComponent(btn_exitDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jt_arbolF, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(205, 205, 205))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_exitDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
+                .addComponent(jt_arbolF, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jd_arbolLayout = new javax.swing.GroupLayout(jd_arbol.getContentPane());
+        jd_arbol.getContentPane().setLayout(jd_arbolLayout);
+        jd_arbolLayout.setHorizontalGroup(
+            jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jd_arbolLayout.setVerticalGroup(
+            jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        mi_addNode.setText("Agregar");
+        mi_addNode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_addNodeActionPerformed(evt);
+            }
+        });
+        pp_addMenu.add(mi_addNode);
+
+        mi_delNode.setText("Eliminar");
+        mi_delNode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_delNodeActionPerformed(evt);
+            }
+        });
+        pp_delMenu.add(mi_delNode);
+
+        jd_python.setUndecorated(true);
+
+        jPanel5.setBackground(new java.awt.Color(38, 38, 38));
+
+        jLabel28.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Codigo en Python");
+
+        tp_pyIDE.setBackground(new java.awt.Color(30, 31, 34));
+        tp_pyIDE.setForeground(new java.awt.Color(187, 179, 172));
+        jScrollPane3.setViewportView(tp_pyIDE);
+
+        btn_exitPy.setBackground(new java.awt.Color(10, 10, 10));
+        btn_exitPy.setForeground(new java.awt.Color(255, 255, 255));
+        btn_exitPy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_exitPyMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_exitPyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_exitPyMouseExited(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("X");
+
+        javax.swing.GroupLayout btn_exitPyLayout = new javax.swing.GroupLayout(btn_exitPy);
+        btn_exitPy.setLayout(btn_exitPyLayout);
+        btn_exitPyLayout.setHorizontalGroup(
+            btn_exitPyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_exitPyLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel29)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        btn_exitPyLayout.setVerticalGroup(
+            btn_exitPyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_exitPyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(268, 268, 268)
+                .addComponent(jLabel28)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_exitPy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(btn_exitPy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+        );
+
+        javax.swing.GroupLayout jd_pythonLayout = new javax.swing.GroupLayout(jd_python.getContentPane());
+        jd_python.getContentPane().setLayout(jd_pythonLayout);
+        jd_pythonLayout.setHorizontalGroup(
+            jd_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jd_pythonLayout.setVerticalGroup(
+            jd_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -231,7 +416,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             btn_archivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_archivoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btn_archivoLayout.setVerticalGroup(
@@ -330,7 +515,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             .addGroup(btn_diseñoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel3)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btn_diseñoLayout.setVerticalGroup(
             btn_diseñoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -756,6 +941,62 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         });
         tb_colors2.add(btn_opaquepurple);
 
+        btn_python.setBackground(new java.awt.Color(54, 54, 54));
+        btn_python.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pythonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_pythonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_pythonMouseExited(evt);
+            }
+        });
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/Python logo.png"))); // NOI18N
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Convertir ");
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("a Python");
+
+        javax.swing.GroupLayout btn_pythonLayout = new javax.swing.GroupLayout(btn_python);
+        btn_python.setLayout(btn_pythonLayout);
+        btn_pythonLayout.setHorizontalGroup(
+            btn_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_pythonLayout.createSequentialGroup()
+                .addGroup(btn_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(btn_pythonLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel22))
+                    .addGroup(btn_pythonLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel27))
+                    .addGroup(btn_pythonLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel21)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btn_pythonLayout.setVerticalGroup(
+            btn_pythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_pythonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel27)
+                .addContainerGap())
+        );
+
+        jSeparator22.setBackground(new java.awt.Color(68, 68, 68));
+        jSeparator22.setForeground(new java.awt.Color(68, 68, 68));
+        jSeparator22.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout pn_ribbonMenuLayout = new javax.swing.GroupLayout(pn_ribbonMenu);
         pn_ribbonMenu.setLayout(pn_ribbonMenuLayout);
         pn_ribbonMenuLayout.setHorizontalGroup(
@@ -777,13 +1018,27 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addGroup(pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tb_colors1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                     .addComponent(tb_colors2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(372, 372, 372))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_python, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(283, 283, 283))
         );
         pn_ribbonMenuLayout.setVerticalGroup(
             pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(tb_colors1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tb_colors2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pn_ribbonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
+                        .addComponent(btn_python, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator22)
                     .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                         .addComponent(jSeparator3)
                         .addContainerGap())
@@ -795,12 +1050,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tb_letras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(45, 45, 45))))
-            .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(tb_colors1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tb_colors2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -853,7 +1102,10 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(1000, 1000));
+
         workArea.setBackground(new java.awt.Color(255, 255, 255));
+        workArea.setPreferredSize(new java.awt.Dimension(1000, 1000));
         workArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 workAreaMouseClicked(evt);
@@ -864,28 +1116,24 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setViewportView(workArea);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(workArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(workArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
         );
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -922,7 +1170,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         btn_procLayout.setVerticalGroup(
             btn_procLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -973,46 +1221,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        btn_subproceso.setBackground(new java.awt.Color(212, 212, 212));
-        btn_subproceso.setForeground(new java.awt.Color(255, 255, 255));
-        btn_subproceso.setPreferredSize(new java.awt.Dimension(100, 48));
-        btn_subproceso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_subprocesoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_subprocesoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_subprocesoMouseExited(evt);
-            }
-        });
-
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Subproceso");
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/project icons/Subproceso.png"))); // NOI18N
-
-        javax.swing.GroupLayout btn_subprocesoLayout = new javax.swing.GroupLayout(btn_subproceso);
-        btn_subproceso.setLayout(btn_subprocesoLayout);
-        btn_subprocesoLayout.setHorizontalGroup(
-            btn_subprocesoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_subprocesoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17)
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-        btn_subprocesoLayout.setVerticalGroup(
-            btn_subprocesoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_subprocesoLayout.createSequentialGroup()
-                .addGroup(btn_subprocesoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         btn_iniofin.setBackground(new java.awt.Color(212, 212, 212));
@@ -1096,7 +1304,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         btn_datLayout.setVerticalGroup(
             btn_datLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1108,23 +1316,30 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 .addGap(0, 18, Short.MAX_VALUE))
         );
 
+        btn_verArbol.setText("Ver Arbol");
+        btn_verArbol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_verArbolMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_subproceso, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(btn_proc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_proc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_dat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_decision, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(btn_iniofin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_dat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addComponent(btn_verArbol, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1135,12 +1350,12 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                     .addComponent(btn_proc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_decision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_subproceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_iniofin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_dat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_iniofin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_dat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(82, 82, 82)
+                .addComponent(btn_verArbol, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pn_formasMenuLayout = new javax.swing.GroupLayout(pn_formasMenu);
@@ -1294,14 +1509,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_decision.setBackground(new Color(212, 212, 212));
     }//GEN-LAST:event_btn_decisionMouseExited
 
-    private void btn_subprocesoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_subprocesoMouseEntered
-        btn_subproceso.setBackground(new Color(211, 221, 225));
-    }//GEN-LAST:event_btn_subprocesoMouseEntered
-
-    private void btn_subprocesoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_subprocesoMouseExited
-        btn_subproceso.setBackground(new Color(212, 212, 212));
-    }//GEN-LAST:event_btn_subprocesoMouseExited
-
     private void btn_iniofinMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniofinMouseEntered
         btn_iniofin.setBackground(new Color(211, 221, 225));
     }//GEN-LAST:event_btn_iniofinMouseEntered
@@ -1322,10 +1529,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private void btn_iniofinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniofinMouseClicked
         createCapsue();
     }//GEN-LAST:event_btn_iniofinMouseClicked
-
-    private void btn_subprocesoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_subprocesoMouseClicked
-        createSubProcess();
-    }//GEN-LAST:event_btn_subprocesoMouseClicked
 
     private void mi_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_pegarActionPerformed
         //Pegar el elemento copiado
@@ -1567,30 +1770,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        if (currentSel instanceof SubProcesoFigura) {
-            try {
-
-                if (cb_fuente.getSelectedIndex() != -1 && currentSel != null) {
-
-                    SubProcesoFigura temp = (SubProcesoFigura) currentSel;
-                    // declara variables
-                    docText = temp.getText().getStyledDocument();
-
-                    styleText = temp.getText().addStyle("myStyleText", null);
-
-                    //Asigna el font a la variable styleText
-                    StyleConstants.setFontFamily(styleText, cb_fuente.getSelectedItem().toString());
-
-                    //Cambia el font de "myStyleText" al que se selecciono
-                    docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
-
-                }
-
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        
         if (currentSel instanceof DatosFigura) {
             try {
 
@@ -1692,22 +1872,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             }
 
         }
-        if (currentSel instanceof SubProcesoFigura) {
-            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
-            try {
-                if (currentSel != null) {
-
-                    docText = papada.getText().getStyledDocument();
-
-                    styleText = papada.getText().addStyle("myStyleText", null);
-
-                    //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
-                    changeFont();
-                }
-            } catch (Exception e) {
-            }
-
-        }
+        
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             try {
@@ -1812,29 +1977,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             }
 
         }
-        if (currentSel instanceof SubProcesoFigura) {
-            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
-            try {
-                if (currentSel != null) {
-
-                    docText = papada.getText().getStyledDocument();
-
-                    styleText = papada.getText().addStyle("myStyleText", null);
-
-                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                    docText.setCharacterAttributes(0,
-                            docText.getLength(),
-                            styleText,
-                            true);
-
-                    changeFont();
-
-                }
-            } catch (Exception e) {
-            }
-
-        }
+        
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             try {
@@ -1894,11 +2037,253 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         createParalel();
     }//GEN-LAST:event_btn_datMouseClicked
 
+    private void btn_verArbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_verArbolMouseClicked
+        jd_arbol.pack();
+        jd_arbol.setModal(true);
+        jd_arbol.setLocationRelativeTo(this);
+        jd_arbol.setVisible(true);
+    }//GEN-LAST:event_btn_verArbolMouseClicked
+
+    private void btn_exitDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitDialogMouseClicked
+        jd_arbol.setVisible(false);
+    }//GEN-LAST:event_btn_exitDialogMouseClicked
+
+    private void btn_exitDialogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitDialogMouseEntered
+        btn_exitDialog.setBackground(new Color(232, 17, 35));
+    }//GEN-LAST:event_btn_exitDialogMouseEntered
+
+    private void btn_exitDialogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitDialogMouseExited
+        btn_exitDialog.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_exitDialogMouseExited
+
+    private void jt_arbolFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_arbolFMouseClicked
+        if (evt.isMetaDown()) {
+            //DefaultTreeModel m = (DefaultTreeModel) jt_arbolF.getModel();
+
+            selectedNode = (DefaultMutableTreeNode) jt_arbolF.getLastSelectedPathComponent();
+
+            try {
+                if (selectedNode.getUserObject().equals("True") || selectedNode.getUserObject().equals("False")) {
+                    pp_addMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+                } else {
+                    pp_delMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            } catch (NullPointerException e) {
+                //JOptionPane.showMessageDialog(this, "Seleccione un nodo adentro del bucle o condicional al que quiera agregar!");
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_jt_arbolFMouseClicked
+
+    private void mi_addNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_addNodeActionPerformed
+        DefaultTreeModel m = (DefaultTreeModel) jt_arbolF.getModel();
+        String figTit = "";
+
+        if (selectedNode != null && currentSel != null) {
+            if (currentSel instanceof ProcesoFigura) {
+                ProcesoFigura temp = (ProcesoFigura) currentSel;
+                figTit = "Proceso: " + temp.getText().getText();
+                DefaultMutableTreeNode sigInstru = new DefaultMutableTreeNode(figTit);
+                selectedNode.add(sigInstru);
+
+            } else if (currentSel instanceof DecisionFigura) {
+                DecisionFigura temp = (DecisionFigura) currentSel;
+
+                if (temp.isIsLoop()) {
+
+                    generarWhile(temp, selectedNode);
+                    bucles.add(temp);
+
+                } else if (temp.isIsConditional()) {
+
+                    generarIf(temp, selectedNode);
+                    condicionales.add(temp);
+
+                }
+
+            } else if (currentSel instanceof DatosFigura) {
+                DatosFigura temp = (DatosFigura) currentSel;
+                figTit = "Datos: " + temp.getText().getText();
+                DefaultMutableTreeNode sigInstru = new DefaultMutableTreeNode(figTit);
+                selectedNode.add(sigInstru);
+            } else if (currentSel instanceof InicioFigura) {
+                InicioFigura temp = (InicioFigura) currentSel;
+                figTit = "#" + temp.getText().getText();
+                DefaultMutableTreeNode sigInstru = new DefaultMutableTreeNode(figTit);
+                selectedNode.add(sigInstru);
+            }
+        }
+
+        m.reload();
+    }//GEN-LAST:event_mi_addNodeActionPerformed
+
+    private void mi_delNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_delNodeActionPerformed
+        DefaultTreeModel m = (DefaultTreeModel) jt_arbolF.getModel();
+
+        if (selectedNode != null && currentSel != null) {
+            int op = JOptionPane.showConfirmDialog(this, "Esta seguro que desea eliminar el nodo?");
+
+            if (op == JOptionPane.YES_OPTION) {
+                m.removeNodeFromParent(selectedNode);
+            }
+
+        }
+
+        m.reload();
+    }//GEN-LAST:event_mi_delNodeActionPerformed
+
+    private void btn_pythonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pythonMouseClicked
+
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Procedera a generarse codigo de python, verifique que todo este correcto");
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            jd_python.pack();
+            jd_python.setModal(true);
+            jd_python.setLocationRelativeTo(this);
+            jd_python.setVisible(true);
+
+            try {
+
+                tp_pyIDE.setText("");
+                
+                DefaultTreeModel m = (DefaultTreeModel) jt_arbolF.getModel();
+                DefaultMutableTreeNode root = (DefaultMutableTreeNode) m.getRoot();
+
+                AdminTreeFLujo arbolFlujo = new AdminTreeFLujo();
+
+                arbolFlujo.translate(root, tp_pyIDE);
+                
+                
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al generar codigo");
+            }
+        }
+
+        //m.reload();
+    }//GEN-LAST:event_btn_pythonMouseClicked
+
+    private void btn_pythonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pythonMouseEntered
+        btn_python.setBackground(new Color(68, 68, 68));
+    }//GEN-LAST:event_btn_pythonMouseEntered
+
+    private void btn_pythonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pythonMouseExited
+        btn_python.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_pythonMouseExited
+
+    private void btn_exitPyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPyMouseClicked
+        jd_python.setVisible(false);
+    }//GEN-LAST:event_btn_exitPyMouseClicked
+
+    private void btn_exitPyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPyMouseEntered
+        btn_exitPy.setBackground(new Color(232, 17, 35));
+    }//GEN-LAST:event_btn_exitPyMouseEntered
+
+    private void btn_exitPyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPyMouseExited
+        btn_exitPy.setBackground(new Color(38, 38, 38));
+    }//GEN-LAST:event_btn_exitPyMouseExited
+
+    //metodo para generar whiles e ifs
+    public void generarWhile(DecisionFigura temp, DefaultMutableTreeNode c) {
+
+        String figTit = "while " + temp.getText().getText() + ":";
+
+        DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
+
+        DefaultMutableTreeNode verdadero = new DefaultMutableTreeNode("True");
+        DefaultMutableTreeNode falso = new DefaultMutableTreeNode("False");
+
+        figName.add(verdadero);
+        figName.add(falso);
+
+        c.add(figName);
+    }
+
+    public void generarIf(DecisionFigura temp, DefaultMutableTreeNode c) {
+
+        String figTit = "If " + temp.getText().getText() + ":";
+
+        DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
+
+        DefaultMutableTreeNode verdadero = new DefaultMutableTreeNode("True");
+        DefaultMutableTreeNode falso = new DefaultMutableTreeNode("False");
+
+        figName.add(verdadero);
+        figName.add(falso);
+
+        c.add(figName);
+    }
+
+    //metodo para generar arbol
+    public void generarArbol(JPanel c) {
+        DefaultTreeModel modelo = (DefaultTreeModel) jt_arbolF.getModel();
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) modelo.getRoot();
+
+        String figTit = "";
+
+        if (c instanceof ProcesoFigura) {
+            ProcesoFigura temp = (ProcesoFigura) c;
+            figTit = "Proceso: " + temp.getText().getText();
+            DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
+            root.add(figName);
+            JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
+
+        }
+        if (c instanceof DecisionFigura) {
+            DecisionFigura temp = (DecisionFigura) c;
+
+            if (temp.isIsLoop()) {
+                generarWhile(temp, root);
+                JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
+
+            } else if (temp.isIsConditional()) {
+                generarIf(temp, root);
+                JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe marcar si es bucle o condicional primero!");
+            }
+
+        }
+        if (c instanceof InicioFigura) {
+            InicioFigura temp = (InicioFigura) c;
+            figTit = "#" + temp.getText().getText();
+            DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
+            root.add(figName);
+            JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
+
+        }
+        if (c instanceof DatosFigura) {
+            DatosFigura temp = (DatosFigura) c;
+            figTit = "Datos: " + temp.getText().getText();
+            DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
+            root.add(figName);
+            JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
+
+        }
+
+        modelo.reload();
+
+    }
+
+    //verificar si hay bucles y condicionales
+    public boolean hayBucles() {
+        return !bucles.isEmpty();
+    }
+
+    public boolean hayCondicionales() {
+        return !condicionales.isEmpty();
+    }
+
     //metodos personales
     public void createSquare() {
 
         ProcesoFigura proceso = new ProcesoFigura(
-                100,
+                200,
                 60,
                 workArea.getWidth(),
                 workArea.getHeight(),
@@ -1910,24 +2295,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         workArea.add(proceso);
 
         proceso.revalidate();
-        workArea.repaint();
-    }
-
-    public void createSubProcess() {
-
-        SubProcesoFigura subProcess = new SubProcesoFigura(
-                100,
-                60,
-                workArea.getWidth(),
-                workArea.getHeight(),
-                f);
-
-        subProcess.addMouseListener(this);
-        subProcess.addMouseMotionListener(this);
-
-        workArea.add(subProcess);
-
-        subProcess.revalidate();
         workArea.repaint();
     }
 
@@ -1950,7 +2317,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
     public void createCapsue() {
         InicioFigura capsule = new InicioFigura(
-                150,
+                230,
                 40,
                 workArea.getWidth(),
                 workArea.getHeight(),
@@ -1967,7 +2334,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
     public void createParalel() {
         DatosFigura capsule = new DatosFigura(
-                130,
+                210,
                 60,
                 workArea.getWidth(),
                 workArea.getHeight(),
@@ -2026,10 +2393,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             InicioFigura papada = (InicioFigura) currentSel;
             papada.setColor(color);
         }
-        if (currentSel instanceof SubProcesoFigura) {
-            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
-            papada.setColor(color);
-        }
+        
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             papada.setColor(color);
@@ -2271,81 +2635,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
             }
         }
-        if (currentSel instanceof SubProcesoFigura) {
-            SubProcesoFigura papada = (SubProcesoFigura) currentSel;
-            int selectedStlye = cb_estilo.getSelectedIndex();
-            switch (selectedStlye) {
-                case 0:
-                    int writtenLength = docText.getLength();
-                    for (int i = 0; i < writtenLength; i++) {
-                        Element element = docText.getCharacterElement(i);
-                        AttributeSet attrs = element.getAttributes();
-
-                        if (StyleConstants.isBold(attrs)) {
-                            StyleConstants.setBold(styleText, false);
-                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                            docText.setCharacterAttributes(0,
-                                    docText.getLength(),
-                                    styleText,
-                                    true);
-                        }
-                        if (StyleConstants.isItalic(attrs)) {
-                            StyleConstants.setItalic(styleText, false);
-                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                            docText.setCharacterAttributes(0,
-                                    docText.getLength(),
-                                    styleText,
-                                    true);
-
-                        }
-                        if (StyleConstants.isUnderline(attrs)) {
-                            StyleConstants.setUnderline(styleText, false);
-                            StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                            docText.setCharacterAttributes(0,
-                                    docText.getLength(),
-                                    styleText,
-                                    true);
-
-                        }
-                    }
-                    break;
-                case 1:
-                    StyleConstants.setBold(styleText, true);
-                    //StyleConstants.setBold(styleTitle, true);
-                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                    docText.setCharacterAttributes(0,
-                            docText.getLength(),
-                            styleText,
-                            true);
-                    break;
-                case 2:
-                    StyleConstants.setItalic(styleText, true);
-                    //StyleConstants.setItalic(styleTitle, true);
-                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                    docText.setCharacterAttributes(0,
-                            docText.getLength(),
-                            styleText,
-                            true);
-                    break;
-                case 3:
-                    StyleConstants.setUnderline(styleText, true);
-                    //StyleConstants.setUnderline(styleTitle, true);
-                    StyleConstants.setFontSize(styleText, Integer.parseInt(cb_size.getSelectedItem().toString()));
-
-                    docText.setCharacterAttributes(0,
-                            docText.getLength(),
-                            styleText,
-                            true);
-                    break;
-                default:
-
-            }
-        }
+        
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             int selectedStlye = cb_estilo.getSelectedIndex();
@@ -2535,11 +2825,15 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     JPanel currentSel = null;
     JPanel toPasteFig = null;
     ArrayList<JPanel> copiedFigures = new ArrayList<>();
+    ArrayList<DecisionFigura> bucles = new ArrayList<>();
+    ArrayList<DecisionFigura> condicionales = new ArrayList<>();
 
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     StyledDocument docTitle, docText;
     Style styleTitle, styleText;
+
+    DefaultMutableTreeNode selectedNode = null;
 
     Graphics g;
 
@@ -2556,6 +2850,8 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JPanel btn_decision;
     private javax.swing.JPanel btn_diseño;
     private javax.swing.JPanel btn_exit;
+    private javax.swing.JPanel btn_exitDialog;
+    private javax.swing.JPanel btn_exitPy;
     private javax.swing.JButton btn_gray;
     private javax.swing.JButton btn_green;
     private javax.swing.JPanel btn_inicio;
@@ -2572,8 +2868,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JPanel btn_proc;
     private javax.swing.JPanel btn_proceso;
     private javax.swing.JButton btn_purple;
+    private javax.swing.JPanel btn_python;
     private javax.swing.JButton btn_red;
-    private javax.swing.JPanel btn_subproceso;
+    private javax.swing.JButton btn_verArbol;
     private javax.swing.JPanel btn_vista;
     private javax.swing.JButton btn_white;
     private javax.swing.JButton btn_yellow;
@@ -2581,7 +2878,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JComboBox<String> cb_estilo;
     private javax.swing.JComboBox<String> cb_fuente;
     private javax.swing.JComboBox<String> cb_size;
-    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2590,13 +2886,18 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
@@ -2609,7 +2910,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
@@ -2624,6 +2927,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator20;
     private javax.swing.JToolBar.Separator jSeparator21;
+    private javax.swing.JSeparator jSeparator22;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
@@ -2631,15 +2935,22 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JToolBar.Separator jSeparator9;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JDialog jd_arbol;
+    private javax.swing.JDialog jd_python;
+    private javax.swing.JTree jt_arbolF;
+    private javax.swing.JMenuItem mi_addNode;
+    private javax.swing.JMenuItem mi_delNode;
     private javax.swing.JMenuItem mi_help;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPanel pn_formasMenu;
     private javax.swing.JPanel pn_ribbonMenu;
+    private javax.swing.JPopupMenu pp_addMenu;
+    private javax.swing.JPopupMenu pp_delMenu;
     private javax.swing.JPopupMenu pp_shits;
     private javax.swing.JToolBar tb_colors1;
     private javax.swing.JToolBar tb_colors2;
     private javax.swing.JToolBar tb_letras;
+    private javax.swing.JTextPane tp_pyIDE;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 
@@ -2680,9 +2991,20 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             try {
                 JMenuItem addAttribute = new JMenuItem("Crear coneccion");
 
+                JMenuItem loadTree = new JMenuItem("Actualizar arbol");
                 JMenu properties = new JMenu("Propiedades de la fuente");
+
+                JMenu opciones = new JMenu("Opciones");
+
                 JMenuItem changeFontColor = new JMenuItem("Cambiar color");
-                JMenuItem changeFontHighlight = new JMenuItem("Subrayar");
+
+                JMenuItem isLoop = new JMenuItem("Marcar como ciclo \"while\"");
+                JMenuItem isConditional = new JMenuItem("Marcar como condicional");
+
+                JMenuItem addToConditional = new JMenuItem("Añadir a una condicional");
+                JMenuItem addToLoop = new JMenuItem("añadir a un bucle");
+                JMenuItem addProcess = new JMenuItem("Agregar un proceso");
+                JMenuItem addDatos = new JMenuItem("Agregar una lectura de datos");
 
                 JMenuItem copy = new JMenuItem("Copiar");
                 JMenuItem delete = new JMenuItem("Eliminar");
@@ -2692,13 +3014,28 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 JSeparator separador2 = new JSeparator(SwingUtilities.HORIZONTAL);
                 JSeparator separador3 = new JSeparator(SwingUtilities.HORIZONTAL);
 
+                if (currentSel instanceof DecisionFigura) {
+                    opciones.add(loadTree);
+                    opciones.add(isLoop);
+                    opciones.add(isConditional);
+                } else {
+                    opciones.add(loadTree);
+                }
+
+                if (hayBucles()) {
+
+                    opciones.add(addToLoop);
+                }
+                if (hayCondicionales()) {
+                    opciones.add(addToConditional);
+                }
                 properties.add(changeFontColor);
-                properties.add(changeFontHighlight);
 
                 //Agrega el pop menu y los items
                 JPopupMenu rCMenu = new JPopupMenu();
-                rCMenu.add(addAttribute);
 
+                rCMenu.add(opciones);
+                rCMenu.add(addAttribute);
                 rCMenu.add(separador);
                 rCMenu.add(properties);
                 rCMenu.add(separador2);
@@ -2706,6 +3043,67 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 rCMenu.add(delete);
                 rCMenu.add(separador3);
                 rCMenu.add(help);
+
+                //agregar profundidad a bucle
+                addToLoop.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jd_arbol.pack();
+                        jd_arbol.setModal(true);
+                        jd_arbol.setLocationRelativeTo(bg_flujo);
+                        jd_arbol.setVisible(true);
+
+                    }
+                });
+
+                addToConditional.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jd_arbol.pack();
+                        jd_arbol.setModal(true);
+                        jd_arbol.setLocationRelativeTo(bg_flujo);
+                        jd_arbol.setVisible(true);
+                    }
+                });
+
+                //agregar bucles al arbol
+                isLoop.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            if (currentSel instanceof DecisionFigura) {
+                                DecisionFigura bucle = (DecisionFigura) currentSel;
+                                bucle.setIsLoop(true);
+
+                                JOptionPane.showMessageDialog(bg_flujo, "Marcado como bucle");
+                            }
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(bg_flujo, "No se puedo agregar al arbol!");
+                            ex.printStackTrace();
+                        }
+
+                    }
+                });
+
+                //agregar condicionales al arbol
+                isConditional.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            if (currentSel instanceof DecisionFigura) {
+                                DecisionFigura condicional = (DecisionFigura) currentSel;
+                                condicional.setIsConditional(true);
+
+                                JOptionPane.showMessageDialog(bg_flujo, "Marcado como condicional");
+                            }
+
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(bg_flujo, "No se puedo agregar al arbol!");
+                            ex.printStackTrace();
+                        }
+
+                    }
+                });
 
                 // Copiar 
                 copy.addActionListener(new ActionListener() {
@@ -2752,18 +3150,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                                     JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
                                 }
                             }
-                            if (currentSel instanceof SubProcesoFigura) {
-                                SubProcesoFigura claseCopiada = new SubProcesoFigura(currentSel);
-
-                                copiedFigures.add(claseCopiada);
-
-                                workArea.revalidate();
-                                workArea.repaint();
-
-                                if (!copiedFigures.isEmpty()) {
-                                    JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
-                                }
-                            }
+                           
                             if (currentSel instanceof DatosFigura) {
                                 DatosFigura claseCopiada = new DatosFigura(currentSel);
 
@@ -2795,6 +3182,43 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
                     }
                 });
+
+                //cargar Arbol
+                loadTree.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            if (currentSel instanceof ProcesoFigura) {
+                                ProcesoFigura figToLoad = (ProcesoFigura) currentSel;
+                                generarArbol(figToLoad);
+
+                            }
+                            if (currentSel instanceof DecisionFigura) {
+                                DecisionFigura figToLoad = (DecisionFigura) currentSel;
+
+                                generarArbol(figToLoad);
+                                if (figToLoad.isIsLoop()) {
+                                    bucles.add(figToLoad);
+                                } else if (figToLoad.isIsConditional()) {
+                                    condicionales.add(figToLoad);
+                                }
+
+                            }
+                            if (currentSel instanceof InicioFigura) {
+                                InicioFigura figToLoad = (InicioFigura) currentSel;
+                                generarArbol(figToLoad);
+                            }
+                            if (currentSel instanceof DatosFigura) {
+                                DatosFigura figToLoad = (DatosFigura) currentSel;
+                                generarArbol(figToLoad);
+                            }
+
+                        } catch (NullPointerException ex) {
+                            JOptionPane.showMessageDialog(bg_flujo, "Seleccione primero la figura que desea cargar", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+
                 //Cambiar color del font
                 changeFontColor.addActionListener(new ActionListener() {
                     @Override
@@ -2837,18 +3261,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                                 docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
 
                             }
-                            if (currentSel instanceof SubProcesoFigura) {
-                                SubProcesoFigura papada = (SubProcesoFigura) currentSel;
-                                docText = papada.getText().getStyledDocument();
-                                styleText = papada.getText().addStyle("myStyleText", null);
-
-                                Color fontColor = JColorChooser.showDialog(bg_flujo, "Seleccione Color", Color.red);
-
-                                StyleConstants.setForeground(styleText, fontColor);
-
-                                docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
-
-                            }
+                         
                             if (currentSel instanceof DatosFigura) {
                                 DatosFigura papada = (DatosFigura) currentSel;
                                 docText = papada.getText().getStyledDocument();

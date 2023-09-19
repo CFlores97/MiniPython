@@ -140,15 +140,15 @@ public class DatosFigura extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        int x = getWidth() / 2 - 50; 
+        int x = getWidth() / 2 - 90; 
         int y = getHeight() / 2 - 35; 
-        int w = 100; 
+        int w = 160; 
         int h = 70; 
         int inclinacion = 30; 
 
         g.setColor(color);
 
-        int[] xPoints = {x + inclinacion - 20, x + w + inclinacion - 20, x + w - 20, x - 20};
+        int[] xPoints = {x + inclinacion , x + w + inclinacion , x + w - 20, x - 20};
         int[] yPoints = {y, y, y + h, y + h};
 
         g.fillPolygon(xPoints, yPoints, 4); // Dibuja el paralelogramo

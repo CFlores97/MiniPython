@@ -13,6 +13,8 @@ import javax.swing.plaf.ComponentUI;
 
 public class DecisionFigura extends JPanel {
     private int sizeX, sizeY, locX, locY;
+    private boolean isLoop;
+    private boolean isConditional;
 
     protected JTextPane text = new JTextPane();
     Color color = new Color(70, 114, 196);
@@ -40,6 +42,24 @@ public class DecisionFigura extends JPanel {
 
         repaint();
     }
+
+    public boolean isIsLoop() {
+        return isLoop;
+    }
+
+    public void setIsLoop(boolean isLoop) {
+        this.isLoop = isLoop;
+    }
+
+    public boolean isIsConditional() {
+        return isConditional;
+    }
+
+    public void setIsConditional(boolean isConditional) {
+        this.isConditional = isConditional;
+    }
+    
+    
     
     public DecisionFigura(JPanel c) {
         super();
@@ -163,5 +183,12 @@ public class DecisionFigura extends JPanel {
         this.add(this.text);
 
     }
+
+    @Override
+    public String toString() {
+        return text.getText();
+    }
+    
+    
 
 }

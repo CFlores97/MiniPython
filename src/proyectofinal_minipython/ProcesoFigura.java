@@ -144,7 +144,7 @@ public class ProcesoFigura extends JPanel {
         super.paintComponent(g);
 
         g.setColor(color);
-        g.fillRect(0, 0, 100, 60);
+        g.fillRect(0, 0, 200, 60);
     }
 
     public void copy(JPanel c) {
