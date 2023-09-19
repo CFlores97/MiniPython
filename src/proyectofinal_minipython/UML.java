@@ -1880,10 +1880,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                     if (figura instanceof InheritanceFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Herenciafigura....");
+                        
                         InheritanceFigura temp = (InheritanceFigura) figura;
+                        
                         DatosInheritance dat = convertirDatosInh(temp);
+                        
                         bw.writeObject(dat);
+                        
                         bw.flush();
+                        
                     } else if (figura instanceof AbstractaFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Abstractafigura....");
                         AbstractaFigura temp = (AbstractaFigura) figura;

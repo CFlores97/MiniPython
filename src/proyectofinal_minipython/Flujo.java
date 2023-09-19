@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -34,6 +38,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -88,6 +93,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         tp_pyIDE = new javax.swing.JTextPane();
         btn_exitPy = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
+        pp_archivos = new javax.swing.JPopupMenu();
+        mi_guardar = new javax.swing.JMenuItem();
+        mi_cargar = new javax.swing.JMenuItem();
         bg_flujo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_archivo = new javax.swing.JPanel();
@@ -388,6 +396,17 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        mi_guardar.setText("Guardar");
+        mi_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_guardarActionPerformed(evt);
+            }
+        });
+        pp_archivos.add(mi_guardar);
+
+        mi_cargar.setText("Cargar");
+        pp_archivos.add(mi_cargar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
@@ -398,6 +417,9 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_archivo.setBackground(new java.awt.Color(10, 10, 10));
         btn_archivo.setPreferredSize(new java.awt.Dimension(64, 22));
         btn_archivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_archivoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_archivoMouseEntered(evt);
             }
@@ -2186,6 +2208,85 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         btn_exitPy.setBackground(new Color(38, 38, 38));
     }//GEN-LAST:event_btn_exitPyMouseExited
 
+    private void btn_archivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_archivoMouseClicked
+        if(evt.isMetaDown()){
+            pp_archivos.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_btn_archivoMouseClicked
+
+    private void mi_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarActionPerformed
+        JFileChooser jfc = new JFileChooser();
+
+        jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+                "Archivos karu",
+                "karu");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
+
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            try {
+                File file = null;
+                if (jfc.getFileFilter().getDescription().equals("Archivos karu")) {
+                    file = new File(jfc.getSelectedFile().getPath());
+                } else {
+                    file = jfc.getSelectedFile();
+                }
+                fw = new FileOutputStream(file);
+                bw = new ObjectOutputStream(fw);
+
+                for (Component figura : workArea.getComponents()) {
+
+                    if (figura instanceof ProcesoFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Procesofigura....");
+                        ProcesoFigura temp = (ProcesoFigura) figura;
+//                        DatosInheritance dat = convertirDatosInh(temp);
+//                        bw.writeObject(dat);
+                        bw.flush();
+                    } else if (figura instanceof DatosFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Datosfigura....");
+                        DatosFigura temp = (DatosFigura) figura;
+//                        DatosAbstract dat = convertirDatosAbs(temp);
+//                        bw.writeObject(dat);
+                        bw.flush();
+
+                    } else if (figura instanceof DecisionFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Decisionfigura....");
+                        DecisionFigura temp = (DecisionFigura) figura;
+//                        DatosInterfaz dat = convertirDatosInt(temp);
+//                        bw.writeObject(dat);
+                        bw.flush();
+
+                    } else if (figura instanceof InicioFigura) {
+                        JOptionPane.showMessageDialog(this, "Serializando Inicio o fin figura....");
+                        InicioFigura temp = (InicioFigura) figura;
+//                        DatosClasse dat = convertirDatosSimp(temp);
+//                        bw.writeObject(dat);
+                        bw.flush();
+                    }
+
+                }
+
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error");
+                e.printStackTrace();
+            }
+            try {
+                bw.close();
+                fw.close();
+
+            } catch (Exception e) {
+            }
+
+        }
+    }//GEN-LAST:event_mi_guardarActionPerformed
+
     //metodo para generar whiles e ifs
     public void generarWhile(DecisionFigura temp, DefaultMutableTreeNode c) {
 
@@ -2227,9 +2328,13 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         if (c instanceof ProcesoFigura) {
             ProcesoFigura temp = (ProcesoFigura) c;
+            
             figTit = "Proceso: " + temp.getText().getText();
+            
             DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
+            
             root.add(figName);
+            
             JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
 
         }
@@ -2939,12 +3044,15 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JDialog jd_python;
     private javax.swing.JTree jt_arbolF;
     private javax.swing.JMenuItem mi_addNode;
+    private javax.swing.JMenuItem mi_cargar;
     private javax.swing.JMenuItem mi_delNode;
+    private javax.swing.JMenuItem mi_guardar;
     private javax.swing.JMenuItem mi_help;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPanel pn_formasMenu;
     private javax.swing.JPanel pn_ribbonMenu;
     private javax.swing.JPopupMenu pp_addMenu;
+    private javax.swing.JPopupMenu pp_archivos;
     private javax.swing.JPopupMenu pp_delMenu;
     private javax.swing.JPopupMenu pp_shits;
     private javax.swing.JToolBar tb_colors1;

@@ -34,18 +34,34 @@ public class AdminTreeFLujo {
     public void recorrer(DefaultMutableTreeNode node, StringBuilder code, String indent) {
         String nodeValue = node.toString();
 
+        
         //si encuentra un primer bucle while
         if (nodeValue.startsWith("while ")) {
+            
             code.append(indent).append(nodeValue).append("\n");
+            
             Enumeration<?> hijos = node.children();
 
             while (hijos.hasMoreElements()) {
+                
                 DefaultMutableTreeNode condVer = (DefaultMutableTreeNode) hijos.nextElement();
+                
                 if (condVer.toString().equals("True")) {
+                    
                     recorrer(condVer, code, indent + "    ");
                 }
             }
-        } //si encuentra una condicional If
+        } 
+
+
+
+
+
+
+
+
+
+//si encuentra una condicional If
         else if (nodeValue.startsWith("If ")) {
             //JOptionPane.showMessageDialog(null, "Procesando nodo: " + nodeValue);
             code.append(indent).append(nodeValue).append("\n");
