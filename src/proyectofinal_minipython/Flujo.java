@@ -2,8 +2,10 @@ package proyectofinal_minipython;
 
 import java.awt.Color;
 import java.awt.Component;
+import static java.awt.Component.TOP_ALIGNMENT;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Label;
 import java.awt.MouseInfo;
@@ -15,12 +17,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
@@ -48,6 +57,11 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
@@ -96,6 +110,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         pp_archivos = new javax.swing.JPopupMenu();
         mi_guardar = new javax.swing.JMenuItem();
         mi_cargar = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
+        mi_guardarPNG = new javax.swing.JMenuItem();
+        mi_guardarPDF = new javax.swing.JMenuItem();
+        jSeparator24 = new javax.swing.JPopupMenu.Separator();
+        mi_imprimir = new javax.swing.JMenuItem();
         bg_flujo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_archivo = new javax.swing.JPanel();
@@ -406,6 +425,33 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         mi_cargar.setText("Cargar");
         pp_archivos.add(mi_cargar);
+        pp_archivos.add(jSeparator23);
+
+        mi_guardarPNG.setText("Guardar Imagen");
+        mi_guardarPNG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_guardarPNGActionPerformed(evt);
+            }
+        });
+        pp_archivos.add(mi_guardarPNG);
+
+        mi_guardarPDF.setText("Guardar PDF");
+        mi_guardarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_guardarPDFActionPerformed(evt);
+            }
+        });
+        pp_archivos.add(mi_guardarPDF);
+        pp_archivos.add(jSeparator24);
+
+        mi_imprimir.setText("Imprimir");
+        mi_imprimir.setToolTipText("");
+        mi_imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_imprimirActionPerformed(evt);
+            }
+        });
+        pp_archivos.add(mi_imprimir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -1792,7 +1838,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 JOptionPane.showMessageDialog(this, "Seleccione la figura la cual desea aplicar la fuente", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         if (currentSel instanceof DatosFigura) {
             try {
 
@@ -1894,7 +1940,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             }
 
         }
-        
+
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             try {
@@ -1999,7 +2045,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             }
 
         }
-        
+
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             try {
@@ -2169,15 +2215,13 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             try {
 
                 tp_pyIDE.setText("");
-                
+
                 DefaultTreeModel m = (DefaultTreeModel) jt_arbolF.getModel();
                 DefaultMutableTreeNode root = (DefaultMutableTreeNode) m.getRoot();
 
                 AdminTreeFLujo arbolFlujo = new AdminTreeFLujo();
 
                 arbolFlujo.translate(root, tp_pyIDE);
-                
-                
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -2209,9 +2253,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     }//GEN-LAST:event_btn_exitPyMouseExited
 
     private void btn_archivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_archivoMouseClicked
-        if(evt.isMetaDown()){
-            pp_archivos.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
+        pp_archivos.show(evt.getComponent(), evt.getX(), evt.getY());
     }//GEN-LAST:event_btn_archivoMouseClicked
 
     private void mi_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarActionPerformed
@@ -2287,6 +2329,170 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         }
     }//GEN-LAST:event_mi_guardarActionPerformed
 
+    private void mi_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_imprimirActionPerformed
+        try {
+            PrintRecord(workArea);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al imprimir");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_mi_imprimirActionPerformed
+
+    private void mi_guardarPNGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarPNGActionPerformed
+        saveAsPNG();
+    }//GEN-LAST:event_mi_guardarPNGActionPerformed
+
+    private void mi_guardarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarPDFActionPerformed
+        saveAsPDF();
+    }//GEN-LAST:event_mi_guardarPDFActionPerformed
+
+    //metodos para imprimir, pdf e imagen
+    private void PrintRecord(JPanel panel) {
+
+        PrinterJob pj = PrinterJob.getPrinterJob();
+
+        //Ponerle nombre al PrinterJob
+        pj.setJobName("Print Record");
+
+        //Hacer el Set Printable
+        pj.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                //Chequea si el size es muy grande
+                if (pageIndex > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+
+                //Hacer las Graficas 2D
+                Graphics2D graphics2D = (Graphics2D) graphics;
+
+                //Hacer la "traduccion" de las graficas
+                graphics2D.translate(pageFormat.getImageableX() * 2, pageFormat.getImageableY() * 2);
+
+                //Esto es una escala de pagina. No obstante, la default es 0.3, no 0.5.
+                graphics2D.scale(0.5, 0.5);
+
+                //Pintamos el panel como graficas
+                panel.paint(graphics2D);
+
+                //Retornar si la pagina existe
+                return Printable.PAGE_EXISTS;
+            }
+
+        });
+
+        //Guardar PrinterDialog como booleano
+        boolean Resultadoreturn = pj.printDialog();
+
+        //Revisar si el dialogo se muestra
+        if (Resultadoreturn) {
+
+            try {
+                //Llamamos al metodo para imprimir
+                pj.print();
+
+            } catch (PrinterException printerexc) {
+                JOptionPane.showMessageDialog(null, printerexc.getMessage());
+            }
+
+        }
+
+    }
+    
+    public void saveAsPNG() {
+        try {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setDialogTitle("Guardar Imagen como PNG");
+            
+            jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+            int userSelection = jfc.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = jfc.getSelectedFile();
+                String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+                int Pa = workArea.getWidth();
+                int Pal = workArea.getHeight();
+
+                BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2d = bf.createGraphics();
+
+                workArea.paint(g2d);
+                g2d.dispose();
+
+                try {
+                    ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                    JOptionPane.showMessageDialog(this, "Imagen guardada exitosamente!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se selecciono ninguna ubicacion para guardar la imagen.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar la imagen");
+            e.printStackTrace();
+        }
+
+    }
+    
+    public void saveAsPDF() {
+        try {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setDialogTitle("Guardar Imagen como PNG y PDF");
+
+            jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+            int userSelection = jfc.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = jfc.getSelectedFile();
+                String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+                int Pa = workArea.getWidth();
+                int Pal = workArea.getHeight();
+
+                BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2d = bf.createGraphics();
+
+                workArea.paint(g2d);
+                g2d.dispose();
+                workArea.paint(g2d);
+                g2d.dispose();
+
+                PDDocument document = new PDDocument();
+                PDPage page = new PDPage(new PDRectangle(Pa, Pal));
+                document.addPage(page);
+
+                try {
+                    ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                    JOptionPane.showMessageDialog(this, "Imagen creada exitosamente");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    PDPageContentStream contentStream = new PDPageContentStream(document, page);
+                    contentStream.drawImage(PDImageXObject.createFromFile(nombre + ".png", document), TOP_ALIGNMENT, TOP_ALIGNMENT);
+                    contentStream.close();
+                    document.save(new File(nombre + ".pdf"));
+                    document.close();
+                    JOptionPane.showMessageDialog(this, "Archivo pdf creado exitosamente");
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar pdf");
+            e.printStackTrace();
+        }
+
+    }
+
     //metodo para generar whiles e ifs
     public void generarWhile(DecisionFigura temp, DefaultMutableTreeNode c) {
 
@@ -2328,13 +2534,13 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
         if (c instanceof ProcesoFigura) {
             ProcesoFigura temp = (ProcesoFigura) c;
-            
+
             figTit = "Proceso: " + temp.getText().getText();
-            
+
             DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
-            
+
             root.add(figName);
-            
+
             JOptionPane.showMessageDialog(bg_flujo, "Se ha cargado la informacion exitosamente!");
 
         }
@@ -2498,7 +2704,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             InicioFigura papada = (InicioFigura) currentSel;
             papada.setColor(color);
         }
-        
+
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             papada.setColor(color);
@@ -2740,7 +2946,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
             }
         }
-        
+
         if (currentSel instanceof DatosFigura) {
             DatosFigura papada = (DatosFigura) currentSel;
             int selectedStlye = cb_estilo.getSelectedIndex();
@@ -3033,6 +3239,8 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JToolBar.Separator jSeparator20;
     private javax.swing.JToolBar.Separator jSeparator21;
     private javax.swing.JSeparator jSeparator22;
+    private javax.swing.JPopupMenu.Separator jSeparator23;
+    private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
@@ -3047,7 +3255,10 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
     private javax.swing.JMenuItem mi_cargar;
     private javax.swing.JMenuItem mi_delNode;
     private javax.swing.JMenuItem mi_guardar;
+    private javax.swing.JMenuItem mi_guardarPDF;
+    private javax.swing.JMenuItem mi_guardarPNG;
     private javax.swing.JMenuItem mi_help;
+    private javax.swing.JMenuItem mi_imprimir;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPanel pn_formasMenu;
     private javax.swing.JPanel pn_ribbonMenu;
@@ -3258,7 +3469,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                                     JOptionPane.showMessageDialog(bg_flujo, "Copiado!");
                                 }
                             }
-                           
+
                             if (currentSel instanceof DatosFigura) {
                                 DatosFigura claseCopiada = new DatosFigura(currentSel);
 
@@ -3369,7 +3580,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                                 docText.setCharacterAttributes(0, docText.getLength(), styleText, true);
 
                             }
-                         
+
                             if (currentSel instanceof DatosFigura) {
                                 DatosFigura papada = (DatosFigura) currentSel;
                                 docText = papada.getText().getStyledDocument();

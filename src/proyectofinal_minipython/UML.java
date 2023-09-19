@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.MenuItem;
 import java.awt.Point;
@@ -14,6 +16,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +33,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -55,6 +63,11 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public class UML extends javax.swing.JFrame implements MouseListener, MouseMotionListener {
 
@@ -98,6 +111,11 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         pp_menu = new javax.swing.JPopupMenu();
         mi_guardar = new javax.swing.JMenuItem();
         mi_cargar = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
+        mi_guardarPNG = new javax.swing.JMenuItem();
+        mi_guardarPDF = new javax.swing.JMenuItem();
+        jSeparator24 = new javax.swing.JPopupMenu.Separator();
+        mi_imprimir = new javax.swing.JMenuItem();
         bg_UML = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         btn_archivo7 = new javax.swing.JPanel();
@@ -339,6 +357,32 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             }
         });
         pp_menu.add(mi_cargar);
+        pp_menu.add(jSeparator23);
+
+        mi_guardarPNG.setText("Guardar imagen");
+        mi_guardarPNG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_guardarPNGActionPerformed(evt);
+            }
+        });
+        pp_menu.add(mi_guardarPNG);
+
+        mi_guardarPDF.setText("Guardar PDF");
+        mi_guardarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_guardarPDFActionPerformed(evt);
+            }
+        });
+        pp_menu.add(mi_guardarPDF);
+        pp_menu.add(jSeparator24);
+
+        mi_imprimir.setText("Imprimir");
+        mi_imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_imprimirActionPerformed(evt);
+            }
+        });
+        pp_menu.add(mi_imprimir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -963,7 +1007,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         .addGap(3, 3, 3))
                     .addGroup(pn_ribbonMenuLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                         .addGap(214, 214, 214)
                         .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                         .addGap(69, 69, 69)
@@ -1176,7 +1220,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel26)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         btn_abstractLayout.setVerticalGroup(
             btn_abstractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1248,7 +1292,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_abstract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(btn_nota, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
@@ -1343,7 +1387,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(bg_UMLLayout.createSequentialGroup()
                 .addComponent(pn_formasMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                 .addGap(42, 42, 42))
         );
         bg_UMLLayout.setVerticalGroup(
@@ -1880,15 +1924,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                     if (figura instanceof InheritanceFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Herenciafigura....");
-                        
+
                         InheritanceFigura temp = (InheritanceFigura) figura;
-                        
+
                         DatosInheritance dat = convertirDatosInh(temp);
-                        
+
                         bw.writeObject(dat);
-                        
+
                         bw.flush();
-                        
+
                     } else if (figura instanceof AbstractaFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Abstractafigura....");
                         AbstractaFigura temp = (AbstractaFigura) figura;
@@ -1952,13 +1996,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 file = jfc.getSelectedFile();
                 input = new FileInputStream(file);
                 obj = new ObjectInputStream(input);
-                
+
                 int wannaCopy = JOptionPane.showConfirmDialog(this, "Desea copiar el diagrama seleccionado a este proyecto?");
-                
-                if(wannaCopy != JOptionPane.YES_OPTION){
+
+                if (wannaCopy != JOptionPane.YES_OPTION) {
                     jp_workArea.removeAll();
                 }
-                
 
                 try {
                     //continuar deserializando
@@ -2083,10 +2126,27 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     }//GEN-LAST:event_mi_cargarActionPerformed
 
     private void jp_workAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_workAreaMouseClicked
-        if(evt.isMetaDown()){
+        if (evt.isMetaDown()) {
             pm_menu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_jp_workAreaMouseClicked
+
+    private void mi_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_imprimirActionPerformed
+        try {
+            printFile(jp_workArea);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al imprimir");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_mi_imprimirActionPerformed
+
+    private void mi_guardarPNGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarPNGActionPerformed
+        saveAsPNG();
+    }//GEN-LAST:event_mi_guardarPNGActionPerformed
+
+    private void mi_guardarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarPDFActionPerformed
+        saveAsPDF();
+    }//GEN-LAST:event_mi_guardarPDFActionPerformed
 
     // metodos personales
     //posicion
@@ -2112,6 +2172,153 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         }
 
         return new Point(x, y);
+    }
+
+    //metodos para imprimir, gaurdar PDF y PNG
+    private void printFile(JPanel panel) {
+
+        PrinterJob pj = PrinterJob.getPrinterJob();
+
+        //Ponerle nombre al PrinterJob
+        pj.setJobName("Print Record");
+
+        //Hacer el Set Printable
+        pj.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                //Chequea si el size es muy grande
+                if (pageIndex > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+
+                //Hacer las Graficas 2D
+                Graphics2D graphics2D = (Graphics2D) graphics;
+
+                //Hacer la "traduccion" de las graficas
+                graphics2D.translate(pageFormat.getImageableX() * 2, pageFormat.getImageableY() * 2);
+
+                //Esto es una escala de pagina. No obstante, la default es 0.3, no 0.5.
+                graphics2D.scale(0.5, 0.5);
+
+                //Pintamos el panel como graficas
+                panel.paint(graphics2D);
+
+                //Retornar si la pagina existe
+                return Printable.PAGE_EXISTS;
+            }
+
+        });
+
+        //Guardar PrinterDialog como booleano
+        boolean Resultadoreturn = pj.printDialog();
+
+        //Revisar si el dialogo se muestra
+        if (Resultadoreturn) {
+
+            try {
+                //Llamamos al metodo para imprimir
+                pj.print();
+
+            } catch (PrinterException printerexc) {
+                JOptionPane.showMessageDialog(null, printerexc.getMessage());
+            }
+
+        }
+
+    }
+
+    public void saveAsPNG() {
+        try {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setDialogTitle("Guardar Imagen como PNG");
+
+            jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+            int userSelection = jfc.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = jfc.getSelectedFile();
+                String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+                int Pa = jp_workArea.getWidth();
+                int Pal = jp_workArea.getHeight();
+
+                BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2d = bf.createGraphics();
+
+                jp_workArea.paint(g2d);
+                g2d.dispose();
+
+                try {
+                    ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                    JOptionPane.showMessageDialog(this, "Imagen guardada exitosamente!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se selecciono ninguna ubicacion para guardar la imagen.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar la imagen");
+            e.printStackTrace();
+        }
+
+    }
+
+    public void saveAsPDF() {
+        try {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setDialogTitle("Guardar Imagen como PNG y PDF");
+
+            jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+            int userSelection = jfc.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = jfc.getSelectedFile();
+                String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+                int Pa = jp_workArea.getWidth();
+                int Pal = jp_workArea.getHeight();
+
+                BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2d = bf.createGraphics();
+
+                jp_workArea.paint(g2d);
+                g2d.dispose();
+                jp_workArea.paint(g2d);
+                g2d.dispose();
+
+                PDDocument document = new PDDocument();
+                PDPage page = new PDPage(new PDRectangle(Pa, Pal));
+                document.addPage(page);
+
+                try {
+                    ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                    JOptionPane.showMessageDialog(this, "Imagen creada exitosamente");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    PDPageContentStream contentStream = new PDPageContentStream(document, page);
+                    contentStream.drawImage(PDImageXObject.createFromFile(nombre + ".png", document), TOP_ALIGNMENT, TOP_ALIGNMENT);
+                    contentStream.close();
+                    document.save(new File(nombre + ".pdf"));
+                    document.close();
+                    JOptionPane.showMessageDialog(this, "Archivo pdf creado exitosamente");
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar pdf");
+            e.printStackTrace();
+        }
+
     }
 
     //metodos para deserializar
@@ -2170,14 +2377,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         clasSimp.remove(clasSimp.getTextA());
         clasSimp.remove(clasSimp.getTextM());
-        
 
         clasSimp.getTitulo().setText(c.getTitulo());
         clasSimp.getTitulo().setBackground(c.getColor());
-        
+
         JOptionPane.showMessageDialog(this, textPadre);
 
-        
 //        clasSimp.getTit().setText(textPadre.get(0));
 //        textPadre.remove(0);
         /*
@@ -2369,13 +2574,12 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 c.getTitulo().getText(),
                 c.getTit().getText(),
                 c.getTitleBG().getBackground());
-        
-        datos.settA(c.getTit().getText());
-        
-        textPadre.add(c.gettA().getText());
-        
-        //JOptionPane.showMessageDialog(this, c.gettA().getText());
 
+        datos.settA(c.getTit().getText());
+
+        textPadre.add(c.gettA().getText());
+
+        //JOptionPane.showMessageDialog(this, c.gettA().getText());
         datos.setFontColor(c.getFontColor());
         Style styleTit = c.getTitulo().getStyle("myStyle");
 
@@ -3002,8 +3206,8 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
     StyledDocument docTitle, docText;
     Style styleTitle, styleText;
-    
-    ArrayList<String>textPadre = new ArrayList<>();
+
+    ArrayList<String> textPadre = new ArrayList<>();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3094,6 +3298,8 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JToolBar.Separator jSeparator20;
     private javax.swing.JToolBar.Separator jSeparator21;
     private javax.swing.JSeparator jSeparator22;
+    private javax.swing.JPopupMenu.Separator jSeparator23;
+    private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
@@ -3108,7 +3314,10 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private javax.swing.JMenu m_menu;
     private javax.swing.JMenuItem mi_cargar;
     private javax.swing.JMenuItem mi_guardar;
+    private javax.swing.JMenuItem mi_guardarPDF;
+    private javax.swing.JMenuItem mi_guardarPNG;
     private javax.swing.JMenuItem mi_help;
+    private javax.swing.JMenuItem mi_imprimir;
     private javax.swing.JMenuItem mi_pegar;
     private javax.swing.JPopupMenu pm_menu;
     private javax.swing.JPanel pn_formasMenu;
