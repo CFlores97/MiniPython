@@ -2284,7 +2284,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
             try {
                 File file = null;
                 if (jfc.getFileFilter().getDescription().equals("Archivos karu")) {
-                    file = new File(jfc.getSelectedFile().getPath());
+                    file = new File(jfc.getSelectedFile().getPath() + ".karu");
                 } else {
                     file = jfc.getSelectedFile();
                 }
@@ -2294,27 +2294,27 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 for (Component figura : workArea.getComponents()) {
 
                     if (figura instanceof ProcesoFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Procesofigura....");
+                        
                         ProcesoFigura temp = (ProcesoFigura) figura;
                         DatosProceso dat = convertirDatosPro(temp);
                         bw.writeObject(dat);
                         bw.flush();
                     } else if (figura instanceof DatosFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Datosfigura....");
+                        
                         DatosFigura temp = (DatosFigura) figura;
                         FiguraDatos dat = convertirDatosDat(temp);
                         bw.writeObject(dat);
                         bw.flush();
 
                     } else if (figura instanceof DecisionFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Decisionfigura....");
+                       
                         DecisionFigura temp = (DecisionFigura) figura;
                         DatosDecision dat = convertirDatosDec(temp);
                         bw.writeObject(dat);
                         bw.flush();
 
                     } else if (figura instanceof InicioFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Inicio o fin figura....");
+                       
                         InicioFigura temp = (InicioFigura) figura;
                         InicioDatos dat = convertirDatosInit(temp);
                         bw.writeObject(dat);
@@ -2449,7 +2449,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                     //llega al final del archivo
                 }
                
-                JOptionPane.showMessageDialog(this, workArea.getComponentCount());
+               
 
                 
                 workArea.revalidate();
@@ -2589,8 +2589,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         return temp;
     }
     
-    
-    
+
     //metodos para imprimir, pdf e imagen
     private void PrintRecord(JPanel panel) {
 

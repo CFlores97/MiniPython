@@ -1872,7 +1872,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             try {
                 File file = null;
                 if (jfc.getFileFilter().getDescription().equals("Archivos karu")) {
-                    file = new File(jfc.getSelectedFile().getPath());
+                    file = new File(jfc.getSelectedFile().getPath() + ".karu");
                 } else {
                     file = jfc.getSelectedFile();
                 }
@@ -2377,8 +2377,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             atr.setForeground(c.getFontColor());
             clasSimp.getAtributos().add(atr);
         }
-        
-        JOptionPane.showMessageDialog(this, c.getMetodos());
         
         for (String metodo : c.getMetodos()) {
             JTextPane met = new JTextPane();
