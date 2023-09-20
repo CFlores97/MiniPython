@@ -21,7 +21,6 @@ public class DatosClasse implements Serializable{
     private Style styleText, styleTit;
     
     private static final long serialVersionUID = 1L;
-
     
     private Font font;
     private String fontFamily;

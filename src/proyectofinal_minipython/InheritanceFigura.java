@@ -107,7 +107,7 @@ public class InheritanceFigura extends ClasseFigura {
             StyledDocument tempDocText = copiedAtributo.getStyledDocument();
             Style tempTextStlye = copiedAtributo.addStyle("myStyleText", null);
 
-            StyleConstants.setForeground(tempTextStlye, c.getFontColor());
+//            StyleConstants.setForeground(tempTextStlye, c.getFontColor());
             tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
             
             this.add(copiedAtributo);
@@ -122,7 +122,7 @@ public class InheritanceFigura extends ClasseFigura {
             StyledDocument tempDocText = copiedMetodo.getStyledDocument();
             Style tempTextStlye = copiedMetodo.addStyle("myStyleText", null);
 
-            StyleConstants.setForeground(tempTextStlye, c.getFontColor());
+//            StyleConstants.setForeground(tempTextStlye, c.getFontColor());
             tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
 
             this.add(copiedMetodo);

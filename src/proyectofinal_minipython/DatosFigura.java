@@ -16,18 +16,19 @@ public class DatosFigura extends JPanel {
     private int sizeX, sizeY, locX, locY;
 
     protected JTextPane text = new JTextPane();
-    Color color = new Color(70, 114, 196);
+    private Color color;
 
     private Font font = null;
 
     private ArrayList<JTextPane> miembros = new ArrayList<>();
 
-    public DatosFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
+    public DatosFigura(int sizeX, int sizeY, int locX, int locY, Font font, Color color) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.locX = locX;
         this.locY = locY;
         this.font = font;
+        this.color = color;
 
         //Atributos de la figura "proceso"
         setBackground(new Color(255, 255, 255));

@@ -19,18 +19,19 @@ public class ProcesoFigura extends JPanel {
     private int sizeX, sizeY, locX, locY;
 
     protected JTextPane text = new JTextPane();
-    Color color = new Color(70, 114, 196);
+    private Color color;
 
     private Font font = null;
 
     private ArrayList<JTextPane> miembros = new ArrayList<>();
 
-    public ProcesoFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
+    public ProcesoFigura(int sizeX, int sizeY, int locX, int locY, Font font, Color color) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.locX = locX;
         this.locY = locY;
         this.font = font;
+        this.color = color;
 
         //Atributos de la figura "proceso"
         setBackground(Color.WHITE);
@@ -43,6 +44,8 @@ public class ProcesoFigura extends JPanel {
 
         repaint();
     }
+    
+    
 
     public Color getColor() {
         return color;
@@ -150,6 +153,7 @@ public class ProcesoFigura extends JPanel {
     public void copy(JPanel c) {
         
         ProcesoFigura newC = (ProcesoFigura) c;
+        
         this.setBackground(newC.getBackground());
         this.setSize(newC.getSize());
         this.setLocation(newC.getLocation());
@@ -158,6 +162,8 @@ public class ProcesoFigura extends JPanel {
         this.text.setText(newC.getText().getText());
 
         this.add(this.text);
+        
+        this.repaint();
 
     }
 

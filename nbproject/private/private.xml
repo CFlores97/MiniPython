@@ -4,16 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/DatosClasse.java</file>
-            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/AbstractaFigura.java</file>
-            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/DatosInterfaz.java</file>
+            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/ProcesoFigura.java</file>
+            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/DecisionFigura.java</file>
             <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/ClasseFigura.java</file>
             <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/Flujo.java</file>
-            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/InterfazFigura.java</file>
             <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/UML.java</file>
-            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/DatosInheritance.java</file>
-            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/InheritanceFigura.java</file>
+            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/DatosFigura.java</file>
+            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/AdminTreeFLujo.java</file>
             <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/Main.java</file>
-            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/DatosAbstract.java</file>
+            <file>file:/C:/Users/carlo/Desktop/Proyecto%20Final%20P2/ProyectoFinal_MiniPython/src/proyectofinal_minipython/InicioFigura.java</file>
         </group>
     </open-files>
 </project-private>

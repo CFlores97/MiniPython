@@ -17,19 +17,20 @@ public class DecisionFigura extends JPanel {
     private boolean isConditional;
 
     protected JTextPane text = new JTextPane();
-    Color color = new Color(70, 114, 196);
+    private Color color;
 
     private Font font = null;
 
     private ArrayList<JTextPane> miembros = new ArrayList<>();
     
 
-    public DecisionFigura(int sizeX, int sizeY, int locX, int locY, Font font) {
+    public DecisionFigura(int sizeX, int sizeY, int locX, int locY, Font font, Color color) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.locX = locX;
         this.locY = locY;
         this.font = font;
+        this.color = color;
 
         //Atributos de la figura "proceso"
         setBackground(Color.WHITE);
@@ -43,10 +44,12 @@ public class DecisionFigura extends JPanel {
         repaint();
     }
 
+    
+    
     public boolean isIsLoop() {
         return isLoop;
     }
-
+    
     public void setIsLoop(boolean isLoop) {
         this.isLoop = isLoop;
     }

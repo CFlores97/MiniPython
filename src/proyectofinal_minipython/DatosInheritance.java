@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class DatosInheritance extends DatosClasse implements Serializable{
     private String tA;
+    
 
     public DatosInheritance() {
         super();
@@ -17,6 +18,8 @@ public class DatosInheritance extends DatosClasse implements Serializable{
         super(sizeX, sizeY, locX, locY, titulo, color);
         this.tA = tA;
     }
+    
+    
 
     public String gettA() {
         return tA;

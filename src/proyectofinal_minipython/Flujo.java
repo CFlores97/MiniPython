@@ -3,6 +3,7 @@ package proyectofinal_minipython;
 import java.awt.Color;
 import java.awt.Component;
 import static java.awt.Component.TOP_ALIGNMENT;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,9 +23,12 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -424,6 +428,11 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         pp_archivos.add(mi_guardar);
 
         mi_cargar.setText("Cargar");
+        mi_cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_cargarActionPerformed(evt);
+            }
+        });
         pp_archivos.add(mi_cargar);
         pp_archivos.add(jSeparator23);
 
@@ -2287,32 +2296,38 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                     if (figura instanceof ProcesoFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Procesofigura....");
                         ProcesoFigura temp = (ProcesoFigura) figura;
-//                        DatosInheritance dat = convertirDatosInh(temp);
-//                        bw.writeObject(dat);
+                        DatosProceso dat = convertirDatosPro(temp);
+                        bw.writeObject(dat);
                         bw.flush();
                     } else if (figura instanceof DatosFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Datosfigura....");
                         DatosFigura temp = (DatosFigura) figura;
-//                        DatosAbstract dat = convertirDatosAbs(temp);
-//                        bw.writeObject(dat);
+                        FiguraDatos dat = convertirDatosDat(temp);
+                        bw.writeObject(dat);
                         bw.flush();
 
                     } else if (figura instanceof DecisionFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Decisionfigura....");
                         DecisionFigura temp = (DecisionFigura) figura;
-//                        DatosInterfaz dat = convertirDatosInt(temp);
-//                        bw.writeObject(dat);
+                        DatosDecision dat = convertirDatosDec(temp);
+                        bw.writeObject(dat);
                         bw.flush();
 
                     } else if (figura instanceof InicioFigura) {
                         JOptionPane.showMessageDialog(this, "Serializando Inicio o fin figura....");
                         InicioFigura temp = (InicioFigura) figura;
-//                        DatosClasse dat = convertirDatosSimp(temp);
-//                        bw.writeObject(dat);
+                        InicioDatos dat = convertirDatosInit(temp);
+                        bw.writeObject(dat);
                         bw.flush();
                     }
 
-                }
+                }//fin for
+                
+                //serializar arbol
+                DefaultTreeModel m = (DefaultTreeModel) jt_arbolF.getModel();
+
+                bw.writeObject(m);
+                bw.flush();
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
             } catch (Exception e) {
@@ -2346,6 +2361,236 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         saveAsPDF();
     }//GEN-LAST:event_mi_guardarPDFActionPerformed
 
+    private void mi_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_cargarActionPerformed
+        File file = null;
+        FileInputStream input = null;
+        ObjectInputStream obj = null;
+
+        try {
+            JFileChooser jfc = new JFileChooser();
+
+            jfc.setCurrentDirectory(new File("C:\\Users\\carlo\\Desktop\\MiniPython Projects"));
+
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos karu", "karu");
+
+            jfc.setFileFilter(filtro);
+
+            int sel = jfc.showOpenDialog(this);
+
+            if (sel == JFileChooser.APPROVE_OPTION) {
+                file = jfc.getSelectedFile();
+                input = new FileInputStream(file);
+                obj = new ObjectInputStream(input);
+
+                int wannaCopy = JOptionPane.showConfirmDialog(this, "Desea copiar el diagrama seleccionado a este proyecto?");
+
+                if (wannaCopy != JOptionPane.YES_OPTION) {
+                    workArea.removeAll();
+                }
+
+                try {
+                    //continuar deserializando
+                    while (true) {
+                        Object objectDeserializado = obj.readObject();
+
+                        if (objectDeserializado instanceof DatosProceso) {
+                            
+                            DatosProceso tempClass = (DatosProceso) objectDeserializado;
+                            ProcesoFigura clas = convertirFigPro(tempClass);
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+//                            deserializedFiguras.add(clas);
+                            workArea.add(clas);
+
+                        } else if (objectDeserializado instanceof DatosDecision) {
+                            
+                            DatosDecision tempClass = (DatosDecision) objectDeserializado;
+                            DecisionFigura clas = convertirFigDec(tempClass);
+                            clas.setLocation(ajustarPosicion(clas.getLocation(), workArea.getSize(), clas.getSize()));
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+//                            deserializedFiguras.add(clas);
+                            workArea.add(clas);
+                        } else if (objectDeserializado instanceof FiguraDatos) {
+                            
+                            FiguraDatos tempClass = (FiguraDatos) objectDeserializado;
+                            DatosFigura clas = convertirFigDat(tempClass);
+                            clas.setLocation(ajustarPosicion(clas.getLocation(), workArea.getSize(), clas.getSize()));
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+//                            deserializedFiguras.add(clas);
+                            workArea.add(clas);
+                        } else if (objectDeserializado instanceof InicioDatos) {
+                            
+                            InicioDatos tempClass = (InicioDatos) objectDeserializado;
+                            InicioFigura clas = convertirFigInit(tempClass);
+                            clas.setLocation(ajustarPosicion(clas.getLocation(), workArea.getSize(), clas.getSize()));
+
+                            clas.addMouseListener(this);
+                            clas.addMouseMotionListener(this);
+
+//                            deserializedFiguras.add(clas);
+                            workArea.add(clas);
+                        }
+                        else if (objectDeserializado instanceof DefaultTreeModel) {
+                            DefaultTreeModel m = (DefaultTreeModel) objectDeserializado;
+                            jt_arbolF.setModel(m);
+                            m.reload();
+                        }
+
+                    }
+                } catch (EOFException e) {
+                    //llega al final del archivo
+                }
+               
+                JOptionPane.showMessageDialog(this, workArea.getComponentCount());
+
+                
+                workArea.revalidate();
+                workArea.repaint();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar archivo");
+            e.printStackTrace();
+        }
+
+        try {
+            input.close();
+            obj.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_mi_cargarActionPerformed
+
+    //posicion
+    public Point ajustarPosicion(Point original, Dimension panelSize, Dimension componentSize) {
+        int maxX = panelSize.width - componentSize.width;
+        int maxY = panelSize.height - componentSize.height;
+
+        int x = original.x;
+        int y = original.y;
+
+        if (x > maxX) {
+            x = maxX;
+        }
+        if (y > maxY) {
+            y = maxY;
+        }
+
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+
+        return new Point(x, y);
+    }
+    
+    
+    //metodos para serializar
+    
+    public DatosProceso convertirDatosPro(ProcesoFigura c){
+        
+        DatosProceso temp = new DatosProceso(
+                c.getSizeX(), 
+                c.getSizeY(), 
+                c.getLocX(), 
+                c.getLocY(), 
+                c.getText().getText(), 
+                c.getFont());
+        
+        temp.setColor(c.getColor());
+        
+        return temp;
+    }
+    
+    public DatosDecision convertirDatosDec(DecisionFigura c){
+        
+        DatosDecision temp = new DatosDecision(
+                c.getSizeX(), 
+                c.getSizeY(), 
+                c.getLocX(), 
+                c.getLocY(), 
+                c.getText().getText(), 
+                c.getFont());
+        
+        temp.setColor(c.getColor());
+
+        return temp;
+    }
+    
+    public FiguraDatos convertirDatosDat(DatosFigura c){
+        
+        FiguraDatos temp = new FiguraDatos(
+                c.getSizeX(), 
+                c.getSizeY(), 
+                c.getLocX(), 
+                c.getLocY(), 
+                c.getText().getText(), 
+                c.getFont());
+        
+        temp.setColor(c.getColor());
+
+        return temp;
+    }
+    
+    public InicioDatos convertirDatosInit(InicioFigura c){
+        
+        InicioDatos temp = new InicioDatos(
+                c.getSizeX(), 
+                c.getSizeY(), 
+                c.getLocX(), 
+                c.getLocY(), 
+                c.getText().getText(), 
+                c.getFont());
+        
+        temp.setColor(c.getColor());
+        
+        return temp;
+    }
+    
+    //metodos para deserialziar
+    
+    public ProcesoFigura convertirFigPro(DatosProceso c){
+        
+        ProcesoFigura temp = new ProcesoFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getFont(), c.getColor());
+        
+        temp.getText().setText(c.getText());
+        return temp;
+    }
+    
+    public DecisionFigura convertirFigDec(DatosDecision c){
+        DecisionFigura temp = new DecisionFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getFont(), c.getColor());
+        temp.getText().setText(c.getText());
+        
+        return temp;
+    }
+    
+    public DatosFigura convertirFigDat(FiguraDatos c){
+        DatosFigura temp = new DatosFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getFont(), c.getColor());
+        
+        temp.getText().setText(c.getText());
+        return temp;
+    }
+    
+    public InicioFigura convertirFigInit(InicioDatos c){
+        InicioFigura temp = new InicioFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), c.getFont(), c.getColor());
+        
+        temp.getText().setText(c.getText());
+        
+        return temp;
+    }
+    
+    
+    
     //metodos para imprimir, pdf e imagen
     private void PrintRecord(JPanel panel) {
 
@@ -2511,7 +2756,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
 
     public void generarIf(DecisionFigura temp, DefaultMutableTreeNode c) {
 
-        String figTit = "If " + temp.getText().getText() + ":";
+        String figTit = "if " + temp.getText().getText() + ":";
 
         DefaultMutableTreeNode figName = new DefaultMutableTreeNode(figTit);
 
@@ -2598,7 +2843,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 60,
                 workArea.getWidth(),
                 workArea.getHeight(),
-                f);
+                f, new Color(70, 114, 196));
 
         proceso.addMouseListener(this);
         proceso.addMouseMotionListener(this);
@@ -2615,7 +2860,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 60,
                 workArea.getWidth(),
                 workArea.getHeight(),
-                f);
+                f, new Color(70, 114, 196));
 
         rombo.addMouseListener(this);
         rombo.addMouseMotionListener(this);
@@ -2632,7 +2877,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 40,
                 workArea.getWidth(),
                 workArea.getHeight(),
-                f);
+                f, new Color(70, 114, 196));
 
         capsule.addMouseListener(this);
         capsule.addMouseMotionListener(this);
@@ -2649,7 +2894,7 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
                 60,
                 workArea.getWidth(),
                 workArea.getHeight(),
-                f);
+                f, new Color(70, 114, 196));
 
         capsule.addMouseListener(this);
         capsule.addMouseMotionListener(this);
@@ -2657,23 +2902,6 @@ public class Flujo extends javax.swing.JFrame implements MouseListener, MouseMot
         workArea.add(capsule);
 
         capsule.revalidate();
-        workArea.repaint();
-    }
-
-    public void createDoc() {
-        Documento documento = new Documento(
-                100,
-                60,
-                workArea.getWidth(),
-                workArea.getHeight(),
-                f);
-
-        documento.addMouseListener(this);
-        documento.addMouseMotionListener(this);
-
-        workArea.add(documento);
-
-        documento.revalidate();
         workArea.repaint();
     }
 

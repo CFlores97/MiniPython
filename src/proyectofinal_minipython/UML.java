@@ -415,7 +415,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             btn_archivo7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_archivo7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addContainerGap())
         );
         btn_archivo7Layout.setVerticalGroup(
@@ -514,7 +514,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(btn_diseñoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         btn_diseñoLayout.setVerticalGroup(
             btn_diseñoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1180,7 +1180,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         btn_interfazLayout.setVerticalGroup(
             btn_interfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1220,7 +1220,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel26)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         btn_abstractLayout.setVerticalGroup(
             btn_abstractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1387,7 +1387,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             .addGroup(bg_UMLLayout.createSequentialGroup()
                 .addComponent(pn_formasMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                 .addGap(42, 42, 42))
         );
         bg_UMLLayout.setVerticalGroup(
@@ -1435,54 +1435,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private void btn_exitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitMouseExited
         btn_exit.setBackground(new Color(10, 10, 10));
     }//GEN-LAST:event_btn_exitMouseExited
-
-    private void btn_insertarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_insertarMouseEntered
-        btn_insertar.setBackground(new Color(54, 54, 54));
-    }//GEN-LAST:event_btn_insertarMouseEntered
-
-    private void btn_insertarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_insertarMouseExited
-        btn_insertar.setBackground(new Color(10, 10, 10));
-    }//GEN-LAST:event_btn_insertarMouseExited
-
-    private void btn_diseñoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_diseñoMouseEntered
-        btn_diseño.setBackground(new Color(54, 54, 54));
-    }//GEN-LAST:event_btn_diseñoMouseEntered
-
-    private void btn_diseñoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_diseñoMouseExited
-        btn_diseño.setBackground(new Color(10, 10, 10));
-    }//GEN-LAST:event_btn_diseñoMouseExited
-
-    private void btn_datosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datosMouseEntered
-        btn_datos.setBackground(new Color(54, 54, 54));
-    }//GEN-LAST:event_btn_datosMouseEntered
-
-    private void btn_datosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datosMouseExited
-        btn_datos.setBackground(new Color(10, 10, 10));
-    }//GEN-LAST:event_btn_datosMouseExited
-
-    private void btn_vistaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vistaMouseEntered
-        btn_vista.setBackground(new Color(54, 54, 54));
-    }//GEN-LAST:event_btn_vistaMouseEntered
-
-    private void btn_vistaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vistaMouseExited
-        btn_vista.setBackground(new Color(10, 10, 10));
-    }//GEN-LAST:event_btn_vistaMouseExited
-
-    private void btn_procesoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_procesoMouseEntered
-        btn_proceso.setBackground(new Color(54, 54, 54));
-    }//GEN-LAST:event_btn_procesoMouseEntered
-
-    private void btn_procesoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_procesoMouseExited
-        btn_proceso.setBackground(new Color(10, 10, 10));
-    }//GEN-LAST:event_btn_procesoMouseExited
-
-    private void btn_inicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_inicioMouseEntered
-        btn_inicio.setBackground(new Color(54, 54, 54));
-    }//GEN-LAST:event_btn_inicioMouseEntered
-
-    private void btn_inicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_inicioMouseExited
-        btn_inicio.setBackground(new Color(10, 10, 10));
-    }//GEN-LAST:event_btn_inicioMouseExited
 
     private void btn_claseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_claseMouseClicked
         createClase();
@@ -1781,6 +1733,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 docText = currentSel.getTextA().getStyledDocument();
                 styleTitle = currentSel.getTitulo().addStyle("myStyle", null);
                 styleText = currentSel.getTextA().addStyle("myStyleText", null);
+                styleText = currentSel.getTextM().addStyle("myStyleText", null);
 
                 //cb_estilo.setSelectedIndex(-1);  ------> DO NOT UNCOMMENT <------
                 changeFont();
@@ -1807,6 +1760,13 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         true);
 
                 for (JTextPane miembro : currentSel.getAtributos()) {
+                    StyledDocument tempDocText = miembro.getStyledDocument();
+                    Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                    StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                    tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                }
+                for (JTextPane miembro : currentSel.getMetodos()) {
                     StyledDocument tempDocText = miembro.getStyledDocument();
                     Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -1842,37 +1802,36 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             jd_python.setLocationRelativeTo(this);
             jd_python.setVisible(true);
 
-            if (currentSel != null) {
+            try {
+                //generarArbol(currentSel);
+
+                Document doc = tp_pyIDE.getDocument();
                 try {
-                    //generarArbol(currentSel);
-
-                    Document doc = tp_pyIDE.getDocument();
-                    try {
-                        doc.remove(0, doc.getLength());
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(UML.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    DefaultTreeModel m = (DefaultTreeModel) jt_arbolClases.getModel();
-
-                    DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
-
-                    AdminTree tree = new AdminTree();
-                    try {
-                        tree.translate(raiz, tp_pyIDE);
-                    } catch (BadLocationException ex) {
-
-                    }
+                    doc.remove(0, doc.getLength());
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(UML.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "seleccione la clase para generar codigo");
                 }
+
+                DefaultTreeModel m = (DefaultTreeModel) jt_arbolClases.getModel();
+
+                DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+
+                AdminTree tree = new AdminTree();
+                try {
+                    tree.translate(raiz, tp_pyIDE);
+                } catch (BadLocationException ex) {
+
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "seleccione la clase para generar codigo");
             }
+            
         }
 
-        //m.reload();
+
     }//GEN-LAST:event_btn_pythonMouseClicked
 
     private void btn_exitPythonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitPythonMouseClicked
@@ -1923,7 +1882,6 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 for (Object figura : Figuras) {
 
                     if (figura instanceof InheritanceFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Herenciafigura....");
 
                         InheritanceFigura temp = (InheritanceFigura) figura;
 
@@ -1934,28 +1892,34 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         bw.flush();
 
                     } else if (figura instanceof AbstractaFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Abstractafigura....");
+
                         AbstractaFigura temp = (AbstractaFigura) figura;
                         DatosAbstract dat = convertirDatosAbs(temp);
                         bw.writeObject(dat);
                         bw.flush();
 
                     } else if (figura instanceof InterfazFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Interfazfigura....");
+
                         InterfazFigura temp = (InterfazFigura) figura;
                         DatosInterfaz dat = convertirDatosInt(temp);
                         bw.writeObject(dat);
                         bw.flush();
 
                     } else if (figura instanceof ClasseFigura) {
-                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+
                         ClasseFigura temp = (ClasseFigura) figura;
                         DatosClasse dat = convertirDatosSimp(temp);
                         bw.writeObject(dat);
                         bw.flush();
                     }
 
-                }
+                }//fin for
+
+                //serializar arbol
+                DefaultTreeModel m = (DefaultTreeModel) jt_arbolClases.getModel();
+
+                bw.writeObject(m);
+                bw.flush();
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
             } catch (Exception e) {
@@ -2009,18 +1973,17 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                         Object objectDeserializado = obj.readObject();
 
                         if (objectDeserializado instanceof DatosInheritance) {
-                            JOptionPane.showMessageDialog(this, "Deserializando Herenciafigura....");
+
                             DatosInheritance tempClass = (DatosInheritance) objectDeserializado;
                             InheritanceFigura clas = datosToFigInh(tempClass);
 
                             clas.addMouseListener(this);
                             clas.addMouseMotionListener(this);
 
-                            deserializedFiguras.add(clas);
-//                            jp_workArea.add(clas);
+                            jp_workArea.add(clas);
 
                         } else if (objectDeserializado instanceof DatosAbstract) {
-                            JOptionPane.showMessageDialog(this, "Deserializando Abstractfigura....");
+
                             DatosAbstract tempClass = (DatosAbstract) objectDeserializado;
                             AbstractaFigura clas = datosToFigAbs(tempClass);
                             clas.setLocation(ajustarPosicion(clas.getLocation(), jp_workArea.getSize(), clas.getSize()));
@@ -2028,10 +1991,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             clas.addMouseListener(this);
                             clas.addMouseMotionListener(this);
 
-                            deserializedFiguras.add(clas);
-//                            jp_workArea.add(clas);
+                            jp_workArea.add(clas);
                         } else if (objectDeserializado instanceof DatosInterfaz) {
-                            JOptionPane.showMessageDialog(this, "Deserializando Interfazfigura....");
+
                             DatosInterfaz tempClass = (DatosInterfaz) objectDeserializado;
                             InterfazFigura clas = datosToFigInt(tempClass);
                             clas.setLocation(ajustarPosicion(clas.getLocation(), jp_workArea.getSize(), clas.getSize()));
@@ -2039,10 +2001,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             clas.addMouseListener(this);
                             clas.addMouseMotionListener(this);
 
-                            deserializedFiguras.add(clas);
-//                            jp_workArea.add(clas);
+                            jp_workArea.add(clas);
                         } else if (objectDeserializado instanceof DatosClasse) {
-                            JOptionPane.showMessageDialog(this, "Deserializando Simpfigura....");
+
                             DatosClasse tempClass = (DatosClasse) objectDeserializado;
                             ClasseFigura clas = datosToFig(tempClass);
                             clas.setLocation(ajustarPosicion(clas.getLocation(), jp_workArea.getSize(), clas.getSize()));
@@ -2050,64 +2011,21 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             clas.addMouseListener(this);
                             clas.addMouseMotionListener(this);
 
-                            deserializedFiguras.add(clas);
-//                            jp_workArea.add(clas);
+                            jp_workArea.add(clas);
+                        } else if (objectDeserializado instanceof DefaultTreeModel) {
+                            DefaultTreeModel m = (DefaultTreeModel) objectDeserializado;
+                            jt_arbolClases.setModel(m);
+                            m.reload();
                         }
 
                     }
                 } catch (EOFException e) {
-                    //llega al final del archivo
-                }
-                for (Object desFig : deserializedFiguras) {
-                    if (desFig instanceof InheritanceFigura) {
-                        InheritanceFigura temp = (InheritanceFigura) desFig;
-                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
-
-                        jp_workArea.add(temp);
-                        temp.revalidate();
-                        temp.repaint();
-                        temp.setVisible(true);
-                        jp_workArea.revalidate();
-                        jp_workArea.repaint();
-                    } else if (desFig instanceof AbstractaFigura) {
-                        AbstractaFigura temp = (AbstractaFigura) desFig;
-                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
-
-                        jp_workArea.add(temp);
-                        temp.revalidate();
-                        temp.repaint();
-                        temp.setVisible(true);
-                        jp_workArea.revalidate();
-                        jp_workArea.repaint();
-                    } else if (desFig instanceof InterfazFigura) {
-                        InterfazFigura temp = (InterfazFigura) desFig;
-                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
-
-                        jp_workArea.add(temp);
-                        temp.revalidate();
-                        temp.repaint();
-                        temp.setVisible(true);
-                        jp_workArea.revalidate();
-                        jp_workArea.repaint();
-                    } else if (desFig instanceof ClasseFigura) {
-                        ClasseFigura temp = (ClasseFigura) desFig;
-                        temp.setLocation(ajustarPosicion(temp.getLocation(), jp_workArea.getSize(), temp.getSize()));
-
-                        jp_workArea.add(temp);
-                        temp.revalidate();
-                        temp.repaint();
-                        temp.setVisible(true);
-                        jp_workArea.revalidate();
-                        jp_workArea.repaint();
-                    }
+                    //e.printStackTrace();
+                } catch (Exception e) {
+                    //e.printStackTrace();
                 }
 
-                System.out.println(deserializedFiguras);
-                JOptionPane.showMessageDialog(this, jp_workArea.getComponentCount());
-
-                for (Component component : jp_workArea.getComponents()) {
-                    seleccion((ClasseFigura) component, true);
-                }
+                
                 jp_workArea.revalidate();
                 jp_workArea.repaint();
 
@@ -2147,6 +2065,54 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     private void mi_guardarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_guardarPDFActionPerformed
         saveAsPDF();
     }//GEN-LAST:event_mi_guardarPDFActionPerformed
+
+    private void btn_vistaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vistaMouseExited
+        btn_vista.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_vistaMouseExited
+
+    private void btn_vistaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vistaMouseEntered
+        btn_vista.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_vistaMouseEntered
+
+    private void btn_procesoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_procesoMouseExited
+        btn_proceso.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_procesoMouseExited
+
+    private void btn_procesoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_procesoMouseEntered
+        btn_proceso.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_procesoMouseEntered
+
+    private void btn_datosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datosMouseExited
+        btn_datos.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_datosMouseExited
+
+    private void btn_datosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_datosMouseEntered
+        btn_datos.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_datosMouseEntered
+
+    private void btn_diseñoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_diseñoMouseExited
+        btn_diseño.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_diseñoMouseExited
+
+    private void btn_diseñoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_diseñoMouseEntered
+        btn_diseño.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_diseñoMouseEntered
+
+    private void btn_insertarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_insertarMouseExited
+        btn_insertar.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_insertarMouseExited
+
+    private void btn_insertarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_insertarMouseEntered
+        btn_insertar.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_insertarMouseEntered
+
+    private void btn_inicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_inicioMouseExited
+        btn_inicio.setBackground(new Color(10, 10, 10));
+    }//GEN-LAST:event_btn_inicioMouseExited
+
+    private void btn_inicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_inicioMouseEntered
+        btn_inicio.setBackground(new Color(54, 54, 54));
+    }//GEN-LAST:event_btn_inicioMouseEntered
 
     // metodos personales
     //posicion
@@ -2295,7 +2261,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                 try {
                     ImageIO.write(bf, "PNG", new File(nombre + ".png"));
-                    JOptionPane.showMessageDialog(this, "Imagen creada exitosamente");
+                    //JOptionPane.showMessageDialog(this, "Imagen creada exitosamente");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -2373,7 +2339,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         JTextPane tempTA = new JTextPane();
         tempTA.setText(c.gettA());
 
-        InheritanceFigura clasSimp = new InheritanceFigura(c.getSizeX(), c.getSizeY(), c.getLocX(), c.getLocY(), f, tempTA, c.getColor());
+        InheritanceFigura clasSimp = new InheritanceFigura(
+                c.getSizeX(), 
+                c.getSizeY(), 
+                c.getLocX(), 
+                c.getLocY(), 
+                f, 
+                tempTA, 
+                c.getColor());
 
         clasSimp.remove(clasSimp.getTextA());
         clasSimp.remove(clasSimp.getTextM());
@@ -2381,7 +2354,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
         clasSimp.getTitulo().setText(c.getTitulo());
         clasSimp.getTitulo().setBackground(c.getColor());
 
-        JOptionPane.showMessageDialog(this, textPadre);
+       
 
 //        clasSimp.getTit().setText(textPadre.get(0));
 //        textPadre.remove(0);
@@ -2404,6 +2377,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
             atr.setForeground(c.getFontColor());
             clasSimp.getAtributos().add(atr);
         }
+        
+        JOptionPane.showMessageDialog(this, c.getMetodos());
+        
         for (String metodo : c.getMetodos()) {
             JTextPane met = new JTextPane();
             met.setText(metodo);
@@ -2611,6 +2587,9 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
             datos.getAtributos().add(atributo.getText());
         }
+        
+        
+        
         for (JTextPane metodo : c.getMetodos()) {
 
             Style tempStyleText = metodo.getStyle("myStyleText");
@@ -2875,7 +2854,13 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
         //agrega a la raiz 
         if (clase instanceof InheritanceFigura) {
-            clasePadre = ((InheritanceFigura) clase).getClasePadre();
+            InheritanceFigura temp = (InheritanceFigura) clase;
+
+            //temp.setClasePadre(clasePadre);
+            clasePadre = temp.getClasePadre();
+
+            JOptionPane.showMessageDialog(this, clasePadre.getTitulo().getText());
+
             DefaultMutableTreeNode parentClass = new DefaultMutableTreeNode(clasePadre.getTitulo().getText());
             DefaultMutableTreeNode parentClassAtr = new DefaultMutableTreeNode("Atributos Padre");
             DefaultMutableTreeNode parentClassMet = new DefaultMutableTreeNode("Metodos Padre");
@@ -3029,6 +3014,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                 for (int i = 0; i < writtenLength; i++) {
                     Element element = docText.getCharacterElement(i);
                     AttributeSet attrs = element.getAttributes();
+                    AttributeSet mets = element.getAttributes();
 
                     if (StyleConstants.isBold(attrs)) {
                         StyleConstants.setBold(styleText, false);
@@ -3040,6 +3026,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 true);
 
                         for (JTextPane miembro : currentSel.getAtributos()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setBold(tempTextStlye, false);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+                        
+                        for (JTextPane miembro : currentSel.getMetodos()) {
                             StyledDocument tempDocText = miembro.getStyledDocument();
                             Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -3066,6 +3061,14 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                             StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
                             tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
                         }
+                        for (JTextPane miembro : currentSel.getMetodos()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setItalic(tempTextStlye, false);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
 
                     }
                     if (StyleConstants.isUnderline(attrs)) {
@@ -3078,6 +3081,15 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
                                 true);
 
                         for (JTextPane miembro : currentSel.getAtributos()) {
+                            StyledDocument tempDocText = miembro.getStyledDocument();
+                            Style tempTextStlye = miembro.addStyle("myStyleText", null);
+
+                            StyleConstants.setUnderline(tempTextStlye, false);
+                            StyleConstants.setFontSize(tempTextStlye, Integer.parseInt(cb_size.getSelectedItem().toString()));
+                            tempDocText.setCharacterAttributes(0, tempDocText.getLength(), tempTextStlye, true);
+                        }
+                        
+                        for (JTextPane miembro : currentSel.getMetodos()) {
                             StyledDocument tempDocText = miembro.getStyledDocument();
                             Style tempTextStlye = miembro.addStyle("myStyleText", null);
 
@@ -3200,7 +3212,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
     ArrayList<AbstractaFigura> copiedAbstractos = new ArrayList<>();
     ArrayList<InterfazFigura> copiedInterfaces = new ArrayList<>();
     ArrayList Figuras = new ArrayList();
-    ArrayList deserializedFiguras = new ArrayList();
+    
     //ArrayList<JTextPane> miembros = new ArrayList<>();
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
@@ -3441,6 +3453,7 @@ public class UML extends javax.swing.JFrame implements MouseListener, MouseMotio
 
                             JOptionPane.showMessageDialog(bg_UML, "Se ha cargado la informacion exitosamente!");
                         } catch (NullPointerException ex) {
+                            ex.printStackTrace();
                             JOptionPane.showMessageDialog(bg_UML, "Seleccione primero la figura que desea cargar", "Error", JOptionPane.ERROR_MESSAGE);
                         }
 
